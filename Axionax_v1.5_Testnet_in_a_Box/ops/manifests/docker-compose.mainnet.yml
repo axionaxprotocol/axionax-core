@@ -1,0 +1,111 @@
+services:
+  # Placeholder for the mainnet daemon. Replace image/command when axionaxd is available.
+  axionaxd:
+    image: ghcr.io/axionax/axionaxd:main
+    command: ["axionaxd", "--config", "/config/genesis.config.yaml", "--params", "/config/params.toml"]
+    volumes:
+      - ../configs:/config:ro
+      - axionax-data:/data
+    ports:
+      - "127.0.0.1:8545:8545"  # RPC bound local; exposed via edge
+      - "127.0.0.1:8551:8551"  # engine_api if needed
+    restart: unless-stopped
+
+  signer:
+    image: ghcr.io/axionax/remote-signer:main
+    environment:
+      - HSM_URI=pkcs11:token=AXIONAX
+    ports:
+      - "127.0.0.1:8443:8443"
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: blockscout
+      POSTGRES_PASSWORD: blockscout
+      POSTGRES_DB: blockscout
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U blockscout -d blockscout"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 10s
+    restart: unless-stopped
+
+  blockscout:
+    image: ghcr.io/blockscout/blockscout:latest
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      MIX_ENV: prod
+      DATABASE_URL: postgresql://blockscout:blockscout@postgres:5432/blockscout
+      ECTO_USE_SSL: "false"
+      DISABLE_WEBAPP: "false"
+      ETHEREUM_JSONRPC_HTTP_URL: http://axionaxd:8545
+      ETHEREUM_JSONRPC_WS_URL:   ws://axionaxd:8545
+      ETHEREUM_JSONRPC_TRACE_URL: http://axionaxd:8545
+      ETHEREUM_JSONRPC_VARIANT: geth
+      CHAIN_ID: "8615"
+      NETWORK: "Axionax Mainnet"
+      SUBNETWORK: "axionax-1"
+      COIN: "AXX"
+      SECRET_KEY_BASE: "CHANGE_ME_SECRET"
+      PORT: "4000"
+      DISABLE_EXCHANGE_RATES: "true"
+      DISABLE_SOURCIFY_INTEGRATION: "true"
+      INDEXER_DISABLE_TOKEN_INSTANCE_FETCHER: "true"
+      INDEXER_DISABLE_TOKEN_BALANCE_FUNGIBLE_FETCHER: "true"
+    ports:
+      - "127.0.0.1:4000:4000"
+    command: >
+      /bin/sh -lc "
+        /app/bin/blockscout eval 'Elixir.Explorer.ReleaseTasks.create_and_migrate()' &&
+        /app/bin/blockscout start
+      "
+    restart: unless-stopped
+
+  blockscout-frontend:
+    image: ghcr.io/blockscout/frontend:latest
+    environment:
+      NEXT_PUBLIC_API_URL: /blockscout-api
+      NEXT_PUBLIC_NETWORK_NAME: "Axionax Mainnet"
+      NEXT_PUBLIC_CHAIN_ID: "8615"
+      NEXT_PUBLIC_BASE_PATH: "/explorer"
+    depends_on:
+      - blockscout
+    ports:
+      - "127.0.0.1:4001:80"
+    restart: unless-stopped
+
+  faucet:
+    image: ghcr.io/axionax/faucet:main
+    environment:
+      - RPC_URL=http://axionaxd:8545
+    ports:
+      - "127.0.0.1:8081:8081"
+    restart: unless-stopped
+
+  edge:
+    image: nginx:alpine
+    depends_on:
+      - axionaxd
+      - faucet
+      - blockscout
+      - blockscout-frontend
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.mainnet.conf:/etc/nginx/conf.d/default.conf:ro
+      - ../../reverse-proxy/certs:/etc/nginx/certs:ro
+      - ../../reverse-proxy/webroot:/usr/share/nginx/html:ro
+      - ../../reverse-proxy/letsencrypt:/etc/letsencrypt:ro
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+  axionax-data:

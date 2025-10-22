@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <title>Axionax Connect Portal</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    :root { --bg:#0c1220; --panel:#151b2b; --panel2:#1b2235; --txt:#eaf2ff; --muted:#9fb3d9; --brand:#7ce2ff; }
+    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.5 ui-sans-serif,system-ui,Segoe UI,Roboto}
+    .wrap{max-width:1040px;margin:40px auto;padding:0 24px}
+    .hero{display:flex;gap:20px;align-items:center}
+    .logo{width:84px;height:84px;border-radius:20px;background:#0b1324 url('axionax-logo.png') center/cover no-repeat;box-shadow:0 8px 40px rgba(124,226,255,.2)}
+    h1{margin:0 0 6px;font-weight:700}
+    .sub{color:var(--muted);font-size:14px}
+    code.badge{background:#0e1730;border:1px solid #223259;color:#bfe7ff;padding:2px 8px;border-radius:8px;font-size:12px}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:24px}
+    .card{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid #1e2842;border-radius:16px;padding:18px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+    .card h3{margin:0 0 12px}
+    .row{display:flex;gap:10px;flex-wrap:wrap}
+    button{background:#3d5afe;border:none;color:#fff;border-radius:10px;padding:10px 14px;font-weight:600;cursor:pointer}
+    button.secondary{background:#253253}
+    button:disabled{opacity:.6;cursor:not-allowed}
+    .kv{display:grid;grid-template-columns:120px 1fr;gap:6px;font-size:14px}
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+    .log{height:180px;overflow:auto;background:#0b1324;border:1px solid #223259;border-radius:12px;padding:10px;font-family:ui-monospace,SFMono,monospace;font-size:13px;white-space:pre-wrap}
+    .footer{margin-top:22px;color:#9fb3d9;font-size:13px;text-align:center}
+    @media (max-width:900px){.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <div class="logo"></div>
+      <div>
+        <h1>Axionax Connect Portal</h1>
+        <div class="sub">
+          <span>Local Testnet v1.5</span>
+          · <span>RPC <code class="badge mono" id="rpcDisp">-</code></span>
+          · <span>Chain ID <code class="badge mono" id="chainDisp">-</code></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Wallet &amp; Network</h3>
+        <div class="row" style="margin-bottom:8px">
+          <button id="btnConnect">Connect Wallet</button>
+          <button class="secondary" id="btnAddSwitch">Add / Switch Network</button>
+          <button class="secondary" id="btnRefresh">Refresh</button>
+        </div>
+        <div class="row" style="margin-bottom:8px">
+          <button id="btnNative">Get 1 AXX (Native)</button>
+          <button id="btnERC20">Get 1000 AXX (ERC-20)</button>
+          <button id="btnAddToken">Add AXX Token</button>
+        </div>
+        <div class="row" style="margin-bottom:8px;gap:8px;align-items:center">
+          <span class="sub">Faucet Auth</span>
+          <input id="authUser" placeholder="user" style="padding:8px;border-radius:8px;border:1px solid #223259;background:#0b1324;color:#eaf2ff;min-width:120px" />
+          <input id="authPass" type="password" placeholder="password" style="padding:8px;border-radius:8px;border:1px solid #223259;background:#0b1324;color:#eaf2ff;min-width:140px" />
+          <button class="secondary" id="btnSaveAuth">Save</button>
+        </div>
+        <div class="log" id="log"></div>
+      </div>
+
+      <div class="card">
+        <h3>Session</h3>
+        <div class="kv">
+          <div>Account</div><div class="mono" id="accDisp">-</div>
+          <div>Chain ID</div><div class="mono" id="cidDisp">-</div>
+          <div>Block</div><div class="mono" id="blkDisp">-</div>
+          <div>Balance</div><div class="mono" id="balDisp">-</div>
+        </div>
+        <div style="margin-top:12px" class="mono">
+          RPC: <code class="badge" id="rpcBadge">-</code>
+          &nbsp;&nbsp;Faucet: <code class="badge" id="faucetBadge">-</code>
+          &nbsp;&nbsp;ERC20: <code class="badge" id="erc20Badge">-</code>
+          &nbsp;&nbsp;Explorer: <code class="badge" id="explorerBadge">-</code>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid" style="margin-top:20px">
+      <div class="card">
+        <h3>Explorer (Blockscout)</h3>
+        <div class="row" style="margin-bottom:8px;align-items:center;gap:10px">
+          <button id="btnOpenExplorer">Open Explorer</button>
+          <button class="secondary" id="btnCopyExplorer">Copy Link</button>
+          <button class="secondary" id="btnCheckLatest">Check Latest Block</button>
+        </div>
+        <div class="row" style="margin-bottom:8px;align-items:center;gap:10px">
+          <button class="secondary" id="btnOpenMyAddress">Open My Address</button>
+          <button class="secondary" id="btnCopyMyAddress">Copy Link</button>
+          <label style="display:flex;align-items:center;gap:6px;color:#9fb3d9;font-size:13px">
+            <input type="checkbox" id="openSameTab" /> เปิดในแท็บเดียว (หลีกเลี่ยง popup)
+          </label>
+        </div>
+        <div class="sub">ใช้ API v2 ของ Blockscout เพื่อตรวจสอบบล็อกล่าสุด หากโดน CORS ให้ใช้ปุ่ม Open Explorer หรือ Copy Link</div>
+      </div>
+      <div class="card">
+        <h3>Protocol RPC (Mock)</h3>
+        <div class="row" style="margin-bottom:8px;align-items:center;gap:10px">
+          <button id="btnGetParams">getParams</button>
+          <button class="secondary" id="btnPopcCommit">popc_submitCommit</button>
+          <button class="secondary" id="btnASRAssign">asr_getAssignment</button>
+          <button class="secondary" id="btnPrice">price_getCurrent</button>
+        </div>
+        <div class="sub">เส้นทาง /proto-rpc จะถูก proxy ผ่าน edge และเปิด CORS สำหรับโดเมนที่อนุญาต</div>
+      </div>
+    </div>
+
+    <div class="footer">Axionax Protocol · Local Testnet v1.5</div>
+  </div>
+
+<script>
+const logEl = document.getElementById('log');
+function log(msg){ logEl.textContent += msg + "\n"; logEl.scrollTop = logEl.scrollHeight; }
+
+let CFG = null;
+async function loadConfig(){
+  const url = `./config.json?ts=${Date.now()}`; // กัน cache
+  const res = await fetch(url, {cache:'no-store'});
+  if(!res.ok){ throw new Error(`fetch ${url} -> ${res.status}`); }
+  const cfg = await res.json();
+  // ปรับ chainId ให้พร้อมทั้งเลขและ hex
+  const chainIdNum = Number(cfg.chainId ?? 0);
+  const chainIdHex = (cfg.chainIdHex || ( '0x' + chainIdNum.toString(16))).toLowerCase();
+
+  CFG = {
+    name: cfg.name || 'Axionax Testnet v1.5',
+    rpc: cfg.rpc,
+    chainId: chainIdNum,
+    chainIdHex,
+    symbol: cfg.symbol || 'AXX',
+    faucet: cfg.faucet,
+    erc20: cfg.erc20 || null,
+    explorer: cfg.explorer || null
+  };
+  // UI
+  document.getElementById('rpcDisp').textContent = CFG.rpc;
+  document.getElementById('rpcBadge').textContent = CFG.rpc;
+  document.getElementById('chainDisp').textContent = `${CFG.chainId} (${CFG.chainIdHex})`;
+  document.getElementById('faucetBadge').textContent = CFG.faucet || '-';
+  document.getElementById('erc20Badge').textContent = CFG.erc20 || '-';
+  document.getElementById('explorerBadge').textContent = CFG.explorer || '-';
+
+  // เติมค่าจาก localStorage ให้ช่อง auth
+  document.getElementById('authUser').value = localStorage.getItem('faucetAuthUser') || '';
+  document.getElementById('authPass').value = localStorage.getItem('faucetAuthPass') || '';
+}
+
+async function connectWallet(){
+  if(!window.ethereum){ log('❌ ไม่มี MetaMask'); return; }
+  const accs = await ethereum.request({ method:'eth_requestAccounts' });
+  return accs[0];
+}
+
+async function refreshSession(){
+  try{
+    const [cidHex, blkHex, acc] = await Promise.all([
+      ethereum.request({method:'eth_chainId'}),
+      ethereum.request({method:'eth_blockNumber'}),
+      getAccount()
+    ]);
+    const cidNum = parseInt(cidHex, 16);
+    const balHex = await ethereum.request({method:'eth_getBalance', params:[acc, 'latest']});
+    const bal = BigInt(balHex).toString();
+    document.getElementById('accDisp').textContent = acc;
+    document.getElementById('cidDisp').textContent = `${cidNum.toString(10)} (${cidHex})`;
+    document.getElementById('blkDisp').textContent = parseInt(blkHex,16).toString(10);
+    document.getElementById('balDisp').textContent = `${Number(bal)/1e18} ${CFG?.symbol || 'ETH'}`;
+  }catch(e){ log(`[err] refresh: ${e.message}`); }
+}
+let cachedAcc = null;
+async function getAccount(){
+  if(cachedAcc) return cachedAcc;
+  const accs = await ethereum.request({method:'eth_accounts'});
+  cachedAcc = accs[0] || null;
+  return cachedAcc;
+}
+
+async function addOrSwitch(){
+  try{
+    if(!CFG) throw new Error('config not loaded');
+    // ลองสลับไป chain ก่อน ถ้ายังไม่มีค่อยเพิ่ม
+    try{
+      await ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: CFG.chainIdHex }] });
+      log('[ok] สลับเครือข่ายสำเร็จ ✅');
+      await refreshSession();
+      return;
+    }catch(swErr){
+      // 4902: chain ยังไม่ถูกเพิ่ม
+      if(swErr?.code !== 4902){
+        // ถ้าเป็น error อื่น อาจจะเกี่ยวกับการตั้งค่าเดิม ให้ลองขั้นตอน add
+        // ไม่ log ที่นี่ จะไปลอง add ต่อ
+      }
+    }
+
+    // เพิ่มเครือข่าย (กรณีไม่มี)
+    try{
+      await ethereum.request({
+        method: 'wallet_addEthereumChain',
+        params: [{
+          chainId: CFG.chainIdHex,
+          chainName: CFG.name,
+          nativeCurrency: { name: CFG.symbol, symbol: CFG.symbol, decimals: 18 },
+          rpcUrls: [CFG.rpc],
+        }]
+      });
+      log('[ok] เพิ่มเครือข่ายสำเร็จ ✅');
+    }catch(addErr){
+      const msg = String(addErr?.message || addErr);
+      if(/same RPC endpoint/i.test(msg) || /existing network/i.test(msg)){
+        log('[warn] MetaMask มีเครือข่ายอื่นที่ใช้ RPC เดียวกันอยู่ (อาจเป็น chain เก่า 8615). ลองลบเครือข่ายเก่าใน MetaMask Settings > Networks หรือเปลี่ยน RPC ใน config.json เป็น http://localhost:8545 แล้วลองใหม่');
+      }else{
+        log(`[err] Add chain failed: ${msg}`);
+      }
+    }
+
+    // หลังเพิ่มแล้วพยายามสลับอีกครั้ง
+    try{
+      await ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: CFG.chainIdHex }] });
+      log('[ok] สลับเครือข่ายสำเร็จ ✅');
+    }catch(e){
+      log(`[err] Switch failed: ${e.message}`);
+    }
+    await refreshSession();
+  }catch(e){ log(`[err] Switch failed: ${e.message}`); }
+}
+
+async function faucetNative(){
+  try{
+    if(!CFG?.faucet) throw new Error('faucet URL undefined (ตรวจ config.json)');
+    const acc = await getAccount();
+    if(!acc) throw new Error('wallet ยังไม่เชื่อม');
+    log('Requesting 1 AXX (native) ...');
+    const headers = buildFaucetAuthHeaders();
+    const r = await fetch(`${CFG.faucet}/request?address=${acc}`, { headers });
+    const j = await r.json();
+    if(!j.ok) throw new Error(j.error || 'request failed');
+    log(`[ok] Faucet tx: ${j.hash || '-'} (block ${j.blockNumber ?? '-'}) ✅`);
+    await refreshSession();
+  }catch(e){ log(`[err] Faucet native failed: ${e.message}`); }
+}
+
+async function faucetERC20(){
+  try{
+    if(!CFG?.faucet) throw new Error('faucet URL undefined (ตรวจ config.json)');
+    if(!CFG?.erc20) throw new Error('ERC20 ยังไม่ได้กำหนดใน config.json');
+    const acc = await getAccount();
+    if(!acc) throw new Error('wallet ยังไม่เชื่อม');
+    log('Requesting 1000 AXX (ERC-20) ...');
+    const headers = buildFaucetAuthHeaders();
+    const r = await fetch(`${CFG.faucet}/request-erc20?address=${acc}&amount=1000`, { headers });
+    const j = await r.json();
+    if(!j.ok) throw new Error(j.error || 'request failed');
+    log(`[ok] ERC20 faucet: ${j.hash || '-'} (block ${j.blockNumber ?? '-'}) ✅`);
+  }catch(e){ log(`[err] Faucet erc20 failed: ${e.message}`); }
+}
+
+async function addToken(){
+  try{
+    if(!CFG?.erc20) throw new Error('ERC20 ยังไม่ได้กำหนดใน config.json');
+    await ethereum.request({
+      method: 'wallet_watchAsset',
+      params: {
+        type: 'ERC20',
+        options: { address: CFG.erc20, symbol: 'AXX', decimals: 18 }
+      }
+    });
+    log('[ok] เพิ่มโทเค็น AXX (ERC-20) ใน MetaMask แล้ว ✅');
+  }catch(e){ log(`[err] Add token failed: ${e.message}`); }
+}
+
+document.getElementById('btnConnect').onclick = async () => {
+  try{ cachedAcc = await connectWallet(); log('[ok] Wallet connected ✅'); await refreshSession(); }
+  catch(e){ log(`[err] connect: ${e.message}`); }
+};
+document.getElementById('btnAddSwitch').onclick = addOrSwitch;
+document.getElementById('btnRefresh').onclick = refreshSession;
+document.getElementById('btnNative').onclick = faucetNative;
+document.getElementById('btnERC20').onclick  = faucetERC20;
+document.getElementById('btnAddToken').onclick = addToken;
+document.getElementById('btnSaveAuth').onclick = () => {
+  const u = document.getElementById('authUser').value.trim();
+  const p = document.getElementById('authPass').value;
+  localStorage.setItem('faucetAuthUser', u);
+  localStorage.setItem('faucetAuthPass', p);
+  log('[ok] บันทึก Faucet Basic Auth แล้ว ✅');
+};
+
+// Explorer actions
+document.getElementById('btnOpenExplorer').onclick = () => {
+  if(!CFG?.explorer){ log('[err] explorer URL undefined'); return; }
+  const same = document.getElementById('openSameTab')?.checked;
+  if(same){ window.location.href = CFG.explorer; return; }
+  openTab(CFG.explorer);
+};
+document.getElementById('btnOpenMyAddress').onclick = async () => {
+  try{
+    if(!CFG?.explorer) throw new Error('explorer URL undefined');
+    // เปิดหน้าต่างทันที (synchronous) ลดโอกาสถูกบล็อก แล้วค่อยอัปเดต URL เมื่อพร้อม
+    const popup = window.open('about:blank', '_blank', 'noopener');
+    if(!popup || popup.closed || typeof popup.closed === 'undefined'){
+      // ถูกบล็อก popup
+      const acc = await getAccount();
+      if(!acc) throw new Error('wallet ยังไม่เชื่อม');
+      const url = `${CFG.explorer}/address/${acc}`;
+      log('[warn] เบราว์เซอร์บล็อกป๊อปอัพ โปรดอนุญาต pop-ups สำหรับหน้านี้');
+      log(`เปิดลิงก์ด้วยตนเอง: ${url}`);
+      return;
+    }
+    const acc = await getAccount();
+    if(!acc) throw new Error('wallet ยังไม่เชื่อม');
+    const url = `${CFG.explorer}/address/${acc}`;
+    const same = document.getElementById('openSameTab')?.checked;
+    if(same){ window.location.href = url; return; }
+    popup.location.href = url;
+  }catch(e){ log(`[err] Open address failed: ${e.message}`); }
+};
+document.getElementById('btnCheckLatest').onclick = async () => {
+  try{
+    if(!CFG?.explorer) throw new Error('explorer URL undefined');
+    const url = `/blockscout-api/api/v2/blocks?type=canonical&limit=1`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`${res.status}`);
+    const json = await res.json();
+    const latest = json.items?.[0];
+    if(!latest){ log('[warn] ไม่พบรายการบล็อก'); return; }
+    log(`[ok] Latest block: #${latest.height} txs=${latest.transactions_count} hash=${latest.hash}`);
+  }catch(e){
+    log(`[err] Explorer check failed: ${e.message}. ใช้ปุ่ม Open Explorer แทน`);
+  }
+};
+
+function buildFaucetAuthHeaders(){
+  const u = localStorage.getItem('faucetAuthUser') || '';
+  const p = localStorage.getItem('faucetAuthPass') || '';
+  if(!u || !p) return {};
+  const token = btoa(`${u}:${p}`);
+  return { 'Authorization': `Basic ${token}` };
+}
+
+function openTab(url){
+  const popup = window.open(url, '_blank', 'noopener');
+  if(!popup || popup.closed || typeof popup.closed === 'undefined'){
+    log('[warn] เบราว์เซอร์บล็อกป๊อปอัพ โปรดอนุญาต pop-ups สำหรับหน้านี้');
+    log(`เปิดลิงก์ด้วยตนเอง: ${url}`);
+  }
+}
+
+// Copy link buttons
+document.getElementById('btnCopyExplorer').onclick = async () => {
+  try{
+    if(!CFG?.explorer) throw new Error('explorer URL undefined');
+    await navigator.clipboard.writeText(CFG.explorer);
+    log('[ok] คัดลอกลิงก์ Explorer แล้ว ✅');
+  }catch(e){ log(`[err] Copy failed: ${e.message}`); }
+};
+document.getElementById('btnCopyMyAddress').onclick = async () => {
+  try{
+    if(!CFG?.explorer) throw new Error('explorer URL undefined');
+    const acc = await getAccount();
+    if(!acc) throw new Error('wallet ยังไม่เชื่อม');
+    const url = `${CFG.explorer}/address/${acc}`;
+    await navigator.clipboard.writeText(url);
+    log('[ok] คัดลอกลิงก์ Address แล้ว ✅');
+  }catch(e){ log(`[err] Copy failed: ${e.message}`); }
+};
+
+(async () => {
+  try{
+    await loadConfig();
+    log('[ok] โหลด config.json สำเร็จ ✅');
+    if(window.ethereum){
+      ethereum.on?.('chainChanged', ()=>{ cachedAcc=null; refreshSession(); });
+      ethereum.on?.('accountsChanged', ()=>{ cachedAcc=null; refreshSession(); });
+    }
+    await refreshSession();
+  }catch(e){
+    log(`[err] โหลด config ล้มเหลว: ${e.message}`);
+    document.getElementById('rpcDisp').textContent = '-';
+    document.getElementById('chainDisp').textContent = '-';
+  }
+})();
+
+// ---- Proto RPC helpers ----
+async function protoCall(method, params){
+  const res = await fetch('/proto-rpc', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ jsonrpc: '2.0', id: Date.now(), method, params })
+  });
+  if(!res.ok) throw new Error(`HTTP ${res.status}`);
+  const j = await res.json();
+  if(j.error) throw new Error(j.error.message || 'rpc error');
+  return j.result;
+}
+
+document.getElementById('btnGetParams').onclick = async () => {
+  try{ const r = await protoCall('proto_getParams'); log('[proto] params: '+JSON.stringify(r)); }
+  catch(e){ log('[err] proto_getParams: '+e.message); }
+};
+document.getElementById('btnPopcCommit').onclick = async () => {
+  try{ const r = await protoCall('popc_submitCommit', { payload: '0x' }); log('[proto] popc_commit: '+JSON.stringify(r)); }
+  catch(e){ log('[err] popc_submitCommit: '+e.message); }
+};
+document.getElementById('btnASRAssign').onclick = async () => {
+  try{ const r = await protoCall('asr_getAssignment'); log('[proto] asr_getAssignment: '+JSON.stringify(r)); }
+  catch(e){ log('[err] asr_getAssignment: '+e.message); }
+};
+document.getElementById('btnPrice').onclick = async () => {
+  try{ const r = await protoCall('price_getCurrent'); log('[proto] price: '+JSON.stringify(r)); }
+  catch(e){ log('[err] price_getCurrent: '+e.message); }
+};
+</script>
+</body>
+</html>

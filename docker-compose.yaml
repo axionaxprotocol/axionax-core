@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  # Axionax Core Node
+  axionax-node:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: axionax-node
+    ports:
+      - "8545:8545"   # RPC
+      - "8546:8546"   # WebSocket
+      - "30303:30303" # P2P
+      - "9090:9090"   # Metrics
+    volumes:
+      - axionax-data:/home/axionax/.axionax
+      - ./config.yaml:/home/axionax/config.yaml:ro
+    environment:
+      - AXIONAX_NODE_CHAIN_ID=31337
+      - AXIONAX_NETWORK_BOOTSTRAP_NODES=http://hardhat:8545
+    networks:
+      - axionax-network
+    depends_on:
+      - hardhat
+    restart: unless-stopped
+
+  # Hardhat/Anvil (from Testnet-in-a-Box)
+  hardhat:
+    image: ghcr.io/foundry-rs/foundry:latest
+    container_name: axionax-hardhat
+    command: anvil --host 0.0.0.0 --chain-id 31337
+    ports:
+      - "8545:8545"
+    networks:
+      - axionax-network
+    restart: unless-stopped
+
+  # Blockscout Explorer (optional, from Testnet-in-a-Box)
+  blockscout:
+    image: blockscout/blockscout:latest
+    container_name: axionax-explorer
+    environment:
+      - ETHEREUM_JSONRPC_VARIANT=geth
+      - ETHEREUM_JSONRPC_HTTP_URL=http://hardhat:8545
+      - CHAIN_ID=31337
+    ports:
+      - "4000:4000"
+    networks:
+      - axionax-network
+    depends_on:
+      - hardhat
+    restart: unless-stopped
+
+networks:
+  axionax-network:
+    name: axionax-network
+    driver: bridge
+
+volumes:
+  axionax-data:
+    name: axionax-data

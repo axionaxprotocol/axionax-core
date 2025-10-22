@@ -1,0 +1,9 @@
+category,subpool,address, amount_AXX ,unlock_type,cliff_months,vest_months,start_date,notes
+Public Sale & Liquidity,TGE-Liquidity,0x1111111111111111111111111111111111111111," 50,000,000,000 ",Unlocked,0,0,TGE,Initial liquidity/public allocation
+Airdrops / User Incentives,TGE-Airdrop,0x2222222222222222222222222222222222222222," 20,000,000,000 ",Unlocked,0,0,TGE,User/community incentives
+Ecosystem & Rewards (total),MM-Bootstrap,0x3333333333333333333333333333333333333333," 50,000,000,000 ",Unlocked,0,0,TGE,Market-making/bootstrap subpool
+Ecosystem & Rewards (total),Vested-Linear,0x4444444444444444444444444444444444444444," 400,000,000,000 ",LinearVesting,0,96,TGE+0m,Reserve for rewards over 8 years
+DAO Treasury,DAO Treasury Vault,0x5555555555555555555555555555555555555555," 200,000,000,000 ",LinearVesting,12,48,TGE+12m,Controlled by DAO after mainnet
+Foundation & Ops,Foundation Vault,0x6666666666666666666666666666666666666666," 100,000,000,000 ",LinearVesting,12,48,TGE+12m,Ops & development
+Core Contributors,Core Team Vault,0x7777777777777777777777777777777777777777," 100,000,000,000 ",LinearVesting,12,48,TGE+12m,Core contributors
+Strategic Partners & Grants,Partners Vault,0x8888888888888888888888888888888888888888," 80,000,000,000 ",LinearVesting,6,36,TGE+6m,Partners/R&D/Grants

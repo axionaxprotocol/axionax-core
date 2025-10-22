@@ -1,0 +1,9 @@
+{
+  "name": "Axionax Local Testnet v1.5",
+  "rpc": "http://127.0.0.1:8545",
+  "chainId": 31337,
+  "symbol": "AXX",
+  "faucet": "http://127.0.0.1:8081",
+  "erc20": "",
+  "explorer": "http://127.0.0.1:4000"
+}

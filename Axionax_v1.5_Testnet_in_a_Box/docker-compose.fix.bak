@@ -1,0 +1,48 @@
+﻿services:
+  hardhat:
+    image: trufflesuite/ganache:v7.9.2
+    command: >
+      ganache --host 0.0.0.0 --port 8545 --chainId 8615
+      --wallet.totalAccounts 10 --miner.blockTime 2
+    ports: ["8545:8545"]
+    restart: unless-stopped
+
+  deployer:
+    image: node:18-bullseye
+    working_dir: /app
+    environment:
+      RPC_URL: http://hardhat:8545
+    command: >
+      bash -lc "if [ -f package-lock.json ]; then npm ci; else npm i; fi;
+      if [ -f deploy.js ]; then node deploy.js; else npm start || true; fi"
+    volumes:
+      - ./deployer:/app
+    depends_on: [ hardhat ]
+    restart: on-failure
+
+  faucet:
+    image: node:18-bullseye
+    working_dir: /app
+    environment:
+      RPC_URL: http://hardhat:8545
+      FAUCET_PRIVATE_KEY: ${FAUCET_PRIVATE_KEY}
+      CHAIN_ID: ${CHAIN_ID}
+      PORT: "8081"
+      FAUCET_AMOUNT_ETH: "1"
+    command: >
+      bash -lc "if [ -f package-lock.json ]; then npm ci; else npm i; fi;
+      if npm run -q start 2>/dev/null; then :;
+      else node index.js; fi"
+    ports: ["8081:8081"]
+    volumes:
+      - ./faucet:/app
+    depends_on: [ hardhat ]
+    restart: unless-stopped
+
+  ui:
+    image: nginx:alpine
+    ports: ["8080:80"]
+    # ถ้าไม่มีโฟลเดอร์ ui ให้ลบบรรทัด volumes ด้านล่างนี้ออก
+    volumes:
+      - ./ui:/usr/share/nginx/html:ro
+    depends_on: [ faucet ]

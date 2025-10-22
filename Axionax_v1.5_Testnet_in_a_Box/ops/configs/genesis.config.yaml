@@ -1,0 +1,36 @@
+network:
+  chain_id: 8615
+  name: "Axionax Mainnet"
+  currency: { symbol: "AXX", decimals: 18 }
+  bootstraps: ["enode://CHANGE_ME_BOOTSTRAP1", "enode://CHANGE_ME_BOOTSTRAP2", "enode://CHANGE_ME_BOOTSTRAP3"]
+consensus:
+  block_time_secs: 60
+  vrf_curve: "ECVRF-P256"
+  bls_aggregate: true
+  committee_size: 128
+popc:
+  samples: 600
+  redundancy: 0.02
+  prove_deadline_secs: 120
+  da_window_secs: 180
+  tolerance:
+    fp16: 1.0e-3
+    int8: 0
+da:
+  mirrors: ["https://da1.axx", "https://da2.axx", "ipfs://CHANGE_ME"]
+execution:
+  evm_fork: "london+"
+  precompiles: ["bls12-381", "ecvrf-p256", "blake3", "popc-helper"]
+fees:
+  eip1559: { baseFeeInitial: 1000000000, targetGas: 15000000 }
+  base_t_initial: "100000000000000000" # 0.1 AXX
+slashing_bp:
+  missed_prove: 50
+  da_withhold: 150
+  fraud: 2000
+security:
+  require_hsm: true
+  remote_signer_url: "https://signer.mainnet.axx:8443"
+telemetry:
+  prometheus: "0.0.0.0:9090"
+  otlp_grpc: "0.0.0.0:4317"

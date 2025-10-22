@@ -1,0 +1,18 @@
+[Unit]
+Description=Axionax Mainnet Node
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=axionax
+Group=axionax
+Type=simple
+Environment=AXIONAX_HOME=/var/lib/axionax
+Environment=AXIONAX_CONFIG=/etc/axionax/genesis.config.yaml
+ExecStart=/usr/local/bin/axionaxd --home ${AXIONAX_HOME} --config ${AXIONAX_CONFIG}
+Restart=on-failure
+RestartSec=5
+LimitNOFILE=1048576
+
+[Install]
+WantedBy=multi-user.target

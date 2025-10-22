@@ -1,0 +1,22 @@
+[governance]
+vote_period_blocks = 40320      # ~28 วัน
+timelock_blocks   = 1440        # ~1 วัน
+
+[popc]
+samples = 600
+redundancy = 0.02
+prove_deadline_secs = 120
+da_window_secs = 180
+tol_fp16 = 0.001
+tol_int8 = 0.0
+
+[fees]
+base_t = "100000000000000000"
+market_fee_mult = 1.00
+gas_tip_min = 0
+
+[slashing]
+missed_prove_bp = 50
+da_withhold_bp = 150
+fraud_bp = 2000
+double_sign_tombstone = true

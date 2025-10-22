@@ -1,0 +1,12 @@
+﻿{
+  "name": "axx-hardhat",
+  "private": true,
+  "scripts": {
+    "start": "npx hardhat node --hostname 0.0.0.0 --port 8545",
+    "compile": "npx hardhat compile"
+  },
+  "devDependencies": {
+    "hardhat": "^2.22.9",
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0"
+  }
+}

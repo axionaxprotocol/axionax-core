@@ -1,0 +1,33 @@
+{
+  "version": "1.5",
+  "network": "Axionax Local Testnet v1.5",
+  "chainId": 31337,
+  "consensus": {
+    "block_time_seconds": 2,
+    "k_delay_blocks": 6,
+    "finality_threshold_blocks": 30
+  },
+  "sequencer": {
+    "min_slot_seconds": 2,
+    "max_slot_seconds": 10,
+    "gamma": 0.5
+  },
+  "data_availability": {
+    "committee_size": 64,
+    "erasure_coding_rate": 0.5,
+    "challenge_window_seconds": 600
+  },
+  "asr": {
+    "beta": 0.9,
+    "assignment_batch_size": 128,
+    "response_window_seconds": 120
+  },
+  "fraud_proofs": {
+    "claim_window_seconds": 3600,
+    "bond_amount_wei": "10000000000000000"
+  },
+  "price_oracle": {
+    "update_interval_seconds": 60,
+    "deviation_threshold_bps": 100
+  }
+}

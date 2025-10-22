@@ -1,0 +1,56 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+build/
+dist/
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool
+*.out
+coverage.html
+
+# Dependency directories
+vendor/
+
+# Go workspace file
+go.work
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Data directories
+data/
+.axionax/
+*.db
+*.log
+
+# Testnet data
+Axionax_v1.5_Testnet_in_a_Box/chain-data/
+Axionax_v1.5_Testnet_in_a_Box/blockscout-data/
+Axionax_v1.5_Testnet_in_a_Box/ganache-data/
+Axionax_v1.5_Testnet_in_a_Box/node_modules/
+
+# Certificates and keys
+*.pem
+*.key
+*.crt
+keystore/
+
+# Environment variables
+.env
+.env.local
+
+# Temporary files
+tmp/
+temp/
+*.tmp

@@ -1,0 +1,77 @@
+﻿services:
+  hardhat:
+    image: trufflesuite/ganache:v7.9.2
+    command:
+      - --server.host=0.0.0.0
+      - --server.port=8545
+      - --chain.chainId=8615
+      - --miner.blockTime=2
+      - --database.dbPath=/data
+      - --wallet.mnemonic
+      - test test test test test test test test test test test junk
+      - --wallet.totalAccounts=10
+      - --wallet.defaultBalance=10000
+    ports: ["8545:8545"]
+    volumes:
+      - ./chain-data:/data
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: blockscout
+      POSTGRES_PASSWORD: blockscout
+      POSTGRES_DB: blockscout
+    volumes:
+      - ./blockscout-data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  blockscout:
+    image: ghcr.io/blockscout/blockscout:latest
+    depends_on: [postgres]
+    environment:
+      MIX_ENV: prod
+      DATABASE_URL: postgresql://blockscout:blockscout@postgres:5432/blockscout
+      ETHEREUM_JSONRPC_HTTP_URL: http://hardhat:8545
+      ETHEREUM_JSONRPC_TRACE_URL: http://hardhat:8545
+      CHAIN_ID: "8615"
+      NETWORK: "Axionax Local Testnet v1.5"
+      COIN: "AXX"
+      PORT: "4000"
+      DISABLE_EXCHANGE_RATES: "true"
+    ports: ["4000:4000"]
+    restart: unless-stopped
+
+  faucet:
+    image: node:18-bullseye
+    working_dir: /app
+    env_file: [.env]
+    environment:
+      RPC_URL: http://hardhat:8545
+    command: >
+      bash -lc "npm i; node index.js"
+    ports: ["8081:8081"]
+    volumes:
+      - ./faucet:/app
+    depends_on: [ hardhat ]
+    restart: unless-stopped
+
+  ui:
+    image: nginx:alpine
+    ports: ["8080:80"]
+    volumes:
+      - ./ui:/usr/share/nginx/html:ro
+    depends_on: [ faucet ]
+    restart: unless-stopped
+
+  deployer:
+    image: node:18-bullseye
+    working_dir: /app
+    environment:
+      RPC_URL: http://hardhat:8545
+    command: >
+      bash -lc "npm i; node deploy_token.js"
+    volumes:
+      - ./deployer:/app
+    depends_on: [ hardhat ]
+    restart: "no"

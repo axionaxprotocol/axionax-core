@@ -1,0 +1,4 @@
+# Bootstrap peers (one per line). Replace with real enodes or multiaddrs.
+enode://CHANGE_ME_BOOTSTRAP1
+enode://CHANGE_ME_BOOTSTRAP2
+enode://CHANGE_ME_BOOTSTRAP3

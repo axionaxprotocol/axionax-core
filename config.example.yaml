@@ -1,0 +1,77 @@
+# Axionax Node Configuration
+# v1.5 Testnet Configuration
+
+node:
+  name: "axionax-testnet-node"
+  data_dir: ".axionax"
+  log_level: "info"
+  mode: "full"  # validator, worker, full, light
+  chain_id: 31337  # Anvil testnet
+  sync_mode: "full"
+
+network:
+  listen_addr: "0.0.0.0"
+  p2p_port: 30303
+  max_peers: 50
+  bootstrap_nodes:
+    - "http://localhost:8545"  # Anvil RPC
+  seeds: []
+
+popc:
+  sample_size: 1000
+  redundancy_rate: 0.025  # 2.5%
+  min_confidence: 0.999
+  stratified_sampling: true
+  adaptive_escalation: true
+  fraud_window_time: 3600s  # 1 hour
+
+asr:
+  top_k: 64
+  max_quota: 0.125  # 12.5%
+  exploration_rate: 0.05  # 5%
+  newcomer_boost: 0.1
+  performance_window: 30  # days
+  anti_collusion_enabled: true
+
+ppc:
+  target_utilization: 0.7
+  target_queue_time: 60.0  # seconds
+  alpha: 0.1
+  beta: 0.05
+  min_price: 0.001
+  max_price: 10.0
+  adjustment_interval: 300s  # 5 minutes
+
+da:
+  storage_dir: "data/da"
+  erasure_coding_rate: 1.5
+  chunk_size: 256  # KB
+  availability_window: 300s
+  replication_factor: 3
+  live_audit_enabled: true
+
+vrf:
+  delay_blocks: 2
+  use_delayed_vrf: true
+
+consensus:
+  block_time: 5s
+  epoch_length: 100  # blocks
+  min_validator_stake: "10000"
+  max_validators: 100
+  slashing_rate: 0.1  # 10%
+  false_pass_penalty: 500  # 5% in basis points
+
+api:
+  enabled: true
+  listen_addr: "127.0.0.1"
+  rpc_port: 8545
+  ws_port: 8546
+  cors_origins:
+    - "*"
+
+telemetry:
+  enabled: true
+  prometheus_port: 9090
+  metrics_addr: "0.0.0.0:9090"
+  deai_enabled: false

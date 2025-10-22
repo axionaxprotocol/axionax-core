@@ -41,48 +41,113 @@ flowchart LR
 
 ## 🚀 Quick Start
 
+> **🎯 New to Axionax?** Start with our [Quick Start Guide](./QUICKSTART.md) for a step-by-step tutorial!
+
 ### Prerequisites
 
-- Go 1.21+ or Rust 1.75+
-- 16GB RAM minimum
-- 500GB SSD storage
+- **Go 1.21+** (for building from source) - [Download](https://go.dev/dl/)
+- **Docker Desktop** (for running testnet) - [Download](https://www.docker.com/products/docker-desktop)
+- **16GB RAM** minimum
+- **100GB SSD** storage (for full node)
 
-### Installation
+### Quick Setup (5 minutes)
 
 ```bash
-# Clone the repository
+# 1. Clone the repository
 git clone https://github.com/axionaxprotocol/axionax-core.git
 cd axionax-core
 
-# Build from source
+# 2. Build from source
 make build
 
-# Run testnet node
-./axionax-core start --network testnet
+# 3. Start local testnet
+cd Axionax_v1.5_Testnet_in_a_Box
+docker compose up -d
+cd ..
+
+# 4. Initialize and start node
+./build/axionax-core config init
+./build/axionax-core start --network testnet
 ```
+
+**🎉 That's it!** Your node is now running and connected to the local testnet.
+
+### Testnet Endpoints
+
+Once started, you'll have access to:
+
+| Service | URL | Description |
+|---------|-----|-------------|
+| **RPC** | http://localhost:8545 | JSON-RPC endpoint |
+| **WebSocket** | ws://localhost:8546 | WebSocket endpoint |
+| **Explorer** | http://localhost:4001 | Blockscout blockchain explorer |
+| **Faucet** | http://localhost:8080 | Test AXX token faucet |
+| **Metrics** | http://localhost:9090 | Prometheus metrics |
+
+**Chain ID:** 31337 (Anvil testnet)
 
 ### Running a Validator
 
 ```bash
-# Generate validator keys
-./axionax-core keys generate --type validator
+# 1. Generate validator keys
+./build/axionax-core keys generate --type validator
 
-# Stake AXX tokens
-./axionax-core stake --amount 10000 --address <your-address>
+# 2. Get test AXX from faucet (visit http://localhost:8080)
+# Or use curl:
+curl -H "Authorization: Basic YWRtaW46cGFzc3dvcmQ=" \
+  "http://localhost:8081/request?address=<your-address>"
 
-# Start validating
-./axionax-core validator start
+# 3. Stake AXX tokens (minimum 10,000 AXX)
+./build/axionax-core stake deposit 10000 --address <your-address>
+
+# 4. Start validating
+./build/axionax-core validator start
+
+# 5. Check status
+./build/axionax-core validator status
 ```
+
+**Validator Rewards:**
+- PoPC validation fees
+- Block rewards
+- Commission on delegations
 
 ### Running a Worker (Compute Provider)
 
 ```bash
-# Register as worker
-./axionax-core worker register --specs <hardware-spec.json>
+# 1. Create hardware specification
+cat > worker-specs.json <<EOF
+{
+  "gpus": [{
+    "model": "NVIDIA RTX 4090",
+    "vram": 24,
+    "count": 1
+  }],
+  "cpu_cores": 16,
+  "ram": 64,
+  "storage": 1000,
+  "bandwidth": 1000,
+  "region": "us-west"
+}
+EOF
 
-# Start accepting jobs
-./axionax-core worker start
+# 2. Generate worker keys
+./build/axionax-core keys generate --type worker
+
+# 3. Register as worker
+./build/axionax-core worker register --specs worker-specs.json
+
+# 4. Start accepting jobs
+./build/axionax-core worker start
+
+# 5. Monitor performance
+./build/axionax-core worker status
 ```
+
+**Worker Earnings:**
+- Job execution rewards (based on PPC pricing)
+- Performance bonuses (high PoPC pass rate)
+- Newcomer boosts (via ASR ε-greedy exploration)
 
 ## 📊 Tokenomics
 
@@ -107,11 +172,28 @@ make build
 ## 📚 Documentation
 
 - **[Architecture Overview](./ARCHITECTURE.md)** - System design and component breakdown
+- **[Testnet Integration Guide](./docs/TESTNET_INTEGRATION.md)** - Connect to local testnet
+- **[API Reference](./docs/API_REFERENCE.md)** - Complete API documentation
 - **[Whitepaper v1.5](./docs/whitepaper_v1_5_EN.md)** - Technical specifications
 - **[Security Model](./SECURITY.md)** - Threat model and mitigations
 - **[Governance Guide](./GOVERNANCE.md)** - DAO participation
-- **[API Reference](./docs/API_REFERENCE.md)** - Developer documentation
+- **[Tokenomics](./TOKENOMICS.md)** - Token economics and distribution
 - **[Contributing](./CONTRIBUTING.md)** - How to contribute
+
+### Protocol Documentation
+
+- **[PoPC Validation](./docs/POPC.md)** - Proof-of-Probabilistic-Checking
+- **[ASR Router](./docs/ASR.md)** - Auto-Selection Router algorithm
+- **[PPC Controller](./docs/PPC.md)** - Posted Price Controller mechanism
+- **[Data Availability](./docs/DA.md)** - DA layer implementation
+- **[VRF Integration](./docs/VRF.md)** - Delayed VRF for security
+
+### Developer Resources
+
+- **[CLI Reference](./docs/CLI.md)** - Command-line interface guide
+- **[Go SDK](./docs/GO_SDK.md)** - Go development kit
+- **[Smart Contracts](./Axionax_v1.5_Testnet_in_a_Box/chain/contracts/)** - Solidity contracts
+- **[Deployment Guide](./Axionax_v1.5_Testnet_in_a_Box/docs/PUBLIC_DEPLOYMENT.md)** - Production deployment
 
 ## 🔐 Security
 

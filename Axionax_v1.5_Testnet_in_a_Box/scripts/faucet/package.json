@@ -1,0 +1,15 @@
+﻿{
+  "name": "axx-faucet",
+  "private": true,
+  "type": "module",
+  "scripts": { "start": "node index.js" },
+  "dependencies": {
+    "basic-auth": "^2.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "ethers": "^5.7.2",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.3.0",
+    "morgan": "^1.10.0"
+  }
+}

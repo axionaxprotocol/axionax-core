@@ -1,0 +1,59 @@
+version: "3.9"
+services:
+  hardhat:
+    image: node:18-bullseye
+    container_name: axx-hardhat
+    working_dir: /workspace/chain
+    command: bash -lc "npm ci && npx hardhat node --hostname 0.0.0.0"
+    ports: ["8545:8545"]
+    environment:
+      - NODE_OPTIONS=--max-old-space-size=2048
+    volumes:
+      - ./chain:/workspace/chain
+      - ./shared:/workspace/shared
+
+  deployer:
+    image: node:18-bullseye
+    container_name: axx-deployer
+    working_dir: /workspace/chain
+    depends_on:
+      - hardhat
+    environment:
+      - NODE_OPTIONS=--max-old-space-size=2048
+      - RPC_URL=http://hardhat:8545
+      - AXX_TOTAL_SUPPLY=1000000000000000000000000000000   # 1T * 1e18
+      - GENESIS_CSV=genesis/genesis_allocation_v1_5.csv
+    command: bash -lc "npm ci && node scripts/deploy_and_record.js && node scripts/fund_from_csv_and_record.js"
+    volumes:
+      - ./chain:/workspace/chain
+      - ./shared:/workspace/shared
+
+  faucet:
+    image: node:18-bullseye
+    container_name: axx-faucet
+    working_dir: /workspace/faucet
+    depends_on:
+      - hardhat
+      - deployer
+    environment:
+      - RPC_URL=http://hardhat:8545
+      - FAUCET_PRIVATE_KEY=0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d # one of Hardhat default accounts
+      - NATIVE_DROP_WEI=1000000000000000000       # 1 ETH-equivalent for gas
+      - AXX_DROP_AMOUNT=10000000000000000000      # 10 AXX (1e18 decimals)
+    command: bash -lc "npm ci && node server.js"
+    ports: ["8081:8081"]
+    volumes:
+      - ./faucet:/workspace/faucet
+      - ./shared:/workspace/shared
+
+  ui:
+    image: nginx:alpine
+    container_name: axx-faucet-ui
+    depends_on: [faucet]
+    ports: ["8080:80"]
+    volumes:
+      - ./ui:/usr/share/nginx/html:ro
+
+volumes:
+  shared:
+    driver: local
