@@ -106,6 +106,7 @@ make build
 
 ## 📚 Documentation
 
+- **[Project Status](./STATUS.md)** - Current status and next steps
 - **[Architecture Overview](./ARCHITECTURE.md)** - System design and component breakdown
 - **[Whitepaper v1.5](./docs/whitepaper_v1_5_EN.md)** - Technical specifications
 - **[Security Model](./SECURITY.md)** - Threat model and mitigations
