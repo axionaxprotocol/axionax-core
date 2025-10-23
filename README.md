@@ -171,6 +171,7 @@ EOF
 
 ## 📚 Documentation
 
+- **[Project Status](./STATUS.md)** - Current status and next steps
 - **[Architecture Overview](./ARCHITECTURE.md)** - System design and component breakdown
 - **[Testnet Integration Guide](./docs/TESTNET_INTEGRATION.md)** - Connect to local testnet
 - **[API Reference](./docs/API_REFERENCE.md)** - Complete API documentation
