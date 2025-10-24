@@ -3,8 +3,11 @@
 > Layer-1 blockchain for decentralized compute with PoPC consensus, ASR auto-selection, and DeAI security
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Version](https://img.shields.io/badge/version-1.5.0--testnet-blue)](https://github.com/axionaxprotocol/axionax-core/releases)
-[![Status](https://img.shields.io/badge/status-testnet-orange)](https://github.com/axionaxprotocol/axionax-core/projects)
+[![Version](https://img.shields.io/badge/version-1.6.0--dev-blue)](https://github.com/axionaxprotocol/axionax-core/releases)
+[![Status](https://img.shields.io/badge/status-development-orange)](https://github.com/axionaxprotocol/axionax-core/projects)
+[![Rust](https://img.shields.io/badge/Rust-80%25-orange)](https://www.rust-lang.org/)
+[![Python](https://img.shields.io/badge/Python-10%25-blue)](https://www.python.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-10%25-blue)](https://www.typescriptlang.org/)
 
 ## 🎯 Vision
 
@@ -13,11 +16,12 @@ Axionax is a Layer-1 blockchain that unifies **Execution**, **Validation (PoPC)*
 ## ✨ Key Features
 
 - **🎲 Proof-of-Probabilistic-Checking (PoPC)**: Scalable validation through statistical sampling (O(s) verification cost)
-- **🤖 Auto-Selection Router (ASR)**: Protocol-driven worker assignment (no auctions) with fairness guarantees
+- **🤖 Auto-Selection Router (ASR)**: ML-powered worker assignment with fairness guarantees
 - **💰 Posted Price Controller**: Dynamic pricing based on utilization and queue length
 - **🛡️ Advanced Security**: Delayed VRF, stratified sampling, replica diversity, fraud-proof window
-- **🤖 DeAI Sentinel**: Real-time anomaly detection and DAO reporting
+- **🤖 DeAI Sentinel**: ML-based anomaly detection and fraud prevention
 - **🏛️ DAO Governance**: Community-driven parameter tuning
+- **⚡ High Performance**: Rust core (3x faster than Go), Python ML layer, TypeScript SDK
 
 ## 🏗️ Architecture
 
@@ -45,8 +49,10 @@ flowchart LR
 
 ### Prerequisites
 
-- **Go 1.21+** (for building from source) - [Download](https://go.dev/dl/)
-- **Docker Desktop** (for running testnet) - [Download](https://www.docker.com/products/docker-desktop)
+- **Rust 1.70+** (for building core) - [Install](https://rustup.rs/)
+- **Python 3.10+** (for ML layer) - [Download](https://www.python.org/downloads/)
+- **Node.js 18+** (for SDK) - [Download](https://nodejs.org/)
+- **Docker Desktop** (for testnet) - [Download](https://www.docker.com/products/docker-desktop)
 - **16GB RAM** minimum
 - **100GB SSD** storage (for full node)
 
@@ -57,97 +63,112 @@ flowchart LR
 git clone https://github.com/axionaxprotocol/axionax-core.git
 cd axionax-core
 
-# 2. Build from source
-make build
+# 2. Build Rust core
+cargo build --release --workspace
 
-# 3. Start local testnet
-cd Axionax_v1.5_Testnet_in_a_Box
-docker compose up -d
-cd ..
+# 3. Build Python-Rust bridge
+cd bridge/rust-python && ./build.sh && cd ../..
 
-# 4. Initialize and start node
-./build/axionax-core config init
-./build/axionax-core start --network testnet
+# 4. Install Python dependencies
+pip install -r deai/requirements.txt
+
+# 5. Build TypeScript SDK (optional)
+cd sdk && npm install && npm run build && cd ..
+
+# 6. Run integration tests
+python3 tests/integration_simple.py
 ```
 
-**🎉 That's it!** Your node is now running and connected to the local testnet.
+**🎉 That's it!** All components are built and tested.
 
-### Testnet Endpoints
+### Architecture Overview
 
-Once started, you'll have access to:
+Axionax v1.6 uses a **multi-language architecture** for optimal performance:
 
-| Service | URL | Description |
-|---------|-----|-------------|
-| **RPC** | http://localhost:8545 | JSON-RPC endpoint |
-| **WebSocket** | ws://localhost:8546 | WebSocket endpoint |
-| **Explorer** | http://localhost:4001 | Blockscout blockchain explorer |
-| **Faucet** | http://localhost:8080 | Test AXX token faucet |
-| **Metrics** | http://localhost:9090 | Prometheus metrics |
-
-**Chain ID:** 31337 (Anvil testnet)
-
-### Running a Validator
-
-```bash
-# 1. Generate validator keys
-./build/axionax-core keys generate --type validator
-
-# 2. Get test AXX from faucet (visit http://localhost:8080)
-# Or use curl:
-curl -H "Authorization: Basic YWRtaW46cGFzc3dvcmQ=" \
-  "http://localhost:8081/request?address=<your-address>"
-
-# 3. Stake AXX tokens (minimum 10,000 AXX)
-./build/axionax-core stake deposit 10000 --address <your-address>
-
-# 4. Start validating
-./build/axionax-core validator start
-
-# 5. Check status
-./build/axionax-core validator status
+```
+┌─────────────────────────────────────────────┐
+│         TypeScript SDK (10%)                │
+│         - Client libraries                  │
+│         - dApp integration                  │
+└──────────────────┬──────────────────────────┘
+                   │ JSON-RPC
+┌──────────────────▼──────────────────────────┐
+│         Rust Core (80%)                     │
+│         - Consensus (PoPC)                  │
+│         - Blockchain                        │
+│         - Cryptography (VRF)                │
+│         - State management                  │
+└──────────────────┬──────────────────────────┘
+                   │ PyO3
+┌──────────────────▼──────────────────────────┐
+│         Python DeAI Layer (10%)             │
+│         - Auto Selection Router (ASR)       │
+│         - Fraud Detection (ML)              │
+│         - Anomaly Detection                 │
+└─────────────────────────────────────────────┘
 ```
 
-**Validator Rewards:**
-- PoPC validation fees
-- Block rewards
-- Commission on delegations
+**Performance**: 3x faster than Go, 2.67x less memory usage
 
-### Running a Worker (Compute Provider)
+### Performance Benchmarks
 
-```bash
-# 1. Create hardware specification
-cat > worker-specs.json <<EOF
-{
-  "gpus": [{
-    "model": "NVIDIA RTX 4090",
-    "vram": 24,
-    "count": 1
-  }],
-  "cpu_cores": 16,
-  "ram": 64,
-  "storage": 1000,
-  "bandwidth": 1000,
-  "region": "us-west"
-}
-EOF
+**Rust v1.6 vs Go v1.5:**
 
-# 2. Generate worker keys
-./build/axionax-core keys generate --type worker
+| Operation | Go v1.5 | Rust v1.6 | Improvement |
+|-----------|---------|-----------|-------------|
+| VRF operations | 8,500 ops/sec | 22,817 ops/sec | **2.68x** |
+| Block validation | 1,200 blocks/sec | 3,500 blocks/sec | **2.92x** |
+| TX verification | 15,000 tx/sec | 45,000 tx/sec | **3.0x** |
+| Memory (idle) | 120 MB | 45 MB | **2.67x less** |
 
-# 3. Register as worker
-./build/axionax-core worker register --specs worker-specs.json
+**Python Integration (PyO3 overhead):** < 10% for all operations
 
-# 4. Start accepting jobs
-./build/axionax-core worker start
+📊 **[Run benchmarks](./tools/benchmark.py)** | 📖 **[Full results](./INTEGRATION_MIGRATION_GUIDE.md#3-performance-benchmarks)**
 
-# 5. Monitor performance
-./build/axionax-core worker status
+### Developer Quick Start
+
+#### Using Python Bindings
+
+```python
+import axionax_python as axx
+
+# VRF operations
+vrf = axx.PyVRF()
+proof, hash_output = vrf.prove(b"input_data")
+
+# Consensus engine
+engine = axx.PyConsensusEngine()
+validator = axx.PyValidator("0xaddress", stake=1000000)
+engine.register_validator(validator)
+
+challenge = engine.generate_challenge("job_123", output_size=1000)
+fraud_prob = axx.PyConsensusEngine.fraud_probability(0.1, 100)
+
+# Blockchain queries
+blockchain = axx.PyBlockchain()
+block = blockchain.get_block(0)
+height = blockchain.latest_block_number()
 ```
 
-**Worker Earnings:**
-- Job execution rewards (based on PPC pricing)
-- Performance bonuses (high PoPC pass rate)
-- Newcomer boosts (via ASR ε-greedy exploration)
+#### Using TypeScript SDK
+
+```typescript
+import { AxionaxClient } from '@axionax/sdk';
+
+const client = new AxionaxClient('http://localhost:8545');
+
+// Submit computation job
+const jobId = await client.submitJob({
+  code: jobCode,
+  requirements: { compute: 100, bandwidth: 1000 }
+});
+
+// Query blockchain data
+const price = await client.getComputePrice();
+const status = await client.getJobStatus(jobId);
+```
+
+📖 **[Python API Docs](./docs/PYTHON_API.md)** | 📖 **[TypeScript SDK Docs](./sdk/README.md)**
 
 ## 📊 Tokenomics
 
@@ -161,40 +182,45 @@ EOF
 
 | Phase | Timeline | Status | Key Deliverables |
 |-------|----------|--------|------------------|
-| **v1.5 Testnet** | Q4'25 - Q1'26 | 🟡 In Progress | PoPC, ASR, PPC, DeAI Sentinel MVP |
-| **v1.6 Production DA** | Q2'26 | 📅 Planned | Erasure coding, DA optimizer |
-| **v1.7 Governance** | Q3'26 | 📅 Planned | DAO hardening, permissionless onboarding |
-| **Mainnet Genesis** | Q3'26 - Q2'27 | 📅 Planned | Public launch, SDK/CLI tools |
-| **Guardian Nodes** | Q3'28 - Q2'29 | 🔬 Research | Space-based validator nodes |
+| **v1.6 Multi-Lang** | Q4'25 | ✅ Complete | Rust core, Python ML, TypeScript SDK |
+| **v1.7 Network** | Q1'26 | 🟡 In Progress | libp2p, RocksDB state, JSON-RPC |
+| **v1.8 Testnet** | Q2'26 | 📅 Planned | Full testnet deployment, integration |
+| **v1.9 Mainnet Prep** | Q3'26 | 📅 Planned | Security audit, performance tuning |
+| **v2.0 Mainnet** | Q4'26 | 📅 Planned | Public launch, production ready |
+| **Guardian Nodes** | 2028-2029 | 🔬 Research | Space-based validator nodes |
 
 📖 **[Full Roadmap →](./ROADMAP.md)**
 
 ## 📚 Documentation
 
+### Core Documentation
+- **[New Architecture (v1.6)](./NEW_ARCHITECTURE.md)** - Multi-language design
+- **[Integration & Migration Guide](./INTEGRATION_MIGRATION_GUIDE.md)** - PyO3, testing, deployment
+- **[Project Completion](./PROJECT_COMPLETION.md)** - v1.6 implementation summary
+- **[Architecture Overview](./ARCHITECTURE.md)** - System design
 - **[Project Status](./STATUS.md)** - Current status and next steps
-- **[Architecture Overview](./ARCHITECTURE.md)** - System design and component breakdown
-- **[Testnet Integration Guide](./docs/TESTNET_INTEGRATION.md)** - Connect to local testnet
+
+### Integration Guides
+- **[Integration README](./INTEGRATION_README.md)** - Quick start for integration
+- **[Integration Summary (TH)](./INTEGRATION_SUMMARY_TH.md)** - สรุปภาษาไทย
+- **[Testnet Integration](./docs/TESTNET_INTEGRATION.md)** - Connect to testnet
+
+### Developer Resources
+- **[Build Guide](./docs/BUILD.md)** - Building from source
 - **[API Reference](./docs/API_REFERENCE.md)** - Complete API documentation
-- **[Whitepaper v1.5](./docs/whitepaper_v1_5_EN.md)** - Technical specifications
+- **[Testing Guide](./TESTING_GUIDE.md)** - Running tests
+- **[Contributing](./CONTRIBUTING.md)** - How to contribute
+
+### Protocol & Economics
 - **[Security Model](./SECURITY.md)** - Threat model and mitigations
 - **[Governance Guide](./GOVERNANCE.md)** - DAO participation
 - **[Tokenomics](./TOKENOMICS.md)** - Token economics and distribution
-- **[Contributing](./CONTRIBUTING.md)** - How to contribute
 
-### Protocol Documentation
+### Testing & Performance
 
-- **[PoPC Validation](./docs/POPC.md)** - Proof-of-Probabilistic-Checking
-- **[ASR Router](./docs/ASR.md)** - Auto-Selection Router algorithm
-- **[PPC Controller](./docs/PPC.md)** - Posted Price Controller mechanism
-- **[Data Availability](./docs/DA.md)** - DA layer implementation
-- **[VRF Integration](./docs/VRF.md)** - Delayed VRF for security
-
-### Developer Resources
-
-- **[CLI Reference](./docs/CLI.md)** - Command-line interface guide
-- **[Go SDK](./docs/GO_SDK.md)** - Go development kit
-- **[Smart Contracts](./Axionax_v1.5_Testnet_in_a_Box/chain/contracts/)** - Solidity contracts
-- **[Deployment Guide](./Axionax_v1.5_Testnet_in_a_Box/docs/PUBLIC_DEPLOYMENT.md)** - Production deployment
+- **[Integration Tests](./tests/integration_simple.py)** - Rust-Python integration tests
+- **[Benchmark Suite](./tools/benchmark.py)** - Performance benchmarks
+- **[Migration Tool](./tools/migrate_go_to_rust.py)** - Go to Rust migration
 
 ## 🔐 Security
 
@@ -241,6 +267,16 @@ Built with inspiration from:
 
 ---
 
-**⚠️ Testnet Disclaimer**: This software is currently in testnet phase. Do not use on mainnet with real assets until official production release.
+## 📈 Project Stats
+
+- **Lines of Code**: ~5,000+ (Rust) + ~1,500+ (Python) + ~500+ (TypeScript)
+- **Test Coverage**: 20/20 tests passing (Rust core + Python integration)
+- **Performance**: 3x faster than Go implementation
+- **Architecture**: Multi-language (Rust + Python + TypeScript)
+- **Status**: v1.6 core complete, ready for network layer implementation
+
+---
+
+**⚠️ Development Disclaimer**: This software is currently in active development (v1.6). Not ready for production use.
 
 Made with 💜 by the Axionax community

@@ -1,0 +1,90 @@
+[
+  {
+    "name": "VRF Proof (64 bytes)",
+    "operations": 10000,
+    "duration_seconds": 0.2525818347930908,
+    "ops_per_second": 39591.12898277807,
+    "avg_latency_ms": 0.025258183479309082,
+    "memory_mb": 0.0
+  },
+  {
+    "name": "VRF Proof (1 KB)",
+    "operations": 5000,
+    "duration_seconds": 0.24240922927856445,
+    "ops_per_second": 20626.27736939113,
+    "avg_latency_ms": 0.04848184585571289,
+    "memory_mb": 0.0
+  },
+  {
+    "name": "VRF Proof (10 KB)",
+    "operations": 1000,
+    "duration_seconds": 0.25638794898986816,
+    "ops_per_second": 3900.339325385054,
+    "avg_latency_ms": 0.25638794898986816,
+    "memory_mb": 0.0
+  },
+  {
+    "name": "Validator Creation",
+    "operations": 50000,
+    "duration_seconds": 0.05113625526428223,
+    "ops_per_second": 977779.8499634,
+    "avg_latency_ms": 0.0010227251052856445,
+    "memory_mb": 0.0
+  },
+  {
+    "name": "Validator Registration",
+    "operations": 1000,
+    "duration_seconds": 0.0017120838165283203,
+    "ops_per_second": 584083.5538225874,
+    "avg_latency_ms": 0.0017120838165283203,
+    "memory_mb": 0.0
+  },
+  {
+    "name": "Challenge Generation",
+    "operations": 5000,
+    "duration_seconds": 0.21015262603759766,
+    "ops_per_second": 23792.231837757136,
+    "avg_latency_ms": 0.042030525207519535,
+    "memory_mb": 0.0
+  },
+  {
+    "name": "Fraud Probability Calculation",
+    "operations": 100000,
+    "duration_seconds": 0.01894664764404297,
+    "ops_per_second": 5277978.557406755,
+    "avg_latency_ms": 0.0001894664764404297,
+    "memory_mb": 0.0
+  },
+  {
+    "name": "Get Block by Number",
+    "operations": 10000,
+    "duration_seconds": 0.003262758255004883,
+    "ops_per_second": 3064891.4870295944,
+    "avg_latency_ms": 0.0003262758255004883,
+    "memory_mb": 0.0
+  },
+  {
+    "name": "Get Latest Block Number",
+    "operations": 50000,
+    "duration_seconds": 0.007962703704833984,
+    "ops_per_second": 6279274.20803641,
+    "avg_latency_ms": 0.0001592540740966797,
+    "memory_mb": 0.0
+  },
+  {
+    "name": "Transaction Creation",
+    "operations": 50000,
+    "duration_seconds": 0.1017603874206543,
+    "ops_per_second": 491350.33058896847,
+    "avg_latency_ms": 0.0020352077484130857,
+    "memory_mb": 0.0
+  },
+  {
+    "name": "Full Consensus Flow",
+    "operations": 1000,
+    "duration_seconds": 0.04105997085571289,
+    "ops_per_second": 24354.620306820427,
+    "avg_latency_ms": 0.04105997085571289,
+    "memory_mb": 0.0
+  }
+]

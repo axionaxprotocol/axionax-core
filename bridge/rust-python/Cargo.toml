@@ -1,0 +1,26 @@
+[package]
+name = "axionax-python"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[lib]
+name = "axionax_python"
+crate-type = ["cdylib"]
+
+[dependencies]
+pyo3 = { version = "0.20", features = ["extension-module", "abi3-py310"] }
+tokio = { version = "1.35", features = ["full"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Axionax core dependencies
+consensus = { path = "../../core/consensus" }
+blockchain = { path = "../../core/blockchain" }
+crypto = { path = "../../core/crypto" }
+
+[build-dependencies]
+pyo3-build-config = "0.20"

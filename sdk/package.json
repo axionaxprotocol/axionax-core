@@ -1,0 +1,27 @@
+{
+  "name": "@axionax/sdk",
+  "version": "0.1.0",
+  "description": "Axionax Protocol TypeScript SDK",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "lint": "eslint src --ext .ts",
+    "format": "prettier --write \"src/**/*.ts\""
+  },
+  "keywords": ["axionax", "blockchain", "deai", "sdk"],
+  "author": "Axionax Protocol",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "eslint": "^8.0.0",
+    "prettier": "^3.0.0",
+    "jest": "^29.0.0"
+  },
+  "dependencies": {
+    "ethers": "^6.0.0",
+    "viem": "^2.0.0"
+  }
+}

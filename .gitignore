@@ -1,58 +1,41 @@
-# Binaries for programs and plugins
-*.exe
-*.exe~
-*.dll
+# Build artifacts
+/target/
+/build/
 *.so
 *.dylib
-build/
-dist/
+*.pyd
+*.dll
 
-# Test binary, built with `go test -c`
-*.test
-
-# Output of the go coverage tool
-*.out
-coverage.html
-
-# Dependency directories
-vendor/
-
-# Go workspace file
-go.work
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+.pytest_cache/
 
 # IDE
-.idea/
 .vscode/
+.idea/
 *.swp
 *.swo
-*~
-.DS_Store
 
-# Data directories
-data/
-.axionax/
-*.db
+# OS
+.DS_Store
+Thumbs.db
+
+# Test outputs
+coverage.html
+benchmark_results.json
+migration_report.json
+
+# Logs
 *.log
 
-# Testnet data
-Axionax_v1.5_Testnet_in_a_Box/chain-data/
-Axionax_v1.5_Testnet_in_a_Box/blockscout-data/
-Axionax_v1.5_Testnet_in_a_Box/ganache-data/
-Axionax_v1.5_Testnet_in_a_Box/node_modules/
-
-# Certificates and keys
-*.pem
-*.key
-*.crt
-keystore/
-
-# Environment variables
+# Environment
 .env
 .env.local
 
-# Temporary files
-tmp/
-temp/
-*.tmp
-cache/
-*.cache
+# Testnet data (keep docker compose)
+/Axionax_v1.5_Testnet_in_a_Box/chain-data/
+/Axionax_v1.5_Testnet_in_a_Box/blockscout-data/
+/Axionax_v1.5_Testnet_in_a_Box/scripts/chain-data/
+/Axionax_v1.5_Testnet_in_a_Box/scripts/blockscout-data/
