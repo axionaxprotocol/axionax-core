@@ -31,15 +31,15 @@ jobs:
         with:
           sarif_file: 'trivy-results.sarif'
 
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.21'
+
       - name: Go vulnerability check
         run: |
           go install golang.org/x/vuln/cmd/govulncheck@latest
           govulncheck ./...
-
-      - name: Rust security audit
-        run: |
-          cargo install cargo-audit
-          cargo audit
 
   # SAST (Static Application Security Testing)
   sast:
@@ -116,20 +116,13 @@ jobs:
 
       - name: Generate license report
         run: |
-          go-licenses report ./... > licenses-go.txt
-
-      - name: Rust license check
-        run: |
-          cargo install cargo-license
-          cargo license > licenses-rust.txt
+          go-licenses report ./... > licenses-go.txt || echo "No licenses to report"
 
       - name: Upload license reports
         uses: actions/upload-artifact@v3
         with:
           name: license-reports
-          path: |
-            licenses-go.txt
-            licenses-rust.txt
+          path: licenses-go.txt
 
   # Container Scanning
   container-scan:

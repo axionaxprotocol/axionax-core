@@ -54,3 +54,5 @@ keystore/
 tmp/
 temp/
 *.tmp
+cache/
+*.cache

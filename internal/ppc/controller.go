@@ -11,13 +11,13 @@ import (
 
 // Controller manages dynamic pricing based on utilization and queue length
 type Controller struct {
-	config        *config.PPCConfig
-	currentPrice  float64
-	utilization   float64
-	queueLength   float64
-	mu            sync.RWMutex
-	ticker        *time.Ticker
-	stopCh        chan struct{}
+	config       *config.PPCConfig
+	currentPrice float64
+	utilization  float64
+	queueLength  float64
+	mu           sync.RWMutex
+	ticker       *time.Ticker
+	stopCh       chan struct{}
 }
 
 // NewController creates a new PPC controller
@@ -32,7 +32,7 @@ func NewController(cfg *config.PPCConfig) *Controller {
 // Start begins the price adjustment loop
 func (c *Controller) Start() {
 	c.ticker = time.NewTicker(c.config.AdjustmentInterval)
-	
+
 	go func() {
 		for {
 			select {
@@ -64,7 +64,7 @@ func (c *Controller) GetCurrentPrice() float64 {
 func (c *Controller) UpdateMetrics(utilization, queueTime float64) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
-	
+
 	c.utilization = utilization
 	c.queueLength = queueTime
 }
@@ -76,7 +76,7 @@ func (c *Controller) adjustPrice() {
 
 	// Calculate utilization error
 	utilError := c.utilization - c.config.TargetUtilization
-	
+
 	// Calculate queue error (normalize queue time)
 	queueError := (c.queueLength - c.config.TargetQueueTime) / c.config.TargetQueueTime
 
@@ -96,10 +96,10 @@ func (c *Controller) adjustPrice() {
 // CalculateJobPrice calculates price for a specific job based on specs
 func (c *Controller) CalculateJobPrice(jobClass string, complexity float64) float64 {
 	basePrice := c.GetCurrentPrice()
-	
+
 	// Apply multipliers based on job class and complexity
 	multiplier := 1.0
-	
+
 	switch jobClass {
 	case "standard":
 		multiplier = 1.0

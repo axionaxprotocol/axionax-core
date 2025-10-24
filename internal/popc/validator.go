@@ -9,7 +9,6 @@ import (
 	"math/rand"
 
 	"github.com/axionaxprotocol/axionax-core/pkg/config"
-	"github.com/axionaxprotocol/axionax-core/pkg/types"
 	"github.com/ethereum/go-ethereum/common"
 )
 
@@ -27,35 +26,35 @@ func NewValidator(cfg *config.PoPCConfig) *Validator {
 
 // Challenge represents a PoPC challenge set
 type Challenge struct {
-	JobID      string        `json:"job_id"`
-	Samples    []int         `json:"samples"`    // Sample indices
-	VRFSeed    common.Hash   `json:"vrf_seed"`
-	BlockDelay int           `json:"block_delay"`
+	JobID      string      `json:"job_id"`
+	Samples    []int       `json:"samples"` // Sample indices
+	VRFSeed    common.Hash `json:"vrf_seed"`
+	BlockDelay int         `json:"block_delay"`
 }
 
 // Proof represents worker's proof for challenged samples
 type Proof struct {
-	JobID       string           `json:"job_id"`
-	Samples     map[int][]byte   `json:"samples"`      // index -> data
+	JobID       string                `json:"job_id"`
+	Samples     map[int][]byte        `json:"samples"`      // index -> data
 	MerklePaths map[int][]common.Hash `json:"merkle_paths"` // index -> path
-	OutputRoot  common.Hash      `json:"output_root"`
+	OutputRoot  common.Hash           `json:"output_root"`
 }
 
 // ValidationResult represents the result of PoPC validation
 type ValidationResult struct {
-	JobID       string  `json:"job_id"`
-	Passed      bool    `json:"passed"`
-	SamplesVerified int `json:"samples_verified"`
-	SamplesTotal    int `json:"samples_total"`
-	Confidence  float64 `json:"confidence"`
-	Errors      []string `json:"errors,omitempty"`
+	JobID           string   `json:"job_id"`
+	Passed          bool     `json:"passed"`
+	SamplesVerified int      `json:"samples_verified"`
+	SamplesTotal    int      `json:"samples_total"`
+	Confidence      float64  `json:"confidence"`
+	Errors          []string `json:"errors,omitempty"`
 }
 
 // GenerateChallenge creates a PoPC challenge using VRF
 func (v *Validator) GenerateChallenge(jobID string, outputSize int, vrfSeed common.Hash) *Challenge {
 	// Use VRF seed to generate deterministic random samples
 	rng := rand.New(rand.NewSource(int64(binary.BigEndian.Uint64(vrfSeed[:8]))))
-	
+
 	sampleSize := v.config.SampleSize
 	if sampleSize > outputSize {
 		sampleSize = outputSize
@@ -80,7 +79,7 @@ func (v *Validator) GenerateChallenge(jobID string, outputSize int, vrfSeed comm
 // generateStratifiedSamples generates samples using stratified sampling
 func (v *Validator) generateStratifiedSamples(rng *rand.Rand, outputSize, sampleSize int) []int {
 	samples := make([]int, 0, sampleSize)
-	
+
 	// Divide output into strata
 	strataCount := int(math.Sqrt(float64(sampleSize)))
 	strataSize := outputSize / strataCount
@@ -171,7 +170,7 @@ func (v *Validator) verifyMerkleProof(data []byte, path []common.Hash, index int
 	// Traverse the Merkle path
 	for i, sibling := range path {
 		h := sha256.New()
-		
+
 		// Determine if current should be left or right child
 		if (index>>i)&1 == 0 {
 			// Current is left child
@@ -182,7 +181,7 @@ func (v *Validator) verifyMerkleProof(data []byte, path []common.Hash, index int
 			h.Write(sibling.Bytes())
 			h.Write(current.Bytes())
 		}
-		
+
 		hash := h.Sum(nil)
 		current = common.BytesToHash(hash)
 	}
@@ -198,11 +197,11 @@ func (v *Validator) calculateConfidence(verified, total int) float64 {
 	}
 
 	passRate := float64(verified) / float64(total)
-	
+
 	// Assuming worst case fraud rate estimation
 	// If pass rate is high, confidence is high
 	// This is a simplified model; real implementation would be more sophisticated
-	
+
 	return passRate
 }
 

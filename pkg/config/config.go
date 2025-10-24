@@ -23,51 +23,51 @@ type Config struct {
 
 // NodeConfig defines node-specific settings
 type NodeConfig struct {
-	Name         string        `mapstructure:"name"`
-	DataDir      string        `mapstructure:"data_dir"`
-	LogLevel     string        `mapstructure:"log_level"`
-	Mode         string        `mapstructure:"mode"` // validator, worker, full, light
-	ChainID      uint64        `mapstructure:"chain_id"`
-	SyncMode     string        `mapstructure:"sync_mode"`
+	Name     string `mapstructure:"name"`
+	DataDir  string `mapstructure:"data_dir"`
+	LogLevel string `mapstructure:"log_level"`
+	Mode     string `mapstructure:"mode"` // validator, worker, full, light
+	ChainID  uint64 `mapstructure:"chain_id"`
+	SyncMode string `mapstructure:"sync_mode"`
 }
 
 // NetworkConfig defines network settings
 type NetworkConfig struct {
-	ListenAddr    string   `mapstructure:"listen_addr"`
-	P2PPort       int      `mapstructure:"p2p_port"`
-	MaxPeers      int      `mapstructure:"max_peers"`
+	ListenAddr     string   `mapstructure:"listen_addr"`
+	P2PPort        int      `mapstructure:"p2p_port"`
+	MaxPeers       int      `mapstructure:"max_peers"`
 	BootstrapNodes []string `mapstructure:"bootstrap_nodes"`
-	Seeds         []string `mapstructure:"seeds"`
+	Seeds          []string `mapstructure:"seeds"`
 }
 
 // PoPCConfig defines Proof-of-Probabilistic-Checking parameters
 type PoPCConfig struct {
-	SampleSize         int     `mapstructure:"sample_size"`          // s, default 600-1500
-	RedundancyRate     float64 `mapstructure:"redundancy_rate"`      // β, default 2-3%
-	MinConfidence      float64 `mapstructure:"min_confidence"`       // Required detection probability
-	StratifiedSampling bool    `mapstructure:"stratified_sampling"`
-	AdaptiveEscalation bool    `mapstructure:"adaptive_escalation"`
+	SampleSize         int           `mapstructure:"sample_size"`     // s, default 600-1500
+	RedundancyRate     float64       `mapstructure:"redundancy_rate"` // β, default 2-3%
+	MinConfidence      float64       `mapstructure:"min_confidence"`  // Required detection probability
+	StratifiedSampling bool          `mapstructure:"stratified_sampling"`
+	AdaptiveEscalation bool          `mapstructure:"adaptive_escalation"`
 	FraudWindowTime    time.Duration `mapstructure:"fraud_window_time"` // ~3600s
 }
 
 // ASRConfig defines Auto-Selection Router parameters
 type ASRConfig struct {
-	TopK              int     `mapstructure:"top_k"`                // K, default 64
-	MaxQuota          float64 `mapstructure:"max_quota"`            // q_max, default 10-15%
-	ExplorationRate   float64 `mapstructure:"exploration_rate"`     // ε, default 5%
-	NewcomerBoost     float64 `mapstructure:"newcomer_boost"`       // Bonus for newcomers
-	PerformanceWindow int     `mapstructure:"performance_window"`   // Days to consider, 7-30
-	AntiCollusionEnabled bool `mapstructure:"anti_collusion_enabled"`
+	TopK                 int     `mapstructure:"top_k"`              // K, default 64
+	MaxQuota             float64 `mapstructure:"max_quota"`          // q_max, default 10-15%
+	ExplorationRate      float64 `mapstructure:"exploration_rate"`   // ε, default 5%
+	NewcomerBoost        float64 `mapstructure:"newcomer_boost"`     // Bonus for newcomers
+	PerformanceWindow    int     `mapstructure:"performance_window"` // Days to consider, 7-30
+	AntiCollusionEnabled bool    `mapstructure:"anti_collusion_enabled"`
 }
 
 // PPCConfig defines Posted Price Controller parameters
 type PPCConfig struct {
-	TargetUtilization float64 `mapstructure:"target_utilization"` // util*, default 0.7
-	TargetQueueTime   float64 `mapstructure:"target_queue_time"`  // q*, default 60s
-	Alpha             float64 `mapstructure:"alpha"`              // Price adjustment rate
-	Beta              float64 `mapstructure:"beta"`               // Queue weight
-	MinPrice          float64 `mapstructure:"min_price"`          // p_min
-	MaxPrice          float64 `mapstructure:"max_price"`          // p_max
+	TargetUtilization  float64       `mapstructure:"target_utilization"` // util*, default 0.7
+	TargetQueueTime    float64       `mapstructure:"target_queue_time"`  // q*, default 60s
+	Alpha              float64       `mapstructure:"alpha"`              // Price adjustment rate
+	Beta               float64       `mapstructure:"beta"`               // Queue weight
+	MinPrice           float64       `mapstructure:"min_price"`          // p_min
+	MaxPrice           float64       `mapstructure:"max_price"`          // p_max
 	AdjustmentInterval time.Duration `mapstructure:"adjustment_interval"`
 }
 
@@ -83,26 +83,26 @@ type DAConfig struct {
 
 // VRFConfig defines Verifiable Random Function parameters
 type VRFConfig struct {
-	DelayBlocks   int  `mapstructure:"delay_blocks"`   // k, ≥2 blocks
+	DelayBlocks   int  `mapstructure:"delay_blocks"` // k, ≥2 blocks
 	UseDelayedVRF bool `mapstructure:"use_delayed_vrf"`
 }
 
 // ConsensusConfig defines consensus parameters
 type ConsensusConfig struct {
 	BlockTime         time.Duration `mapstructure:"block_time"`
-	EpochLength       int           `mapstructure:"epoch_length"`      // Blocks per epoch
+	EpochLength       int           `mapstructure:"epoch_length"` // Blocks per epoch
 	MinValidatorStake string        `mapstructure:"min_validator_stake"`
 	MaxValidators     int           `mapstructure:"max_validators"`
-	SlashingRate      float64       `mapstructure:"slashing_rate"`     // For false pass
+	SlashingRate      float64       `mapstructure:"slashing_rate"`      // For false pass
 	FalsePassPenalty  int           `mapstructure:"false_pass_penalty"` // basis points, ≥500
 }
 
 // APIConfig defines API server settings
 type APIConfig struct {
-	Enabled    bool   `mapstructure:"enabled"`
-	ListenAddr string `mapstructure:"listen_addr"`
-	RPCPort    int    `mapstructure:"rpc_port"`
-	WSPort     int    `mapstructure:"ws_port"`
+	Enabled     bool     `mapstructure:"enabled"`
+	ListenAddr  string   `mapstructure:"listen_addr"`
+	RPCPort     int      `mapstructure:"rpc_port"`
+	WSPort      int      `mapstructure:"ws_port"`
 	CORSOrigins []string `mapstructure:"cors_origins"`
 }
 

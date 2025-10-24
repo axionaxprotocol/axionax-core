@@ -15,10 +15,10 @@ var (
 	BuildTime = "unknown"
 
 	// Global flags
-	cfgFile    string
-	dataDir    string
-	logLevel   string
-	networkID  string
+	cfgFile   string
+	dataDir   string
+	logLevel  string
+	networkID string
 )
 
 func main() {
@@ -71,7 +71,7 @@ func startCmd() *cobra.Command {
 			fmt.Printf("📂 Data directory: %s\n", dataDir)
 			fmt.Printf("🌐 Network: %s\n", networkID)
 			fmt.Printf("🔌 RPC address: %s\n", rpcAddr)
-			
+
 			// Load configuration
 			cfg, err := config.LoadConfig(cfgFile)
 			if err != nil {

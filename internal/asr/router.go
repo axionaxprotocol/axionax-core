@@ -84,7 +84,7 @@ func (r *Router) SelectWorker(job *types.Job, vrfSeed common.Hash) (*types.Worke
 
 	// VRF-weighted selection from top K
 	selected := r.vrfWeightedSelection(candidates, vrfSeed)
-	
+
 	// Update quota
 	selected.Worker.QuotaUsed += 1.0 / float64(len(r.workers))
 

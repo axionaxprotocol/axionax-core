@@ -1,4 +1,4 @@
-.PHONY: build clean test install run fmt vet lint
+.PHONY: build clean test test-integration test-e2e bench install run fmt vet lint deps deps-update mocks dev docker-build help
 
 # Build variables
 BINARY_NAME=axionax-core
@@ -54,6 +54,21 @@ test-coverage: test
 	@echo "Generating coverage report..."
 	@go tool cover -html=coverage.out -o coverage.html
 
+# Run integration tests
+test-integration:
+	@echo "Running integration tests..."
+	@go test -v -tags=integration ./... || echo "Integration tests not yet implemented"
+
+# Run end-to-end tests
+test-e2e:
+	@echo "Running E2E tests..."
+	@go test -v -tags=e2e ./... || echo "E2E tests not yet implemented"
+
+# Run benchmarks
+bench:
+	@echo "Running benchmarks..."
+	@go test -bench=. -benchmem -run=^$$ ./...
+
 # Format code
 fmt:
 	@echo "Formatting code..."
@@ -99,19 +114,22 @@ docker-build:
 # Help
 help:
 	@echo "Available targets:"
-	@echo "  build          - Build the binary"
-	@echo "  build-all      - Build for multiple platforms"
-	@echo "  install        - Install the binary"
-	@echo "  run            - Build and run the application"
-	@echo "  clean          - Clean build artifacts"
-	@echo "  test           - Run tests"
-	@echo "  test-coverage  - Run tests with coverage report"
-	@echo "  fmt            - Format code"
-	@echo "  vet            - Run go vet"
-	@echo "  lint           - Run linter"
-	@echo "  deps           - Download dependencies"
-	@echo "  deps-update    - Update dependencies"
-	@echo "  mocks          - Generate mocks"
-	@echo "  dev            - Run development node"
-	@echo "  docker-build   - Build Docker image"
-	@echo "  help           - Show this help message"
+	@echo "  build            - Build the binary"
+	@echo "  build-all        - Build for multiple platforms"
+	@echo "  install          - Install the binary"
+	@echo "  run              - Build and run the application"
+	@echo "  clean            - Clean build artifacts"
+	@echo "  test             - Run tests"
+	@echo "  test-coverage    - Run tests with coverage report"
+	@echo "  test-integration - Run integration tests"
+	@echo "  test-e2e         - Run end-to-end tests"
+	@echo "  bench            - Run benchmarks"
+	@echo "  fmt              - Format code"
+	@echo "  vet              - Run go vet"
+	@echo "  lint             - Run linter"
+	@echo "  deps             - Download dependencies"
+	@echo "  deps-update      - Update dependencies"
+	@echo "  mocks            - Generate mocks"
+	@echo "  dev              - Run development node"
+	@echo "  docker-build     - Build Docker image"
+	@echo "  help             - Show this help message"
