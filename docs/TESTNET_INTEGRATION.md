@@ -11,13 +11,14 @@ cd Axionax_v1.5_Testnet_in_a_Box
 docker compose up -d
 ```
 
-### 2. Connect to Anvil RPC
+### 2. Connect to Testnet RPC
 
 The testnet exposes the following endpoints:
 
 - **RPC**: http://localhost:8545
-- **Chain ID**: 31337
+- **Chain ID**: 86137 (Axionax Testnet)
 - **Explorer**: http://localhost:4001
+- **Note**: For local dev, legacy chain ID 31337 may still be used
 
 ### 3. Configure Axionax Core
 

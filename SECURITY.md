@@ -1,16 +1,84 @@
-# Security Policy
+# 🛡️ Security Policy
 
-## Reporting a Vulnerability
+## 🚨 Official Axionax Networks
+
+### ✅ Testnet (Active)
+
+```yaml
+Network Name: Axionax Testnet
+Chain ID:     86137
+Genesis Hash: [To be published after deployment]
+Status:       ACTIVE (v1.6)
+
+RPC Endpoints:
+  - https://testnet-rpc.axionax.io
+  - wss://testnet-ws.axionax.io
+
+Block Explorer:
+  - https://testnet-explorer.axionax.io
+
+Faucet:
+  - https://testnet-faucet.axionax.io
+```
+
+**Testnet Purpose:**
+- Test v1.6 multi-language architecture (Rust/Python/TypeScript)
+- Validate PoPC consensus and ASR mechanisms
+- Community stress testing
+- Developer dApp experimentation
+
+**Testnet Tokens:**
+- Symbol: tAXX (test tokens only)
+- NO economic value
+- Free from official faucet
+
+### 🚧 Mainnet (NOT LAUNCHED)
+
+```yaml
+Status:          NOT LAUNCHED
+Launch Date:     TBD (Q3-Q4 2025 estimated)
+Announcement:    https://axionax.io/mainnet-launch
+Reserved Chain ID: 86150
+```
+
+⚠️ **CRITICAL WARNING:**
+
+**ANY network claiming to be "Axionax Mainnet" is a SCAM until officially announced.**
+
+**How to verify official launch:**
+1. ✅ Announcement on https://axionax.io
+2. ✅ Confirmed on Twitter: @AxionaxProtocol
+3. ✅ Posted in Discord: https://discord.gg/axionax
+4. ✅ Genesis hash published in this repository
+5. ✅ Signed with foundation PGP key
+
+**Mainnet launch will include:**
+- Security audit reports (consensus, cryptography, smart contracts)
+- Genesis block specification with official hash
+- Validator requirements and whitelist
+- Token distribution details (no pre-sales)
+- Governance framework
+
+**RED FLAGS for FAKE mainnet:**
+- 🚩 No announcement on axionax.io
+- 🚩 Different chain ID than 86150
+- 🚩 No genesis hash in GitHub
+- 🚩 Promises of "early access tokens"
+- 🚩 Requests for private keys
+- 🚩 Unofficial RPC endpoints
+
+---
+
+## 🔒 Reporting Security Issues
+
+### Vulnerability Disclosure
 
 The Axionax team takes security vulnerabilities seriously. We appreciate your efforts to responsibly disclose your findings.
 
-### How to Report
-
 **Please DO NOT file a public issue for security vulnerabilities.**
 
-Instead, please report security issues to:
-- **Email**: security@axionax.io
-- **PGP Key**: [Available on our website](https://axionax.io/security.asc)
+**Report to:** security@axionax.io  
+**PGP Key:** https://axionax.io/security.asc
 
 ### What to Include
 
@@ -24,19 +92,98 @@ When reporting a vulnerability, please include:
 
 ### Response Timeline
 
-- **Initial Response**: Within 48 hours
-- **Status Update**: Within 7 days
-- **Resolution Timeline**: Varies based on severity
-  - Critical: 7-14 days
-  - High: 14-30 days
-  - Medium: 30-60 days
-  - Low: 60-90 days
+- **Critical**: Within 24 hours (v1.6+)
+- **High**: Within 72 hours
+- **Medium**: Within 1 week
+- **Low**: Within 2 weeks
 
-### Disclosure Policy
+**Bug Bounty:** Coming soon (Q2 2025)
 
-- We request that you give us reasonable time to address the issue before public disclosure
-- We will credit security researchers in our release notes (unless you prefer to remain anonymous)
-- We may offer bug bounties for significant vulnerabilities (details TBA)
+---
+
+## 🎣 Reporting Network Impersonation
+
+### Clone Networks / Fake Mainnets
+
+If you discover networks impersonating Axionax:
+
+**Email:** security@axionax.io
+
+**Include:**
+- Chain ID and genesis hash
+- RPC URL and website
+- Screenshots of branding
+- Social media accounts
+- Date discovered
+
+**Examples of impersonation:**
+- Networks claiming to be "Axionax Official Mainnet"
+- Using "AXX" token symbol without authorization
+- Copying Axionax branding and logo
+- Fake validator recruitment programs
+- Phishing websites mimicking axionax.io
+
+### Fake Token Listings
+
+**Official token status:**
+- ❌ NOT yet listed on any exchange
+- ❌ NO pre-sales or "early access"
+- ✅ Will be announced ONLY on axionax.io when ready
+
+**Report fake tokens:**
+1. security@axionax.io (priority)
+2. Platform's fraud department
+3. Discord #security channel
+
+**Platforms to verify:**
+- CoinMarketCap: No official listing yet
+- CoinGecko: No official listing yet
+- Uniswap: No official pool yet
+
+---
+
+## 🔍 Verifying Network Authenticity
+
+### Official Domains
+
+✅ **Legitimate:**
+- axionax.io
+- axionax.com  
+- github.com/axionaxprotocol
+
+🚩 **Common phishing patterns:**
+- axionax.co (missing 'm')
+- axionax-network.com
+- axionax-official.io
+- axionaxtoken.com
+
+### Verify Genesis Hash
+
+```bash
+# Check testnet genesis
+axionax-cli verify-genesis --chain-id 86137
+
+# Expected output:
+# Chain ID: 86137
+# Genesis Hash: 0x[official hash from GitHub]
+# Status: ✅ VERIFIED
+
+# WARNING if mismatch:
+# ⚠️ Genesis mismatch - possible fake network
+```
+
+### Verify Network Parameters
+
+```bash
+# Get network info
+axionax-cli network-info
+
+# Should display:
+# Network: Axionax Testnet
+# Chain ID: 86137
+# Version: v1.6.0
+# Genesis: 0x[official]
+```
 
 ---
 

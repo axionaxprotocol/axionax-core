@@ -122,7 +122,7 @@ func DefaultConfig() *Config {
 			DataDir:  ".axionax",
 			LogLevel: "info",
 			Mode:     "full",
-			ChainID:  31337,
+			ChainID:  86137, // Axionax Testnet (AXI testnet)
 			SyncMode: "full",
 		},
 		Network: NetworkConfig{

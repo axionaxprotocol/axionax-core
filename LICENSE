@@ -1,21 +1,89 @@
-MIT License
+GNU AFFERO GENERAL PUBLIC LICENSE
+Version 3, 19 November 2007
 
-Copyright (c) 2025 Axionax
+Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>
+Everyone is permitted to copy and distribute verbatim copies
+of this license document, but changing it is not allowed.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+                            Preamble
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+  The GNU Affero General Public License is a free, copyleft license for
+software and other kinds of works, specifically designed to ensure
+cooperation with the community in the case of network server software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+[Full AGPLv3 text: https://www.gnu.org/licenses/agpl-3.0.txt]
+
+===================================================================
+ADDITIONAL TERMS FOR AXIONAX NETWORK (per AGPLv3 Section 7)
+===================================================================
+
+Copyright (c) 2025 Axionax Protocol
+
+These additional terms supplement the GNU Affero General Public License v3.0:
+
+1. TRADEMARK RESTRICTION
+   The names "Axionax", "Axionax Protocol", "AXX Token", the Axionax logo,
+   and all related trademarks are the exclusive property of Axionax Foundation.
+   
+   Use of these marks requires explicit written permission from:
+   legal@axionax.io
+   
+   This restriction does NOT apply to:
+   - Factual references in documentation
+   - Academic or research purposes
+   - Fair use commentary
+
+2. MAINNET LAUNCH RESTRICTION
+   This software may be used to operate:
+   ✅ Development networks (chain ID 1337, 31337, etc.)
+   ✅ Private testing networks
+   ✅ Academic research networks
+   ✅ Contributing to the official Axionax project
+   
+   ❌ PROHIBITED without explicit authorization:
+   - Launching public mainnets with economic tokens claiming to be "Axionax"
+   - Operating networks that could confuse users with the official Axionax Network
+   - Creating token systems branded as "AXX" or "Axionax Token"
+   
+   Authorization requests: mainnet-auth@axionax.io
+
+3. CHAIN IDENTITY REQUIREMENT
+   Any modified version or fork MUST:
+   - Use a different chain ID than official Axionax networks
+   - Use a different genesis hash
+   - Clearly identify itself as a derivative work
+   - NOT misrepresent itself as the official Axionax Network
+   
+   Official chain IDs:
+   - Testnet: 86137 (AXI testnet)
+   - Mainnet: 86150 (reserved, not yet launched)
+
+4. NETWORK COMPATIBILITY
+   Forks and derivatives must implement clear differentiation:
+   - Different network name in all user-facing interfaces
+   - Different token symbol if implementing a token
+   - Warning to users that it is NOT the official Axionax Network
+   
+5. ENFORCEMENT
+   Violation of these additional terms may result in:
+   - Revocation of authorization to use this software
+   - Legal action for trademark infringement
+   - DMCA takedown requests
+   - Community warnings and blacklisting
+   
+   Report violations: security@axionax.io
+
+6. OFFICIAL NETWORK REGISTRY
+   Verify authentic Axionax networks at:
+   https://axionax.io/networks
+   
+   Any network not listed there is NOT officially endorsed.
+
+===================================================================
+
+For questions about these terms:
+- Legal inquiries: legal@axionax.io
+- Technical questions: dev@axionax.io
+- Security reports: security@axionax.io
+
+Last updated: October 24, 2025

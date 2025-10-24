@@ -279,6 +279,74 @@ Phase 1: v1.6 Multi-Language Core (Q4'25)
 
 ## ⚠️ ความเสี่ยงและความท้าทาย | Risks and Challenges
 
+### 🔒 Security Risks (UPDATED Oct 24, 2025)
+
+#### ✅ MITIGATED: License & Legal Protection
+- **Risk**: Fork and unauthorized mainnet launch
+- **Status**: RESOLVED
+- **Mitigation**: 
+  - Changed license to AGPLv3 + Custom Protection Clause
+  - Added mainnet launch restrictions
+  - Trademark protection terms
+  - Chain identity requirements
+- **Files**: [LICENSE](./LICENSE), [LICENSE_NOTICE.md](./LICENSE_NOTICE.md)
+
+#### ✅ MITIGATED: Chain Identity Protection
+- **Risk**: Fake networks impersonating Axionax
+- **Status**: RESOLVED
+- **Mitigation**:
+  - Unique chain IDs (86137 testnet, 86150 mainnet)
+  - Genesis hash verification module
+  - Official network registry
+- **Files**: [pkg/genesis/genesis.go](./pkg/genesis/genesis.go), [SECURITY.md](./SECURITY.md)
+
+#### 🟡 ACTIVE: Technology Stack Maturity
+- **Risk**: Rust/Python/TypeScript integration stability
+- **Status**: ONGOING
+- **Mitigation**:
+  - Comprehensive testing (20/20 tests passing)
+  - Performance benchmarks
+  - PyO3 overhead monitoring < 10%
+- **Timeline**: Continued monitoring through Q1-Q2 2025
+
+#### 🟡 ACTIVE: Network Layer Implementation
+- **Risk**: libp2p, RocksDB, JSON-RPC complexity
+- **Status**: PLANNED
+- **Mitigation**: 
+  - Phased implementation (v1.7-v1.8)
+  - Incremental testing
+  - Security audits before mainnet
+- **Timeline**: Q1 2025
+
+### 🔐 Security Roadmap
+
+| Milestone | Status | Target Date |
+|-----------|--------|-------------|
+| License Protection | ✅ Complete | Oct 24, 2025 |
+| Chain ID Assignment | ✅ Complete | Oct 24, 2025 |
+| Genesis Verification | ✅ Complete | Oct 24, 2025 |
+| Security Documentation | ✅ Complete | Oct 24, 2025 |
+| Official Network Registry | 🚧 Planned | Nov 2025 |
+| Binary Signing System | 🚧 Planned | Nov 2025 |
+| Trademark Registration | 🚧 Planned | Q4 2025 |
+| Bootstrap Nodes Setup | 🚧 Planned | Dec 2025 |
+| Security Audit (Consensus) | 📋 Scheduled | Q1 2026 |
+| Security Audit (Crypto) | 📋 Scheduled | Q2 2026 |
+| Bug Bounty Program | 📋 Scheduled | Q2 2026 |
+| Mainnet Security Review | 📋 Scheduled | Q3 2026 |
+
+### 🛡️ Current Threat Level: **MODERATE**
+
+| Threat Type | Risk Level | Mitigation Status |
+|-------------|------------|-------------------|
+| Unauthorized fork/mainnet | ~~HIGH~~ **LOW** | ✅ License + Chain ID |
+| Network impersonation | ~~HIGH~~ **MODERATE** | ✅ Genesis verification |
+| Phishing/social engineering | HIGH | 🚧 User education needed |
+| Consensus attacks | MODERATE | 📋 Audit scheduled |
+| Smart contract bugs | MODERATE | 📋 Testnet phase |
+
+---
+
 ### � Mitigated Risks
 
 1. **การเลือกเทคโนโลยี** ✅ Resolved

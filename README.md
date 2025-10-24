@@ -2,12 +2,27 @@
 
 > Layer-1 blockchain for decentralized compute with PoPC consensus, ASR auto-selection, and DeAI security
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: AGPLv3](https://img.shields.io/badge/License-AGPLv3-blue.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/version-1.6.0--dev-blue)](https://github.com/axionaxprotocol/axionax-core/releases)
 [![Status](https://img.shields.io/badge/status-development-orange)](https://github.com/axionaxprotocol/axionax-core/projects)
 [![Rust](https://img.shields.io/badge/Rust-80%25-orange)](https://www.rust-lang.org/)
 [![Python](https://img.shields.io/badge/Python-10%25-blue)](https://www.python.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-10%25-blue)](https://www.typescriptlang.org/)
+
+## 🚨 SECURITY WARNING
+
+⚠️ **This is TESTNET code. Mainnet has NOT launched.**
+
+**Official Networks:**
+- **Testnet**: Chain ID `86137` (active for testing)
+- **Mainnet**: Chain ID `86150` (reserved, not launched)
+
+**ANY network claiming to be "Axionax Mainnet" is a SCAM. Verify at:**
+- 🌐 https://axionax.io/networks
+- 📄 [SECURITY.md](./SECURITY.md)
+- 📜 [LICENSE_NOTICE.md](./LICENSE_NOTICE.md)
+
+---
 
 ## 🎯 Vision
 
