@@ -4,11 +4,11 @@ contact_links:
     url: https://discord.gg/axionax
     about: Join our Discord for questions and discussions
   - name: 📖 Documentation
-    url: https://docs.axionax.io
+    url: https://docs.axionax.org
     about: Check our documentation for guides and references
   - name: 🔒 Security Vulnerability
-    url: mailto:security@axionax.io
+    url: mailto:security@axionax.org
     about: Report security vulnerabilities privately via email
   - name: 🏛️ Governance Forum
-    url: https://forum.axionax.io
+    url: https://forum.axionax.org
     about: Discuss protocol governance and proposals

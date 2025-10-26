@@ -402,7 +402,7 @@ We pledge to make participation in our project a harassment-free experience for 
 
 ### Enforcement
 
-Instances of abusive, harassing, or otherwise unacceptable behavior may be reported to conduct@axionax.io. All complaints will be reviewed and investigated promptly and fairly.
+Instances of abusive, harassing, or otherwise unacceptable behavior may be reported to conduct@axionax.org. All complaints will be reviewed and investigated promptly and fairly.
 
 ---
 
@@ -411,7 +411,7 @@ Instances of abusive, harassing, or otherwise unacceptable behavior may be repor
 ### Communication Channels
 
 - **Discord**: https://discord.gg/axionax
-- **Forum**: https://forum.axionax.io
+- **Forum**: https://forum.axionax.org
 - **Twitter**: @axionaxprotocol
 - **Telegram**: https://t.me/axionax
 
@@ -441,6 +441,6 @@ Every contribution, no matter how small, makes a difference. We appreciate your 
 
 ---
 
-**Questions?** Reach out in Discord or email dev@axionax.io
+**Questions?** Reach out in Discord or email dev@axionax.org
 
 Last Updated: 2025-01-21 | v1.5.0

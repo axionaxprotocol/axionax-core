@@ -18,7 +18,7 @@
 - **Mainnet**: Chain ID `86150` (reserved, not launched)
 
 **ANY network claiming to be "Axionax Mainnet" is a SCAM. Verify at:**
-- 🌐 https://axionax.io/networks
+- 🌐 https://axionax.org/networks
 - 📄 [SECURITY.md](./SECURITY.md)
 - 📜 [LICENSE_NOTICE.md](./LICENSE_NOTICE.md)
 
@@ -246,7 +246,7 @@ Key security mechanisms:
 - **Fraud-Proof Window** with validator accountability
 - **DA Pre-commit** with live audits
 
-🐛 **Found a vulnerability?** Please report to security@axionax.io (PGP key available)
+🐛 **Found a vulnerability?** Please report to security@axionax.org (PGP key available)
 
 ## 🤝 Contributing
 
@@ -266,8 +266,8 @@ This project is licensed under the MIT License - see the [LICENSE](./LICENSE) fi
 
 ## 🔗 Links
 
-- **Website**: https://axionax.io
-- **Documentation**: https://docs.axionax.io
+- **Website**: https://axionax.org
+- **Documentation**: https://docs.axionax.org
 - **Discord**: https://discord.gg/axionax
 - **Twitter**: https://twitter.com/axionaxprotocol
 - **Telegram**: https://t.me/axionax

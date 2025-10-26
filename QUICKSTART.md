@@ -371,7 +371,7 @@ docker compose up -d
 
 ## 🆘 Getting Help
 
-- **Documentation:** https://docs.axionax.io
+- **Documentation:** https://docs.axionax.org
 - **GitHub Issues:** https://github.com/axionaxprotocol/axionax-core/issues
 - **Discord:** https://discord.gg/axionax
 - **Telegram:** https://t.me/axionax

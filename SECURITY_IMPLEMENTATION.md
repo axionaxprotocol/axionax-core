@@ -137,8 +137,8 @@ var OfficialNetworks = map[uint64]NetworkInfo{
         ChainID:     TestnetChainID,
         Name:        "Axionax Testnet",
         Status:      "active",
-        RPCEndpoint: "https://testnet-rpc.axionax.io",
-        Explorer:    "https://testnet-explorer.axionax.io",
+        RPCEndpoint: "https://testnet-rpc.axionax.org",
+        Explorer:    "https://testnet-explorer.axionax.org",
     },
     MainnetChainID: {
         ChainID: MainnetChainID,
@@ -185,7 +185,7 @@ if err := genesis.VerifyGenesisBlock(chainID, genesisHash); err != nil {
 - **Mainnet**: Chain ID `86150` (reserved, not launched)
 
 **ANY network claiming to be "Axionax Mainnet" is a SCAM. Verify at:**
-- 🌐 https://axionax.io/networks
+- 🌐 https://axionax.org/networks
 - 📄 SECURITY.md
 - 📜 LICENSE_NOTICE.md
 ```
@@ -378,9 +378,9 @@ graph TD
 
 ### Reporting Channels
 
-**Security Issues:** security@axionax.io  
-**Impersonation:** security@axionax.io  
-**Trademark Violations:** legal@axionax.io  
+**Security Issues:** security@axionax.org  
+**Impersonation:** security@axionax.org  
+**Trademark Violations:** legal@axionax.org  
 **Community Discord:** #security channel
 
 ### Response Process
@@ -423,7 +423,7 @@ graph TD
    - Any other ID is NOT official
 
 3. **"Check official sources"**
-   - axionax.io website
+   - axionax.org website
    - GitHub repository
    - Official Discord
    - Official Twitter
@@ -441,11 +441,11 @@ For users to verify official Axionax networks:
 
 - [ ] Chain ID matches official spec (86137 or 86150)
 - [ ] Genesis hash published in GitHub repository
-- [ ] Listed on https://axionax.io/networks
+- [ ] Listed on https://axionax.org/networks
 - [ ] Confirmed on official Discord
 - [ ] Announced on official Twitter
-- [ ] RPC endpoint uses axionax.io domain
-- [ ] Explorer uses axionax.io domain
+- [ ] RPC endpoint uses axionax.org domain
+- [ ] Explorer uses axionax.org domain
 
 **If ANY check fails → NOT official Axionax**
 

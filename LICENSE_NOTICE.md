@@ -28,7 +28,7 @@ with additional terms to protect the Axionax Network and community.
 - ✅ Academic research and education
 - ✅ Contributing to the official Axionax project
 
-**Contact for authorization:** legal@axionax.io
+**Contact for authorization:** legal@axionax.org
 
 ---
 
@@ -49,7 +49,7 @@ This codebase may be used for:
 - Ensures quality and security standards
 - Maintains ecosystem integrity
 
-**Request authorization:** mainnet-auth@axionax.io
+**Request authorization:** mainnet-auth@axionax.org
 
 ---
 
@@ -164,18 +164,18 @@ Buy AXX tokens now! Only $0.01 each!
 ## 📞 Contact & Reporting
 
 ### Authorization Requests
-- **Mainnet launch:** mainnet-auth@axionax.io
-- **Trademark usage:** legal@axionax.io
+- **Mainnet launch:** mainnet-auth@axionax.org
+- **Trademark usage:** legal@axionax.org
 
 ### Security Issues
-- **Vulnerabilities:** security@axionax.io
-- **Impersonation/clones:** security@axionax.io
-- **PGP key:** https://axionax.io/pgp-key.asc
+- **Vulnerabilities:** security@axionax.org
+- **Impersonation/clones:** security@axionax.org
+- **PGP key:** https://axionax.org/pgp-key.asc
 
 ### Community
 - **Discord:** https://discord.gg/axionax
-- **Forum:** https://forum.axionax.io
-- **Governance:** https://gov.axionax.io
+- **Forum:** https://forum.axionax.org
+- **Governance:** https://gov.axionax.org
 
 ---
 
@@ -184,7 +184,7 @@ Buy AXX tokens now! Only $0.01 each!
 **Before connecting to any "Axionax" network:**
 
 1. **Check the official registry:**
-   https://axionax.io/networks
+   https://axionax.org/networks
 
 2. **Verify genesis hash:**
    ```bash
@@ -192,11 +192,11 @@ Buy AXX tokens now! Only $0.01 each!
    ```
 
 3. **Confirm on official channels:**
-   - Website: https://axionax.io
+   - Website: https://axionax.org
    - Twitter: @AxionaxProtocol
    - Discord: https://discord.gg/axionax
 
-**🚨 WARNING:** Any network NOT listed on https://axionax.io/networks is **UNOFFICIAL** and potentially fraudulent.
+**🚨 WARNING:** Any network NOT listed on https://axionax.org/networks is **UNOFFICIAL** and potentially fraudulent.
 
 ---
 
@@ -235,7 +235,7 @@ These restrictions do NOT prevent:
 
 We believe in open source AND protecting our community from fraud.
 
-**Questions?** legal@axionax.io
+**Questions?** legal@axionax.org
 
 ---
 

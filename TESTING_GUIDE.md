@@ -405,7 +405,7 @@ docker compose logs blockscout
 
 ## 🆘 ต้องการความช่วยเหลือ?
 
-- **Documentation:** https://docs.axionax.io
+- **Documentation:** https://docs.axionax.org
 - **GitHub:** https://github.com/axionaxprotocol/axionax-core
 - **Discord:** https://discord.gg/axionax
 

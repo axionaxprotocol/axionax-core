@@ -4,8 +4,8 @@
 
 ### 1. อัพเกรด Nginx Configuration (reverse-proxy/nginx.conf)
 - ✅ แยก certificate paths ต่อโดเมน:
-  - `axionax.io` → `/etc/nginx/certs/axionax.io/`
-  - `testnet.axionax.io` → `/etc/nginx/certs/testnet.axionax.io/`
+  - `axionax.org` → `/etc/nginx/certs/axionax.org/`
+  - `testnet.axionax.org` → `/etc/nginx/certs/testnet.axionax.org/`
   - Fallback (localhost) → `/etc/nginx/certs/`
 
 - ✅ เพิ่ม Rate Limiting:
@@ -20,8 +20,8 @@
 
 - ✅ ตรึง CORS:
   - localhost/127.0.0.1 (สำหรับทดสอบ)
-  - https://axionax.io
-  - https://testnet.axionax.io
+  - https://axionax.org
+  - https://testnet.axionax.org
 
 - ✅ ปรับ Webroot สำหรับ Certbot:
   - HTTP-01 challenge path: `/.well-known/acme-challenge/`
@@ -29,8 +29,8 @@
 
 ### 2. โครงสร้างใบรับรอง
 - ✅ สร้างโฟลเดอร์:
-  - `reverse-proxy/certs/axionax.io/`
-  - `reverse-proxy/certs/testnet.axionax.io/`
+  - `reverse-proxy/certs/axionax.org/`
+  - `reverse-proxy/certs/testnet.axionax.org/`
 
 - ✅ สร้าง script สร้าง self-signed certs:
   - `scripts/gen_domain_certs.ps1`
@@ -47,10 +47,10 @@
 # 1. เปิด Docker Desktop
 # 2. คัดลอกใบรับรองไปยังโฟลเดอร์ต่อโดเมน
 cd "c:\Users\kong\Desktop\Axionax_v1.5_Testnet_in_a_Box\reverse-proxy\certs"
-copy fullchain.pem axionax.io\fullchain.pem
-copy privkey.pem axionax.io\privkey.pem
-copy fullchain.pem testnet.axionax.io\fullchain.pem
-copy privkey.pem testnet.axionax.io\privkey.pem
+copy fullchain.pem axionax.org\fullchain.pem
+copy privkey.pem axionax.org\privkey.pem
+copy fullchain.pem testnet.axionax.org\fullchain.pem
+copy privkey.pem testnet.axionax.org\privkey.pem
 ```
 
 ### ขั้นตอนที่ 2: ทดสอบ Nginx Syntax
@@ -113,8 +113,8 @@ curl.exe -k -s -H "content-type: application/json" -d "{\"jsonrpc\":\"2.0\",\"id
 ### CORS Configuration
 ปัจจุบัน CORS อนุญาต:
 - `localhost` และ `127.0.0.1` (ทุกพอร์ต)
-- `https://axionax.io`
-- `https://testnet.axionax.io`
+- `https://axionax.org`
+- `https://testnet.axionax.org`
 
 ### Rate Limiting
 - **/rpc/**: 30 req/s, burst 10 (ป้องกัน spam RPC)

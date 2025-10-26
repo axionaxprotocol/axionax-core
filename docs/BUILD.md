@@ -311,6 +311,6 @@ See [CONTRIBUTING.md](../CONTRIBUTING.md) for development workflow and guideline
 
 ## Support
 
-- **Documentation**: https://docs.axionax.io
+- **Documentation**: https://docs.axionax.org
 - **Discord**: https://discord.gg/axionax
 - **GitHub Issues**: https://github.com/axionaxprotocol/axionax-core/issues

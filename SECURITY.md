@@ -11,14 +11,14 @@ Genesis Hash: [To be published after deployment]
 Status:       ACTIVE (v1.6)
 
 RPC Endpoints:
-  - https://testnet-rpc.axionax.io
-  - wss://testnet-ws.axionax.io
+  - https://testnet-rpc.axionax.org
+  - wss://testnet-ws.axionax.org
 
 Block Explorer:
-  - https://testnet-explorer.axionax.io
+  - https://testnet-explorer.axionax.org
 
 Faucet:
-  - https://testnet-faucet.axionax.io
+  - https://testnet-faucet.axionax.org
 ```
 
 **Testnet Purpose:**
@@ -37,7 +37,7 @@ Faucet:
 ```yaml
 Status:          NOT LAUNCHED
 Launch Date:     TBD (Q3-Q4 2025 estimated)
-Announcement:    https://axionax.io/mainnet-launch
+Announcement:    https://axionax.org/mainnet-launch
 Reserved Chain ID: 86150
 ```
 
@@ -46,7 +46,7 @@ Reserved Chain ID: 86150
 **ANY network claiming to be "Axionax Mainnet" is a SCAM until officially announced.**
 
 **How to verify official launch:**
-1. ✅ Announcement on https://axionax.io
+1. ✅ Announcement on https://axionax.org
 2. ✅ Confirmed on Twitter: @AxionaxProtocol
 3. ✅ Posted in Discord: https://discord.gg/axionax
 4. ✅ Genesis hash published in this repository
@@ -60,7 +60,7 @@ Reserved Chain ID: 86150
 - Governance framework
 
 **RED FLAGS for FAKE mainnet:**
-- 🚩 No announcement on axionax.io
+- 🚩 No announcement on axionax.org
 - 🚩 Different chain ID than 86150
 - 🚩 No genesis hash in GitHub
 - 🚩 Promises of "early access tokens"
@@ -77,8 +77,8 @@ The Axionax team takes security vulnerabilities seriously. We appreciate your ef
 
 **Please DO NOT file a public issue for security vulnerabilities.**
 
-**Report to:** security@axionax.io  
-**PGP Key:** https://axionax.io/security.asc
+**Report to:** security@axionax.org  
+**PGP Key:** https://axionax.org/security.asc
 
 ### What to Include
 
@@ -107,7 +107,7 @@ When reporting a vulnerability, please include:
 
 If you discover networks impersonating Axionax:
 
-**Email:** security@axionax.io
+**Email:** security@axionax.org
 
 **Include:**
 - Chain ID and genesis hash
@@ -121,17 +121,17 @@ If you discover networks impersonating Axionax:
 - Using "AXX" token symbol without authorization
 - Copying Axionax branding and logo
 - Fake validator recruitment programs
-- Phishing websites mimicking axionax.io
+- Phishing websites mimicking axionax.org
 
 ### Fake Token Listings
 
 **Official token status:**
 - ❌ NOT yet listed on any exchange
 - ❌ NO pre-sales or "early access"
-- ✅ Will be announced ONLY on axionax.io when ready
+- ✅ Will be announced ONLY on axionax.org when ready
 
 **Report fake tokens:**
-1. security@axionax.io (priority)
+1. security@axionax.org (priority)
 2. Platform's fraud department
 3. Discord #security channel
 
@@ -147,7 +147,7 @@ If you discover networks impersonating Axionax:
 ### Official Domains
 
 ✅ **Legitimate:**
-- axionax.io
+- axionax.org
 - axionax.com  
 - github.com/axionaxprotocol
 
@@ -432,7 +432,7 @@ We plan to launch a bug bounty program before mainnet with rewards for:
 - Medium severity: Up to $10,000
 - Low severity: Up to $1,000
 
-Details will be published at: https://axionax.io/bounty
+Details will be published at: https://axionax.org/bounty
 
 ---
 
@@ -442,7 +442,7 @@ Details will be published at: https://axionax.io/bounty
 - **Security Advisory**: https://github.com/axionaxprotocol/axionax-core/security/advisories
 - **Discord #security**: https://discord.gg/axionax
 - **Twitter**: @axionaxprotocol
-- **Email Newsletter**: Subscribe at https://axionax.io
+- **Email Newsletter**: Subscribe at https://axionax.org
 
 ### Update Policy
 - Critical patches: Released immediately
@@ -453,9 +453,9 @@ Details will be published at: https://axionax.io/bounty
 
 ## Contact
 
-- **General Security**: security@axionax.io
-- **PGP Key**: https://axionax.io/security.asc
-- **Security Page**: https://axionax.io/security
+- **General Security**: security@axionax.org
+- **PGP Key**: https://axionax.org/security.asc
+- **Security Page**: https://axionax.org/security
 
 ---
 

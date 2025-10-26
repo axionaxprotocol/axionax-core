@@ -381,7 +381,7 @@ Phase 1: v1.6 Multi-Language Core (Q4'25)
 
 - **Dev Lead**: TBD
 - **Architecture Team**: TBD
-- **Security Team**: security@axionax.io
+- **Security Team**: security@axionax.org
 
 ### Communication Channels
 

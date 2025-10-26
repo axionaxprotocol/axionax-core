@@ -1,7 +1,7 @@
 # Generate self-signed certificates for each domain
 # Usage: .\gen_domain_certs.ps1
 
-$domains = @("axionax.io", "testnet.axionax.io")
+$domains = @("axionax.org", "testnet.axionax.org")
 $certsRoot = "$PSScriptRoot\..\reverse-proxy\certs"
 
 foreach ($domain in $domains) {

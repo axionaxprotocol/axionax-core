@@ -28,7 +28,7 @@ func main() {
 		Long: `Axionax Core v1.5
 Layer-1 blockchain with PoPC consensus, ASR auto-selection, and DeAI security.
 
-Complete documentation is available at https://docs.axionax.io`,
+Complete documentation is available at https://docs.axionax.org`,
 		Version: fmt.Sprintf("%s (commit: %s, built: %s)", Version, Commit, BuildTime),
 	}
 

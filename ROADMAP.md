@@ -315,7 +315,7 @@ This roadmap is living document. We follow agile principles:
 
 - **GitHub Projects**: https://github.com/axionaxprotocol/axionax-core/projects
 - **Discord**: https://discord.gg/axionax
-- **Blog**: https://blog.axionax.io
+- **Blog**: https://blog.axionax.org
 - **Twitter**: @axionaxprotocol
 
 ---

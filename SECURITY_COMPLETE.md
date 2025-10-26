@@ -247,7 +247,7 @@ ANY network claiming to be "Axionax Mainnet" is a SCAM.
 ## 📞 Contact & Resources
 
 ### Security Team
-- **Email:** security@axionax.io
+- **Email:** security@axionax.org
 - **Discord:** #security channel
 - **GitHub:** Issues with `security` label
 
@@ -259,7 +259,7 @@ ANY network claiming to be "Axionax Mainnet" is a SCAM.
 - [pkg/genesis/genesis.go](./pkg/genesis/genesis.go) - Verification code
 
 ### Verification
-- **Official website:** https://axionax.io/networks
+- **Official website:** https://axionax.org/networks
 - **GitHub repository:** https://github.com/axionaxprotocol/axionax-core
 - **Testnet chain ID:** 86137
 - **Mainnet chain ID:** 86150 (reserved)
@@ -272,11 +272,11 @@ For users and developers to verify authenticity:
 
 - [ ] Chain ID is `86137` (testnet) or `86150` (mainnet)
 - [ ] Genesis hash matches published hash in GitHub
-- [ ] Listed on https://axionax.io/networks
+- [ ] Listed on https://axionax.org/networks
 - [ ] Confirmed on official Discord
 - [ ] Announced on official Twitter (@AxionaxProtocol)
-- [ ] RPC endpoint uses axionax.io domain
-- [ ] Explorer uses axionax.io domain
+- [ ] RPC endpoint uses axionax.org domain
+- [ ] Explorer uses axionax.org domain
 
 **If ANY check fails → NOT official Axionax ⚠️**
 

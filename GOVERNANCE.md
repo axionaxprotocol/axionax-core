@@ -65,7 +65,7 @@ Time Multiplier:
 
 ### 1. Ideation Phase (Forum Discussion)
 
-**Where**: https://forum.axionax.io
+**Where**: https://forum.axionax.org
 
 **Requirements**:
 - Post in "Governance Ideas" category
@@ -310,10 +310,10 @@ axionax-core governance vote \
 
 ### Notifications
 
-- **Forum**: https://forum.axionax.io
+- **Forum**: https://forum.axionax.org
 - **Discord #governance**: https://discord.gg/axionax
 - **Twitter**: @axionaxprotocol
-- **Governance Dashboard**: https://gov.axionax.io
+- **Governance Dashboard**: https://gov.axionax.org
 - **Snapshot**: https://snapshot.org/#/axionax.eth
 
 ### Participation
@@ -339,16 +339,16 @@ axionax-core governance vote \
 ## 🎓 Governance Resources
 
 ### Documentation
-- [Governance Portal](https://gov.axionax.io)
-- [How to Vote Guide](https://docs.axionax.io/governance/voting)
-- [Parameter Descriptions](https://docs.axionax.io/governance/parameters)
+- [Governance Portal](https://gov.axionax.org)
+- [How to Vote Guide](https://docs.axionax.org/governance/voting)
+- [Parameter Descriptions](https://docs.axionax.org/governance/parameters)
 - [Proposal Templates](https://github.com/axionaxprotocol/governance-proposals)
 
 ### Tools
-- [Governance Dashboard](https://gov.axionax.io)
+- [Governance Dashboard](https://gov.axionax.org)
 - [Snapshot Voting](https://snapshot.org/#/axionax.eth)
-- [Forum](https://forum.axionax.io)
-- [Delegation Platform](https://delegate.axionax.io)
+- [Forum](https://forum.axionax.org)
+- [Delegation Platform](https://delegate.axionax.org)
 
 ---
 
