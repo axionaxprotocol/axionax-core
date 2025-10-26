@@ -6,6 +6,7 @@ members = [
     "core/network",
     "core/crypto",
     "core/rpc",
+    "core/node",
     "bridge/rust-python",
 ]
 

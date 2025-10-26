@@ -8,3 +8,39 @@ license.workspace = true
 repository.workspace = true
 
 [dependencies]
+# Async runtime
+tokio = { workspace = true }
+
+# P2P networking
+libp2p = { version = "0.53", features = [
+    "tokio",
+    "gossipsub",
+    "mdns",
+    "noise",
+    "yamux",
+    "tcp",
+    "quic",
+    "kad",
+    "identify",
+    "ping",
+    "macros",
+] }
+
+# Serialization
+serde = { workspace = true }
+serde_json = { workspace = true }
+
+# Error handling
+thiserror = "1.0"
+anyhow = "1.0"
+
+# Logging
+tracing = "0.1"
+
+# Utilities
+futures = "0.3"
+async-trait = "0.1"
+sha3 = "0.10"
+
+[dev-dependencies]
+tokio = { workspace = true, features = ["test-util"] }

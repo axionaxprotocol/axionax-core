@@ -1,5 +1,5 @@
 [package]
-name = "rpc"
+name = "node"
 version.workspace = true
 authors.workspace = true
 edition.workspace = true
@@ -8,34 +8,38 @@ license.workspace = true
 repository.workspace = true
 
 [dependencies]
-# Web framework
-axum = "0.7"
-tower = "0.4"
-tower-http = { version = "0.5", features = ["cors", "trace"] }
+# Core modules
+network = { path = "../network" }
+state = { path = "../state" }
+rpc = { path = "../rpc" }
+blockchain = { path = "../blockchain" }
+crypto = { path = "../crypto" }
+consensus = { path = "../consensus" }
 
 # Async runtime
 tokio = { workspace = true, features = ["full"] }
+async-trait = { workspace = true }
 
-# JSON-RPC and serialization
+# Serialization
 serde = { workspace = true }
 serde_json = { workspace = true }
-jsonrpsee = { version = "0.24", features = ["server", "macros"] }
 
 # Error handling
 thiserror = "2.0"
 anyhow = "1.0"
 
+# Encoding
+hex = "0.4"
+
 # Logging
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 
-# Encoding
-hex = "0.4"
+# Networking
+libp2p = { workspace = true }
 
-# Internal dependencies
-state = { path = "../state" }
-blockchain = { path = "../blockchain" }
-crypto = { path = "../crypto" }
+# JSON-RPC
+jsonrpsee = { version = "0.24", features = ["server"] }
 
 [dev-dependencies]
 tempfile = "3.8"
