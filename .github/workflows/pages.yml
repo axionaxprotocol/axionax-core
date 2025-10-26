@@ -1,19 +1,57 @@
-# .github/workflows/pages.yml
-name: Build and Deploy Jekyll
+name: Build and deploy Jekyll site to GitHub Pages
+
+# Trigger on pushes to main (เปลี่ยนเป็นสาขาที่คุณใช้งานหากไม่ใช่ main)
 on:
   push:
     branches: ["main"]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      site-path: ${{ steps.upload.outputs.artifact-path }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-ruby@v4
-      - run: bundle install
-      - run: bundle exec jekyll build -d ./_site
-      - uses: actions/upload-pages-artifact@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1'   # ปรับเป็นเวอร์ชันที่ Jekyll/gems ของคุณต้องการ
+
+      - name: Install Bundler and gems
+        run: |
+          gem install bundler
+          if [ -f Gemfile ]; then
+            bundle config path vendor/bundle
+            bundle install --jobs 4 --retry 3
+          fi
+
+      - name: Build Jekyll site (source: docs/)
+        run: |
+          # ถ้า site เป็น Jekyll ในโฟลเดอร์ docs/ ให้ใช้ --source docs
+          # หากคุณใช้ root เป็น source ให้เอา --source docs ออกหรือปรับตาม repo ของคุณ
+          if [ -f docs/_config.yml ] || [ -d docs/_layouts ]; then
+            bundle exec jekyll build --source docs --destination ./_site
+          else
+            # fallback: build from repo root
+            bundle exec jekyll build -d ./_site
+          fi
+
+      - name: Upload Pages artifact
+        id: upload
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./_site
+
   deploy:
-    runs-on: ubuntu-latest
     needs: build
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/deploy-pages@v4
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
