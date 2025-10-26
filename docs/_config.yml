@@ -1,0 +1,34 @@
+# Site settings
+title: Axionax Protocol
+description: Decentralized Compute Network with PoPC Consensus
+url: "https://docs.axionax.org"
+baseurl: ""
+
+# Theme
+theme: jekyll-theme-cayman
+
+# GitHub
+github:
+  repository_url: https://github.com/axionaxprotocol/axionax-core
+  owner_name: axionaxprotocol
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+
+# Plugins
+plugins:
+  - jekyll-relative-links
+  - jekyll-seo-tag
+
+# Relative links
+relative_links:
+  enabled: true
+  collections: true
+
+# Exclude files
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
