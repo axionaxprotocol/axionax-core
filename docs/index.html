@@ -2,13 +2,854 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Axionax Protocol Documentation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Axionax Protocol - Layer-1 Blockchain for Decentralized Compute with AI</title>
+  <meta name="description" content="Axionax is a Layer-1 blockchain with PoPC consensus, ASR auto-selection, and DeAI security for decentralized compute markets">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      /* Colors - Blockchain + AI Theme */
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --secondary: #ec4899;
+      --accent: #06b6d4;
+      --bg-dark: #0f0f23;
+      --bg-darker: #070712;
+      --bg-card: #1a1a2e;
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --border: #2d2d44;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --error: #ef4444;
+      
+      /* Gradients */
+      --gradient-primary: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
+      --gradient-secondary: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);
+      --gradient-mesh: radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.2) 0px, transparent 50%),
+                        radial-gradient(at 100% 0%, rgba(236, 72, 153, 0.15) 0px, transparent 50%),
+                        radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.15) 0px, transparent 50%),
+                        radial-gradient(at 0% 100%, rgba(139, 92, 246, 0.2) 0px, transparent 50%);
+      
+      /* Spacing */
+      --container-max: 1280px;
+      --section-padding: 6rem 2rem;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    
+    /* Animated Background */
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: var(--bg-darker);
+      background-image: var(--gradient-mesh);
+      animation: mesh-shift 20s ease infinite;
+    }
+    
+    @keyframes mesh-shift {
+      0%, 100% { background-position: 0% 0%, 100% 0%, 100% 100%, 0% 100%; }
+      25% { background-position: 100% 0%, 100% 100%, 0% 100%, 0% 0%; }
+      50% { background-position: 100% 100%, 0% 100%, 0% 0%, 100% 0%; }
+      75% { background-position: 0% 100%, 0% 0%, 100% 0%, 100% 100%; }
+    }
+    
+    /* Container */
+    .container {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    
+    /* Header */
+    header {
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+      background: rgba(15, 15, 35, 0.8);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--gradient-primary);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: white;
+    }
+    
+    nav {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+    
+    nav a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+      font-size: 0.95rem;
+    }
+    
+    nav a:hover {
+      color: var(--primary);
+    }
+    
+    /* Hero Section */
+    .hero {
+      padding: 8rem 2rem 6rem;
+      text-align: center;
+      position: relative;
+    }
+    
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.2;
+    }
+    
+    .hero .subtitle {
+      font-size: clamp(1.1rem, 2vw, 1.5rem);
+      color: var(--text-secondary);
+      margin-bottom: 3rem;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: rgba(99, 102, 241, 0.1);
+      border: 1px solid var(--primary);
+      border-radius: 2rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+      color: var(--primary);
+    }
+    
+    .pulse {
+      width: 8px;
+      height: 8px;
+      background: var(--success);
+      border-radius: 50%;
+      animation: pulse 2s ease infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.2); }
+    }
+    
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    .btn {
+      padding: 0.875rem 2rem;
+      border-radius: 0.75rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .btn-primary {
+      background: var(--gradient-primary);
+      color: white;
+      box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 30px rgba(99, 102, 241, 0.4);
+    }
+    
+    .btn-secondary {
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+    
+    .btn-secondary:hover {
+      background: var(--bg-dark);
+      border-color: var(--primary);
+    }
+    
+    /* Features Grid */
+    .features {
+      padding: var(--section-padding);
+    }
+    
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 3rem;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 2rem;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--gradient-primary);
+      transform: scaleX(0);
+      transition: transform 0.3s;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--primary);
+    }
+    
+    .feature-card:hover::before {
+      transform: scaleX(1);
+    }
+    
+    .feature-icon {
+      width: 60px;
+      height: 60px;
+      background: var(--gradient-primary);
+      border-radius: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .feature-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+      color: var(--text-primary);
+    }
+    
+    .feature-card p {
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+    
+    /* Tech Stack */
+    .tech-stack {
+      padding: var(--section-padding);
+      background: linear-gradient(180deg, transparent 0%, rgba(99, 102, 241, 0.05) 100%);
+    }
+    
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    
+    .tech-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.3s;
+    }
+    
+    .tech-item:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+    
+    .tech-item .tech-label {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    
+    .tech-item .tech-percentage {
+      font-size: 2rem;
+      font-weight: 800;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .tech-item .tech-desc {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+    }
+    
+    /* Documentation Links */
+    .docs-section {
+      padding: var(--section-padding);
+    }
+    
+    .docs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    
+    .doc-link {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 2rem;
+      text-decoration: none;
+      color: var(--text-primary);
+      transition: all 0.3s;
+      display: block;
+    }
+    
+    .doc-link:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(236, 72, 153, 0.05) 100%);
+    }
+    
+    .doc-link h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .doc-link p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+    
+    /* Stats */
+    .stats {
+      padding: 4rem 2rem;
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 3rem;
+      text-align: center;
+    }
+    
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 800;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    
+    .stat-label {
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+    
+    /* Code Block */
+    .code-section {
+      padding: var(--section-padding);
+    }
+    
+    pre {
+      background: var(--bg-darker);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 2rem;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.875rem;
+      line-height: 1.7;
+      margin-top: 2rem;
+    }
+    
+    code {
+      color: var(--accent);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    
+    .comment {
+      color: var(--text-muted);
+    }
+    
+    /* Footer */
+    footer {
+      padding: 3rem 2rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--text-muted);
+    }
+    
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    footer a:hover {
+      color: var(--secondary);
+    }
+    
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      :root {
+        --section-padding: 4rem 1.5rem;
+      }
+      
+      nav {
+        display: none;
+      }
+      
+      .hero {
+        padding: 4rem 1.5rem 3rem;
+      }
+      
+      .features-grid,
+      .tech-grid,
+      .docs-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .stats-grid {
+        gap: 2rem;
+      }
+    }
+    
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .animate-in {
+      animation: fadeInUp 0.6s ease forwards;
+    }
+    
+    /* Security Warning */
+    .security-warning {
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(245, 158, 11, 0.1) 100%);
+      border: 1px solid var(--warning);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      margin: 2rem auto;
+      max-width: 900px;
+    }
+    
+    .security-warning h3 {
+      color: var(--warning);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.25rem;
+    }
+    
+    .security-warning p {
+      color: var(--text-secondary);
+      margin-bottom: 0.5rem;
+    }
+    
+    .security-warning strong {
+      color: var(--text-primary);
+    }
+  </style>
 </head>
 <body>
-  <h1>Axionax Protocol v1.5 Documentation</h1>
-  <p>Welcome to the official documentation for Axionax Core.</p>
-  <p><a href="API_REFERENCE.md">API Reference</a> · 
-     <a href="BUILD.md">Build Guide</a> · 
-     <a href="TESTNET_INTEGRATION.md">Testnet Integration</a></p>
+  <div class="bg-animation"></div>
+  
+  <!-- Header -->
+  <header>
+    <div class="header-content">
+      <div class="logo">
+        <div class="logo-icon">Ax</div>
+        <span>Axionax Protocol</span>
+      </div>
+      <nav>
+        <a href="#features">Features</a>
+        <a href="#tech">Technology</a>
+        <a href="#docs">Documentation</a>
+        <a href="https://github.com/axionaxprotocol/axionax-core" target="_blank">GitHub</a>
+      </nav>
+    </div>
+  </header>
+  
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="badge animate-in">
+        <span class="pulse"></span>
+        <span>v1.6.0-dev • Testnet Active</span>
+      </div>
+      
+      <h1 class="animate-in" style="animation-delay: 0.1s;">
+        Layer-1 Blockchain for<br>Decentralized Compute with AI
+      </h1>
+      
+      <p class="subtitle animate-in" style="animation-delay: 0.2s;">
+        Axionax unifies <strong>Execution</strong>, <strong>PoPC Validation</strong>, <strong>Data Availability</strong>, and <strong>Settlement</strong> with ML-powered auto-selection and fraud detection for next-generation decentralized compute markets.
+      </p>
+      
+      <div class="security-warning animate-in" style="animation-delay: 0.3s;">
+        <h3>⚠️ Security Notice</h3>
+        <p><strong>This is TESTNET code. Mainnet has NOT launched.</strong></p>
+        <p>Official Networks: <strong>Testnet Chain ID: 86137</strong> (active) • <strong>Mainnet Chain ID: 86150</strong> (reserved)</p>
+        <p>Any network claiming to be "Axionax Mainnet" is a SCAM. Verify at <a href="https://axionax.org/networks" target="_blank">axionax.org/networks</a></p>
+      </div>
+      
+      <div class="cta-buttons animate-in" style="animation-delay: 0.4s;">
+        <a href="#docs" class="btn btn-primary">
+          📚 Read Documentation
+        </a>
+        <a href="https://github.com/axionaxprotocol/axionax-core" class="btn btn-secondary" target="_blank">
+          💻 View on GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Stats -->
+  <section class="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-number">20/20</div>
+          <div class="stat-label">Tests Passing</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">3x</div>
+          <div class="stat-label">Faster than Go</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">40K+</div>
+          <div class="stat-label">VRF Ops/Sec</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">10K+</div>
+          <div class="stat-label">Target TPS</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Features -->
+  <section id="features" class="features">
+    <div class="container">
+      <h2 class="section-title">Core Features</h2>
+      
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🎲</div>
+          <h3>PoPC Consensus</h3>
+          <p>Proof-of-Probabilistic-Checking enables scalable validation through statistical sampling with O(s) verification cost and fraud-proof security guarantees.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">🤖</div>
+          <h3>Auto-Selection Router (ASR)</h3>
+          <p>ML-powered worker assignment with fairness guarantees, VRF-weighted selection, and quota management for optimal resource allocation.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">💰</div>
+          <h3>Dynamic Pricing (PPC)</h3>
+          <p>Posted Price Controller adjusts pricing based on real-time utilization, queue length, and market conditions for efficient resource markets.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">🛡️</div>
+          <h3>DeAI Security Sentinel</h3>
+          <p>ML-based anomaly detection using Isolation Forest for fraud prevention, risk scoring, and continuous security monitoring.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>High Performance</h3>
+          <p>Rust core delivers 3x faster execution than Go, with Python ML layer for AI/ML workloads and TypeScript SDK for easy integration.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">🏛️</div>
+          <h3>DAO Governance</h3>
+          <p>Community-driven parameter tuning, protocol upgrades, and transparent decision-making for sustainable decentralization.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Tech Stack -->
+  <section id="tech" class="tech-stack">
+    <div class="container">
+      <h2 class="section-title">Multi-Language Architecture</h2>
+      <p style="text-align: center; color: var(--text-secondary); max-width: 700px; margin: 0 auto;">
+        Axionax v1.6 leverages the best of each language: <strong>Rust</strong> for performance-critical consensus, <strong>Python</strong> for ML/AI workloads, and <strong>TypeScript</strong> for developer experience.
+      </p>
+      
+      <div class="tech-grid">
+        <div class="tech-item">
+          <div class="tech-label">🦀 Rust</div>
+          <div class="tech-percentage">80%</div>
+          <div class="tech-desc">Consensus • Blockchain • Crypto • Network • State • RPC</div>
+        </div>
+        
+        <div class="tech-item">
+          <div class="tech-label">🐍 Python</div>
+          <div class="tech-percentage">10%</div>
+          <div class="tech-desc">ASR • Fraud Detection • ML Security</div>
+        </div>
+        
+        <div class="tech-item">
+          <div class="tech-label">📘 TypeScript</div>
+          <div class="tech-percentage">10%</div>
+          <div class="tech-desc">SDK • Client Library • DApp Integration</div>
+        </div>
+      </div>
+      
+      <div class="code-section">
+        <pre><code><span class="comment"># Quick Start - Build All Components</span>
+
+<span class="comment"># 1. Build Rust core (consensus, blockchain, crypto, network, state, RPC)</span>
+cargo build --release --workspace
+
+<span class="comment"># 2. Build Rust-Python bridge</span>
+cd bridge/rust-python && ./build.sh && cd ../..
+
+<span class="comment"># 3. Install Python ML dependencies</span>
+pip install -r deai/requirements.txt
+
+<span class="comment"># 4. Build TypeScript SDK</span>
+cd sdk && npm install && npm run build && cd ..
+
+<span class="comment"># 5. Run integration tests</span>
+python3 tests/integration_simple.py
+
+<span class="comment"># ✅ All 20/20 tests should pass!</span></code></pre>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Documentation -->
+  <section id="docs" class="docs-section">
+    <div class="container">
+      <h2 class="section-title">Documentation</h2>
+      
+      <div class="docs-grid">
+        <a href="API_REFERENCE.md" class="doc-link">
+          <h3>📖 API Reference</h3>
+          <p>Complete API documentation for all modules, RPC methods, and client SDKs.</p>
+        </a>
+        
+        <a href="BUILD.md" class="doc-link">
+          <h3>🔨 Build Guide</h3>
+          <p>Step-by-step instructions for building and deploying Axionax nodes.</p>
+        </a>
+        
+        <a href="TESTNET_INTEGRATION.md" class="doc-link">
+          <h3>🌐 Testnet Integration</h3>
+          <p>Connect to the Axionax testnet and start validating transactions.</p>
+        </a>
+        
+        <a href="NODE_INTEGRATION.md" class="doc-link">
+          <h3>⚙️ Node Integration</h3>
+          <p>Full node setup with Network, State, and RPC integration guide.</p>
+        </a>
+        
+        <a href="STATE_RPC_USAGE.md" class="doc-link">
+          <h3>💾 State & RPC Usage</h3>
+          <p>RocksDB state management and JSON-RPC 2.0 server documentation.</p>
+        </a>
+        
+        <a href="../ARCHITECTURE.md" class="doc-link">
+          <h3>🏗️ Architecture</h3>
+          <p>Deep dive into PoPC consensus, ASR, PPC, and DeAI security design.</p>
+        </a>
+        
+        <a href="../QUICKSTART.md" class="doc-link">
+          <h3>🚀 Quick Start</h3>
+          <p>Get started with Axionax in 5 minutes - beginner-friendly tutorial.</p>
+        </a>
+        
+        <a href="../SECURITY.md" class="doc-link">
+          <h3>🔐 Security</h3>
+          <p>Security model, chain identity verification, and best practices.</p>
+        </a>
+        
+        <a href="../TOKENOMICS.md" class="doc-link">
+          <h3>💎 Tokenomics</h3>
+          <p>Token economics, supply distribution, and incentive mechanisms.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-links">
+        <a href="https://github.com/axionaxprotocol/axionax-core" target="_blank">GitHub</a>
+        <a href="https://axionax.org" target="_blank">Website</a>
+        <a href="https://discord.gg/axionax" target="_blank">Discord</a>
+        <a href="https://twitter.com/axionaxprotocol" target="_blank">Twitter</a>
+        <a href="../LICENSE" target="_blank">License (AGPLv3)</a>
+      </div>
+      
+      <p>
+        &copy; 2025 Axionax Protocol. Licensed under <a href="../LICENSE" target="_blank">AGPLv3</a> with Custom Protection Clause.
+      </p>
+      <p style="margin-top: 0.5rem; font-size: 0.875rem;">
+        Made with 💜 by the Axionax Core Team
+      </p>
+    </div>
+  </footer>
+  
+  <script>
+    // Simple scroll animation
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+    
+    document.querySelectorAll('.feature-card, .tech-item, .doc-link').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+    
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
 </body>
 </html>
