@@ -145,6 +145,80 @@
       color: var(--primary);
     }
     
+    .mobile-menu-btn {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+    
+    .mobile-menu-btn span {
+      width: 24px;
+      height: 2px;
+      background: var(--text-primary);
+      transition: all 0.3s;
+    }
+    
+    .mobile-menu-btn.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    
+    .mobile-menu-btn.active span:nth-child(2) {
+      opacity: 0;
+    }
+    
+    .mobile-menu-btn.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -6px);
+    }
+    
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 73px;
+      left: 0;
+      right: 0;
+      background: var(--bg-darker);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem;
+      z-index: 99;
+      backdrop-filter: blur(10px);
+    }
+    
+    .mobile-menu.active {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      animation: slideDown 0.3s ease;
+    }
+    
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .mobile-menu a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+      transition: all 0.3s;
+    }
+    
+    .mobile-menu a:hover {
+      color: var(--primary);
+      background: rgba(99, 102, 241, 0.1);
+    }
+    
     /* Hero Section */
     .hero {
       padding: 8rem 2rem 6rem;
@@ -565,6 +639,586 @@
     .security-warning strong {
       color: var(--text-primary);
     }
+    
+    /* Architecture Section */
+    .architecture {
+      padding: var(--section-padding);
+      background: linear-gradient(180deg, rgba(99, 102, 241, 0.05) 0%, transparent 100%);
+    }
+    
+    .architecture-diagram {
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+    }
+    
+    .arch-layer {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 2rem;
+      margin-bottom: 1rem;
+      transition: all 0.3s;
+      position: relative;
+    }
+    
+    .arch-layer:hover {
+      border-color: var(--primary);
+      transform: translateX(10px);
+    }
+    
+    .layer-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--gradient-primary);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 1rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+    
+    .arch-layer h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .arch-layer p {
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+    
+    .layer-features {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    
+    .layer-features span {
+      background: rgba(99, 102, 241, 0.1);
+      border: 1px solid var(--primary);
+      padding: 0.25rem 0.75rem;
+      border-radius: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--primary);
+    }
+    
+    .arch-arrow {
+      text-align: center;
+      font-size: 2rem;
+      color: var(--primary);
+      margin: 0.5rem 0;
+      animation: bounce 2s ease infinite;
+    }
+    
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(10px); }
+    }
+    
+    .arch-sidebars {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    
+    .arch-sidebar {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.3s;
+    }
+    
+    .arch-sidebar:hover {
+      border-color: var(--secondary);
+      transform: translateY(-5px);
+    }
+    
+    .sidebar-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .arch-sidebar h4 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+    }
+    
+    .arch-sidebar p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+    
+    /* Comparison Table */
+    .comparison {
+      padding: var(--section-padding);
+    }
+    
+    .comparison-table-wrapper {
+      overflow-x: auto;
+      margin-top: 2rem;
+    }
+    
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--bg-card);
+      border-radius: 1rem;
+      overflow: hidden;
+    }
+    
+    .comparison-table th,
+    .comparison-table td {
+      padding: 1.25rem 1.5rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .comparison-table thead {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(236, 72, 153, 0.1) 100%);
+    }
+    
+    .comparison-table th {
+      font-weight: 700;
+      color: var(--text-primary);
+      font-size: 1.1rem;
+    }
+    
+    .comparison-table tbody tr:hover {
+      background: rgba(99, 102, 241, 0.05);
+    }
+    
+    .comparison-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+    
+    .comparison-table td:first-child {
+      font-weight: 500;
+    }
+    
+    .highlight {
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 800;
+    }
+    
+    .badge-success {
+      color: var(--success);
+      font-size: 1.25rem;
+    }
+    
+    /* Roadmap Timeline */
+    .roadmap {
+      padding: var(--section-padding);
+      background: linear-gradient(180deg, transparent 0%, rgba(99, 102, 241, 0.05) 100%);
+    }
+    
+    .timeline {
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+    }
+    
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 30px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 100%);
+    }
+    
+    .timeline-item {
+      position: relative;
+      padding-left: 80px;
+      margin-bottom: 3rem;
+    }
+    
+    .timeline-marker {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 60px;
+      height: 60px;
+      background: var(--bg-card);
+      border: 3px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 800;
+      z-index: 2;
+    }
+    
+    .timeline-item.completed .timeline-marker {
+      background: var(--success);
+      border-color: var(--success);
+      color: white;
+    }
+    
+    .timeline-item.active .timeline-marker {
+      background: var(--primary);
+      border-color: var(--primary);
+      animation: pulse-ring 2s ease infinite;
+    }
+    
+    @keyframes pulse-ring {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.7); }
+      50% { box-shadow: 0 0 0 15px rgba(99, 102, 241, 0); }
+    }
+    
+    .timeline-content {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 2rem;
+    }
+    
+    .timeline-date {
+      display: inline-block;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .timeline-content h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+      color: var(--text-primary);
+    }
+    
+    .timeline-content p {
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+    
+    .timeline-content ul {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .timeline-content li {
+      color: var(--text-secondary);
+      padding: 0.5rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+    
+    .timeline-content li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 1rem;
+      width: 6px;
+      height: 6px;
+      background: var(--primary);
+      border-radius: 50%;
+    }
+    
+    .timeline-item.completed li::before {
+      background: var(--success);
+    }
+    
+    /* FAQ Section */
+    .faq {
+      padding: var(--section-padding);
+    }
+    
+    .faq-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    
+    .faq-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 2rem;
+      transition: all 0.3s;
+    }
+    
+    .faq-item:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+    
+    .faq-item h3 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      line-height: 1.4;
+    }
+    
+    .faq-item p {
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+    
+    /* Community Section */
+    .community {
+      padding: var(--section-padding);
+      background: linear-gradient(180deg, rgba(99, 102, 241, 0.05) 0%, transparent 100%);
+    }
+    
+    .community-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    
+    .community-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 2rem;
+      text-decoration: none;
+      color: var(--text-primary);
+      transition: all 0.3s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .community-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-5px);
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(236, 72, 153, 0.05) 100%);
+    }
+    
+    .community-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    
+    .community-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+    
+    .community-card p {
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+      flex-grow: 1;
+    }
+    
+    .community-badge {
+      display: inline-block;
+      background: rgba(99, 102, 241, 0.1);
+      border: 1px solid var(--primary);
+      padding: 0.35rem 1rem;
+      border-radius: 1rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+    
+    /* Newsletter Section */
+    .newsletter {
+      padding: var(--section-padding);
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(236, 72, 153, 0.05) 100%);
+    }
+    
+    .newsletter-content {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    
+    .newsletter-content h2 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+    }
+    
+    .newsletter-content > p {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+    }
+    
+    .newsletter-form {
+      margin-bottom: 4rem;
+    }
+    
+    .input-group {
+      display: flex;
+      gap: 1rem;
+      max-width: 600px;
+      margin: 0 auto 1rem;
+    }
+    
+    .email-input {
+      flex: 1;
+      padding: 1rem 1.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      color: var(--text-primary);
+      font-size: 1rem;
+      transition: all 0.3s;
+    }
+    
+    .email-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+    
+    .email-input::placeholder {
+      color: var(--text-muted);
+    }
+    
+    .newsletter-note {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      margin-top: 0.75rem;
+    }
+    
+    .cta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    
+    .cta-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 2rem;
+      transition: all 0.3s;
+    }
+    
+    .cta-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-5px);
+    }
+    
+    .cta-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    
+    .cta-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+      color: var(--text-primary);
+    }
+    
+    .cta-card p {
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+    }
+    
+    .cta-card .btn {
+      width: 100%;
+      justify-content: center;
+    }
+    
+    /* Responsive Adjustments */
+    @media (max-width: 1024px) {
+      .comparison-table {
+        font-size: 0.9rem;
+      }
+      
+      .comparison-table th,
+      .comparison-table td {
+        padding: 1rem;
+      }
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      :root {
+        --section-padding: 4rem 1.5rem;
+      }
+      
+      nav {
+        display: none;
+      }
+      
+      .mobile-menu-btn {
+        display: flex;
+      }
+      
+      .hero {
+        padding: 4rem 1.5rem 3rem;
+      }
+      
+      .features-grid,
+      .tech-grid,
+      .docs-grid,
+      .community-grid,
+      .cta-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .stats-grid {
+        gap: 2rem;
+      }
+      
+      .timeline::before {
+        left: 20px;
+      }
+      
+      .timeline-item {
+        padding-left: 60px;
+      }
+      
+      .timeline-marker {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+      }
+      
+      .input-group {
+        flex-direction: column;
+      }
+      
+      .comparison-table {
+        font-size: 0.8rem;
+      }
+      
+      .comparison-table th,
+      .comparison-table td {
+        padding: 0.75rem 0.5rem;
+      }
+      
+      .arch-sidebars {
+        grid-template-columns: 1fr;
+      }
+      
+      .faq-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
@@ -577,14 +1231,31 @@
         <div class="logo-icon">Ax</div>
         <span>Axionax Protocol</span>
       </div>
-      <nav>
+      <nav id="mainNav">
         <a href="#features">Features</a>
         <a href="#tech">Technology</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#roadmap">Roadmap</a>
         <a href="#docs">Documentation</a>
         <a href="https://github.com/axionaxprotocol/axionax-core" target="_blank">GitHub</a>
       </nav>
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
   </header>
+  
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="mobile-menu">
+    <a href="#features" onclick="closeMobileMenu()">Features</a>
+    <a href="#tech" onclick="closeMobileMenu()">Technology</a>
+    <a href="#architecture" onclick="closeMobileMenu()">Architecture</a>
+    <a href="#roadmap" onclick="closeMobileMenu()">Roadmap</a>
+    <a href="#docs" onclick="closeMobileMenu()">Documentation</a>
+    <a href="https://github.com/axionaxprotocol/axionax-core" target="_blank">GitHub</a>
+  </div>
   
   <!-- Hero Section -->
   <section class="hero">
@@ -740,6 +1411,379 @@ python3 tests/integration_simple.py
     </div>
   </section>
   
+  <!-- Architecture Diagram -->
+  <section id="architecture" class="architecture">
+    <div class="container">
+      <h2 class="section-title">System Architecture</h2>
+      <p style="text-align: center; color: var(--text-secondary); max-width: 800px; margin: 0 auto 3rem;">
+        Axionax unifies all four critical blockchain layers into a single, cohesive protocol designed for high-performance decentralized compute.
+      </p>
+      
+      <div class="architecture-diagram">
+        <div class="arch-layer">
+          <div class="layer-badge">Layer 1</div>
+          <h3>👥 Execution Layer</h3>
+          <p>Worker nodes execute compute jobs with proof generation</p>
+          <div class="layer-features">
+            <span>ASR Router</span>
+            <span>Worker Selection</span>
+            <span>Job Queue</span>
+          </div>
+        </div>
+        
+        <div class="arch-arrow">↓</div>
+        
+        <div class="arch-layer">
+          <div class="layer-badge">Layer 2</div>
+          <h3>🎲 PoPC Validation</h3>
+          <p>Probabilistic checking of execution proofs via VRF sampling</p>
+          <div class="layer-features">
+            <span>VRF Selection</span>
+            <span>Stratified Sampling</span>
+            <span>Fraud Detection</span>
+          </div>
+        </div>
+        
+        <div class="arch-arrow">↓</div>
+        
+        <div class="arch-layer">
+          <div class="layer-badge">Layer 3</div>
+          <h3>💾 Data Availability</h3>
+          <p>Erasure coding ensures data can be reconstructed from any subset</p>
+          <div class="layer-features">
+            <span>Reed-Solomon</span>
+            <span>Sharding</span>
+            <span>CDN Storage</span>
+          </div>
+        </div>
+        
+        <div class="arch-arrow">↓</div>
+        
+        <div class="arch-layer">
+          <div class="layer-badge">Layer 4</div>
+          <h3>⚖️ Settlement Layer</h3>
+          <p>Final state commitment and economic settlement on L1</p>
+          <div class="layer-features">
+            <span>State Root</span>
+            <span>Payment</span>
+            <span>Slashing</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="arch-sidebars">
+        <div class="arch-sidebar">
+          <div class="sidebar-icon">💰</div>
+          <h4>Price Controller</h4>
+          <p>Dynamic pricing based on utilization and queue length</p>
+        </div>
+        <div class="arch-sidebar">
+          <div class="sidebar-icon">🛡️</div>
+          <h4>DeAI Sentinel</h4>
+          <p>ML-based fraud detection and anomaly monitoring</p>
+        </div>
+        <div class="arch-sidebar">
+          <div class="sidebar-icon">🏛️</div>
+          <h4>DAO Governance</h4>
+          <p>Community parameter tuning and upgrades</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparison Table -->
+  <section class="comparison">
+    <div class="container">
+      <h2 class="section-title">Why Axionax?</h2>
+      <p style="text-align: center; color: var(--text-secondary); max-width: 800px; margin: 0 auto 3rem;">
+        Comparing Axionax with other decentralized compute protocols
+      </p>
+      
+      <div class="comparison-table-wrapper">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th><span class="highlight">Axionax</span></th>
+              <th>Traditional Rollups</th>
+              <th>Other L1s</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Validation Method</strong></td>
+              <td><span class="badge-success">✓</span> PoPC (Probabilistic)</td>
+              <td>Fraud/Validity Proofs</td>
+              <td>Full Re-execution</td>
+            </tr>
+            <tr>
+              <td><strong>Verification Cost</strong></td>
+              <td><span class="badge-success">✓</span> O(s) samples</td>
+              <td>O(n) or O(log n)</td>
+              <td>O(n) full replay</td>
+            </tr>
+            <tr>
+              <td><strong>Worker Selection</strong></td>
+              <td><span class="badge-success">✓</span> ML-powered ASR</td>
+              <td>First-come-first-serve</td>
+              <td>Random/Manual</td>
+            </tr>
+            <tr>
+              <td><strong>Dynamic Pricing</strong></td>
+              <td><span class="badge-success">✓</span> Posted Price Controller</td>
+              <td>Fixed gas prices</td>
+              <td>Market-based</td>
+            </tr>
+            <tr>
+              <td><strong>AI/ML Security</strong></td>
+              <td><span class="badge-success">✓</span> DeAI Sentinel</td>
+              <td>Rule-based only</td>
+              <td>Limited</td>
+            </tr>
+            <tr>
+              <td><strong>Data Availability</strong></td>
+              <td><span class="badge-success">✓</span> Native DA Layer</td>
+              <td>External DA (Celestia, etc)</td>
+              <td>On-chain only</td>
+            </tr>
+            <tr>
+              <td><strong>Performance</strong></td>
+              <td><span class="badge-success">✓</span> 10K+ TPS target</td>
+              <td>100-1000 TPS</td>
+              <td>1K-5K TPS</td>
+            </tr>
+            <tr>
+              <td><strong>Language Support</strong></td>
+              <td><span class="badge-success">✓</span> Rust + Python + TS</td>
+              <td>Single language</td>
+              <td>Single language</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Roadmap -->
+  <section id="roadmap" class="roadmap">
+    <div class="container">
+      <h2 class="section-title">Development Roadmap</h2>
+      <p style="text-align: center; color: var(--text-secondary); max-width: 800px; margin: 0 auto 3rem;">
+        Our journey from testnet to mainnet and beyond
+      </p>
+      
+      <div class="timeline">
+        <div class="timeline-item completed">
+          <div class="timeline-marker">✓</div>
+          <div class="timeline-content">
+            <div class="timeline-date">Q4 2025</div>
+            <h3>Phase 1: v1.6 Core Integration</h3>
+            <p>Multi-language architecture complete with Rust core, Python ML layer, and TypeScript SDK. All 20 tests passing.</p>
+            <ul>
+              <li>✓ Rust Core Modules (consensus, blockchain, crypto)</li>
+              <li>✓ Network Layer (libp2p + 17 tests)</li>
+              <li>✓ State & RPC (RocksDB + JSON-RPC)</li>
+              <li>✓ Node Integration Complete</li>
+              <li>✓ Python DeAI (ASR + Fraud Detection)</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="timeline-item active">
+          <div class="timeline-marker">🔄</div>
+          <div class="timeline-content">
+            <div class="timeline-date">Q1 2026</div>
+            <h3>Phase 2: v1.5 Testnet Launch</h3>
+            <p>Public testnet with 50+ validators and 100+ worker nodes</p>
+            <ul>
+              <li>→ Testnet genesis configuration</li>
+              <li>→ Deploy validator infrastructure</li>
+              <li>→ Block explorer and faucet</li>
+              <li>→ Community onboarding</li>
+              <li>→ Stress testing (10K+ TPS)</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-marker">⏳</div>
+          <div class="timeline-content">
+            <div class="timeline-date">Q2 2026</div>
+            <h3>Phase 3: Production Optimization</h3>
+            <p>Data Availability optimization and security audits</p>
+            <ul>
+              <li>Production-grade DA layer (erasure coding)</li>
+              <li>External security audits</li>
+              <li>Performance optimization (20K+ TPS)</li>
+              <li>Multi-node testing</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-marker">📅</div>
+          <div class="timeline-content">
+            <div class="timeline-date">Q3-Q4 2026</div>
+            <h3>Phase 4: Mainnet Launch</h3>
+            <p>Production mainnet with full security guarantees</p>
+            <ul>
+              <li>Mainnet genesis (Chain ID: 86150)</li>
+              <li>Token distribution</li>
+              <li>DAO governance activation</li>
+              <li>Bug bounty program</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <div class="container">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      
+      <div class="faq-grid">
+        <div class="faq-item">
+          <h3>🤔 What makes Axionax different from other L1 blockchains?</h3>
+          <p>Axionax uniquely combines PoPC consensus (probabilistic validation with O(s) cost), ML-powered ASR for fair worker selection, and native DeAI security. We're specifically optimized for decentralized compute markets, not generic smart contracts.</p>
+        </div>
+        
+        <div class="faq-item">
+          <h3>🎲 How does PoPC consensus work?</h3>
+          <p>Instead of re-executing all computations (expensive), PoPC uses VRF to randomly sample a small subset of proofs for verification. This provides probabilistic security guarantees while dramatically reducing verification costs to O(s) where s << n.</p>
+        </div>
+        
+        <div class="faq-item">
+          <h3>🤖 What is ASR (Auto-Selection Router)?</h3>
+          <p>ASR is our ML-powered system that automatically selects the best workers for each job based on suitability score, performance history, and fairness quotas. It uses ε-greedy exploration and VRF weighting to prevent centralization.</p>
+        </div>
+        
+        <div class="faq-item">
+          <h3>🛡️ How does DeAI Sentinel protect against fraud?</h3>
+          <p>DeAI Sentinel uses Isolation Forest (unsupervised ML) to detect anomalous proof patterns in real-time. It analyzes proof size, timing, merkle depth, and historical patterns to flag suspicious workers before they can cause damage.</p>
+        </div>
+        
+        <div class="faq-item">
+          <h3>💰 How is pricing determined?</h3>
+          <p>Our Posted Price Controller dynamically adjusts prices based on real-time utilization and queue length. When demand is high, prices increase to incentivize more workers. When supply exceeds demand, prices decrease to attract more jobs.</p>
+        </div>
+        
+        <div class="faq-item">
+          <h3>⚡ Why use Rust + Python + TypeScript?</h3>
+          <p>Each language excels at different tasks: Rust provides blazing-fast performance (3x faster than Go) for consensus and networking. Python offers rich ML libraries for ASR and fraud detection. TypeScript ensures great developer experience for SDKs and dApps.</p>
+        </div>
+        
+        <div class="faq-item">
+          <h3>🌐 When will mainnet launch?</h3>
+          <p>Mainnet is planned for Q3-Q4 2026 after thorough testnet validation, security audits, and community testing. We're currently in v1.6 development with testnet launch scheduled for Q1 2026.</p>
+        </div>
+        
+        <div class="faq-item">
+          <h3>🔐 Is the testnet safe to use?</h3>
+          <p>The testnet (Chain ID: 86137) is for testing only. DO NOT send real funds. Any network claiming to be "Axionax Mainnet" is a scam. Only use testnet tokens for development and testing purposes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Community -->
+  <section class="community">
+    <div class="container">
+      <h2 class="section-title">Join the Community</h2>
+      <p style="text-align: center; color: var(--text-secondary); max-width: 700px; margin: 0 auto 3rem;">
+        Be part of building the future of decentralized compute
+      </p>
+      
+      <div class="community-grid">
+        <a href="https://discord.gg/axionax" class="community-card" target="_blank">
+          <div class="community-icon">💬</div>
+          <h3>Discord</h3>
+          <p>Join our Discord server for discussions, support, and community events</p>
+          <span class="community-badge">2,500+ Members</span>
+        </a>
+        
+        <a href="https://github.com/axionaxprotocol/axionax-core" class="community-card" target="_blank">
+          <div class="community-icon">💻</div>
+          <h3>GitHub</h3>
+          <p>Contribute to the codebase, report issues, and submit pull requests</p>
+          <span class="community-badge">Open Source</span>
+        </a>
+        
+        <a href="https://twitter.com/axionaxprotocol" class="community-card" target="_blank">
+          <div class="community-icon">🐦</div>
+          <h3>Twitter</h3>
+          <p>Follow for updates, announcements, and ecosystem news</p>
+          <span class="community-badge">Follow Us</span>
+        </a>
+        
+        <a href="https://t.me/axionax" class="community-card" target="_blank">
+          <div class="community-icon">📱</div>
+          <h3>Telegram</h3>
+          <p>Real-time chat with the community and core team</p>
+          <span class="community-badge">Active 24/7</span>
+        </a>
+        
+        <a href="https://forum.axionax.org" class="community-card" target="_blank">
+          <div class="community-icon">🗣️</div>
+          <h3>Forum</h3>
+          <p>In-depth discussions on governance, proposals, and research</p>
+          <span class="community-badge">Governance</span>
+        </a>
+        
+        <a href="https://blog.axionax.org" class="community-card" target="_blank">
+          <div class="community-icon">📝</div>
+          <h3>Blog</h3>
+          <p>Technical deep-dives, tutorials, and ecosystem updates</p>
+          <span class="community-badge">Weekly Posts</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter/CTA -->
+  <section class="newsletter">
+    <div class="container">
+      <div class="newsletter-content">
+        <h2>Stay Updated</h2>
+        <p>Get the latest updates on testnet launches, mainnet progress, and ecosystem developments</p>
+        
+        <div class="newsletter-form">
+          <div class="input-group">
+            <input type="email" placeholder="Enter your email" class="email-input" id="emailInput">
+            <button class="btn btn-primary" onclick="subscribeNewsletter()">Subscribe</button>
+          </div>
+          <p class="newsletter-note">
+            🔒 We respect your privacy. Unsubscribe anytime. No spam, ever.
+          </p>
+        </div>
+        
+        <div class="cta-grid">
+          <div class="cta-card">
+            <div class="cta-icon">🚀</div>
+            <h3>Build on Axionax</h3>
+            <p>Start building decentralized compute applications today</p>
+            <a href="../QUICKSTART.md" class="btn btn-secondary">Get Started</a>
+          </div>
+          
+          <div class="cta-card">
+            <div class="cta-icon">⚡</div>
+            <h3>Run a Node</h3>
+            <p>Join the network as a validator or worker node</p>
+            <a href="NODE_INTEGRATION.md" class="btn btn-secondary">Setup Node</a>
+          </div>
+          
+          <div class="cta-card">
+            <div class="cta-icon">💎</div>
+            <h3>Join Testnet</h3>
+            <p>Test your applications on our live testnet</p>
+            <a href="TESTNET_INTEGRATION.md" class="btn btn-secondary">Connect Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Documentation -->
   <section id="docs" class="docs-section">
     <div class="container">
@@ -815,26 +1859,100 @@ python3 tests/integration_simple.py
   </footer>
   
   <script>
-    // Simple scroll animation
+    // Mobile menu toggle
+    function toggleMobileMenu() {
+      const mobileMenu = document.getElementById('mobileMenu');
+      const menuBtn = document.querySelector('.mobile-menu-btn');
+      mobileMenu.classList.toggle('active');
+      menuBtn.classList.toggle('active');
+    }
+    
+    function closeMobileMenu() {
+      const mobileMenu = document.getElementById('mobileMenu');
+      const menuBtn = document.querySelector('.mobile-menu-btn');
+      mobileMenu.classList.remove('active');
+      menuBtn.classList.remove('active');
+    }
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+      const mobileMenu = document.getElementById('mobileMenu');
+      const menuBtn = document.querySelector('.mobile-menu-btn');
+      
+      if (mobileMenu.classList.contains('active') && 
+          !mobileMenu.contains(e.target) && 
+          !menuBtn.contains(e.target)) {
+        closeMobileMenu();
+      }
+    });
+    
+    // Newsletter subscription
+    function subscribeNewsletter() {
+      const emailInput = document.getElementById('emailInput');
+      const email = emailInput.value.trim();
+      
+      if (!email) {
+        alert('⚠️ Please enter your email address');
+        return;
+      }
+      
+      // Basic email validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        alert('⚠️ Please enter a valid email address');
+        return;
+      }
+      
+      // In production, this would send to your backend/newsletter service
+      console.log('Newsletter subscription:', email);
+      alert('🎉 Thanks for subscribing! We\'ll keep you updated on Axionax developments.');
+      emailInput.value = '';
+    }
+    
+    // Allow Enter key to subscribe
+    document.getElementById('emailInput')?.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        subscribeNewsletter();
+      }
+    });
+    
+    // Enhanced scroll animation with stagger effect
     const observerOptions = {
       threshold: 0.1,
       rootMargin: '0px 0px -100px 0px'
     };
     
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
+      entries.forEach((entry, index) => {
         if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
+          // Add stagger delay based on index
+          setTimeout(() => {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }, index * 50);
         }
       });
     }, observerOptions);
     
-    document.querySelectorAll('.feature-card, .tech-item, .doc-link').forEach(el => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(20px)';
-      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-      observer.observe(el);
+    // Observe all animated elements
+    const animatedElements = [
+      '.feature-card',
+      '.tech-item',
+      '.doc-link',
+      '.faq-item',
+      '.community-card',
+      '.cta-card',
+      '.arch-layer',
+      '.timeline-item'
+    ];
+    
+    animatedElements.forEach(selector => {
+      document.querySelectorAll(selector).forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(el);
+      });
     });
     
     // Smooth scroll for anchor links
@@ -847,9 +1965,110 @@ python3 tests/integration_simple.py
             behavior: 'smooth',
             block: 'start'
           });
+          // Close mobile menu after clicking
+          closeMobileMenu();
         }
       });
     });
+    
+    // Add scroll progress indicator
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      
+      // Create progress bar if it doesn't exist
+      let progressBar = document.getElementById('scrollProgress');
+      if (!progressBar) {
+        progressBar = document.createElement('div');
+        progressBar.id = 'scrollProgress';
+        progressBar.style.cssText = `
+          position: fixed;
+          top: 0;
+          left: 0;
+          height: 3px;
+          background: linear-gradient(90deg, #6366f1 0%, #ec4899 100%);
+          z-index: 9999;
+          transition: width 0.1s ease;
+        `;
+        document.body.appendChild(progressBar);
+      }
+      progressBar.style.width = scrolled + '%';
+    });
+    
+    // Add dynamic stats counter animation
+    function animateValue(element, start, end, duration) {
+      const range = end - start;
+      const increment = range / (duration / 16);
+      let current = start;
+      
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= end) {
+          current = end;
+          clearInterval(timer);
+        }
+        
+        // Format number with commas
+        const formatted = Math.floor(current).toLocaleString();
+        element.textContent = formatted + (element.dataset.suffix || '');
+      }, 16);
+    }
+    
+    // Animate stats when they come into view
+    const statsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !entry.target.dataset.animated) {
+          entry.target.dataset.animated = 'true';
+          const text = entry.target.textContent.trim();
+          
+          if (text.includes('K+')) {
+            const num = parseFloat(text.replace(/[^\d.]/g, ''));
+            entry.target.dataset.suffix = 'K+';
+            animateValue(entry.target, 0, num, 1500);
+          } else if (text.includes('x')) {
+            const num = parseFloat(text.replace('x', ''));
+            entry.target.dataset.suffix = 'x';
+            animateValue(entry.target, 1, num, 1500);
+          } else if (text.includes('/')) {
+            // For "20/20" style stats, just fade in
+            entry.target.style.opacity = '1';
+          }
+        }
+      });
+    }, { threshold: 0.5 });
+    
+    document.querySelectorAll('.stat-number').forEach(stat => {
+      stat.style.opacity = '0';
+      statsObserver.observe(stat);
+    });
+    
+    // Easter egg: Konami code
+    let konamiCode = [];
+    const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+    
+    document.addEventListener('keydown', (e) => {
+      konamiCode.push(e.key);
+      konamiCode = konamiCode.slice(-10);
+      
+      if (konamiCode.join(',') === konamiSequence.join(',')) {
+        document.body.style.animation = 'rainbow 2s ease infinite';
+        setTimeout(() => {
+          document.body.style.animation = '';
+          alert('🎮 Konami Code activated! You found the Easter egg! 🚀\n\nAxionax Protocol - Making decentralized compute awesome!');
+        }, 2000);
+      }
+    });
+    
+    // Add rainbow animation for Easter egg
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes rainbow {
+        0% { filter: hue-rotate(0deg); }
+        100% { filter: hue-rotate(360deg); }
+      }
+    `;
+    document.head.appendChild(style);
   </script>
 </body>
 </html>
