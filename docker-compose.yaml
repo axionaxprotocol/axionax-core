@@ -1,12 +1,22 @@
 version: '3.8'
 
+networks:
+  axionax-network:
+    name: axionax-network
+    driver: bridge
+
+volumes:
+  axionax-data:
+    name: axionax-data
+
 services:
-  # Axionax Core Node
-  axionax-node:
+  # Axionax Core Node (Rust)
+  core-node:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: axionax-node
+    container_name: axionax-core-node
+    command: ["axionax-core", "start"]
     ports:
       - "8545:8545"   # RPC
       - "8546:8546"   # WebSocket
@@ -15,13 +25,25 @@ services:
     volumes:
       - axionax-data:/home/axionax/.axionax
       - ./config.yaml:/home/axionax/config.yaml:ro
-    environment:
-      - AXIONAX_NODE_CHAIN_ID=31337
-      - AXIONAX_NETWORK_BOOTSTRAP_NODES=http://hardhat:8545
     networks:
       - axionax-network
+    restart: unless-stopped
     depends_on:
-      - hardhat
+      - deai-service
+
+  # DeAI Service (Python)
+  deai-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: axionax-deai-service
+    # In the future, this will start a Python server (e.g., FastAPI)
+    # For now, it's a placeholder.
+    command: ["python", "-u", "/app/deai/asr.py"]
+    ports:
+      - "8000:8000" # Expose a port for the DeAI API
+    networks:
+      - axionax-network
     restart: unless-stopped
 
   # Hardhat/Anvil (from Testnet-in-a-Box)
@@ -30,7 +52,7 @@ services:
     container_name: axionax-hardhat
     command: anvil --host 0.0.0.0 --chain-id 31337
     ports:
-      - "8545:8545"
+      - "8547:8545" # Use a different host port to avoid conflict with core-node
     networks:
       - axionax-network
     restart: unless-stopped
@@ -50,12 +72,3 @@ services:
     depends_on:
       - hardhat
     restart: unless-stopped
-
-networks:
-  axionax-network:
-    name: axionax-network
-    driver: bridge
-
-volumes:
-  axionax-data:
-    name: axionax-data
