@@ -1,6 +1,6 @@
 # Stage 1: Rust Builder
 # This stage compiles the Rust core application into a static binary.
-FROM rust:1.73-slim-bookworm as rust-builder
+FROM rust:1.78.0-slim-bookworm as rust-builder
 
 WORKDIR /build
 
@@ -10,50 +10,62 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     pkg-config \
     libssl-dev
 
-# Create a dummy project to cache dependencies
-RUN USER=root cargo new --bin axionax-core
-WORKDIR /build/axionax-core
+# Copy the entire project structure first
+COPY . .
 
-# Copy dependency definitions
-COPY Cargo.toml Cargo.lock ./
-COPY core/Cargo.toml ./core/
-COPY bridge/Cargo.toml ./bridge/
-COPY deai/Cargo.toml ./deai/
-COPY sdk/Cargo.toml ./sdk/
-
-# Build dependencies to cache them
-RUN cargo build --release --workspace
-
-# Copy the actual source code
-COPY core/ ./core/
-COPY bridge/ ./bridge/
-COPY deai/ ./deai/
-COPY sdk/ ./sdk/
+# Set the working directory for the main crate
+# Assuming the main binary is in `core/node`
+WORKDIR /build/core/node
 
 # Build the final binary
-RUN cargo build --release --workspace
+# Cargo will resolve workspace members from the root
+RUN cargo build --release
 
-# Stage 2: Python Builder
-# This stage prepares the Python environment and dependencies.
-FROM python:3.11-slim-bookworm as python-builder
+# Stage 2: Python Bridge Builder (Maturin)
+# This stage uses a Rust base image because it needs BOTH cargo and python.
+FROM rust:1.78.0-slim-bookworm as python-bridge-builder
+
+WORKDIR /build
+
+# Install pip, then maturin for building Rust-based Python packages
+RUN apt-get update && apt-get install -y --no-install-recommends python3-pip && \
+    pip install --break-system-packages maturin
+
+# Copy the entire project context
+COPY . .
+
+# Build the Python wheel for our Rust bridge
+# We explicitly point to the manifest path
+RUN maturin build --release --manifest-path bridge/rust-python/Cargo.toml --out dist
+
+# Stage 3: Python App Builder
+# This stage prepares the final Python application environment.
+FROM python:3.11-slim-bookworm as python-app-builder
 
 WORKDIR /app
 
-# Install Python dependencies
+# Install Python dependencies from requirements.txt
 COPY deai/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the built Python wheel from the bridge-builder stage
+COPY --from=python-bridge-builder /build/dist/*.whl .
+
+# Install our Rust bridge wheel
+RUN pip install --no-cache-dir *.whl
 
 # Copy Python source code
 COPY deai/ ./deai/
 
-# Stage 3: Final Production Image
+# Stage 4: Final Production Image
 # This stage combines the Rust binary and Python app into a small final image.
 FROM debian:bookworm-slim
 
-# Install runtime dependencies (ca-certificates for HTTPS, libssl for crypto)
+# Install runtime dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
     libssl-dev \
+    python3 \
     && rm -rf /var/lib/apt/lists/*
 
 # Create a non-root user for security
@@ -63,31 +75,28 @@ RUN addgroup --system --gid 1000 axionax && \
 # Set working directory
 WORKDIR /home/axionax
 
-# Copy the compiled Rust binary from the rust-builder stage
-COPY --from=rust-builder /build/axionax-core/target/release/axionax-core /usr/local/bin/
+# Find the binary in the target directory (name might vary)
+COPY --from=rust-builder /build/target/release/axionax_node /usr/local/bin/
 
-# Copy the Python application and dependencies from the python-builder stage
-COPY --from=python-builder /app /app
+# Copy the Python application and installed modules from the python-app-builder stage
+COPY --from=python-app-builder /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
+COPY --from=python-app-builder /app/deai /app/deai
 
-# Copy default config file
-COPY config.example.yaml /home/axionax/config.yaml
-
-# Set ownership to the non-root user
-RUN chown -R axionax:axionax /home/axionax /app /usr/local/bin/axionax-core
+# Set ownership
+RUN chown -R axionax:axionax /home/axionax /app /usr/local/bin/axionax_node
 
 # Switch to the non-root user
 USER axionax
+
+# Set PYTHONPATH so Python can find our modules
+ENV PYTHONPATH=/usr/local/lib/python3.11/site-packages:/app
 
 # Create data directory
 RUN mkdir -p /home/axionax/.axionax
 
 # Expose necessary ports
-EXPOSE 8545 8546 30303 9090
-
-# Health check (This will be updated later to use a proper health check endpoint)
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-  CMD wget --no-verbose --tries=1 --spider http://localhost:8545/ || exit 1
+EXPOSE 8545 8000 30303
 
 # Default command to start the node
-ENTRYPOINT ["axionax-core"]
+ENTRYPOINT ["axionax_node"]
 CMD ["start"]
