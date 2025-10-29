@@ -16,35 +16,30 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: axionax-core-node
-    command: ["axionax-core", "start"]
+    command: ["axionax_node", "start"]
     ports:
       - "8545:8545"   # RPC
-      - "8546:8546"   # WebSocket
       - "30303:30303" # P2P
-      - "9090:9090"   # Metrics
     volumes:
       - axionax-data:/home/axionax/.axionax
       - ./config.yaml:/home/axionax/config.yaml:ro
     networks:
       - axionax-network
-    restart: unless-stopped
+    restart: on-failure
     depends_on:
       - deai-service
 
-  # DeAI Service (Python)
+  # DeAI Service (Python) - Integration Test
   deai-service:
     build:
       context: .
       dockerfile: Dockerfile
     container_name: axionax-deai-service
-    # In the future, this will start a Python server (e.g., FastAPI)
-    # For now, it's a placeholder.
-    command: ["python", "-u", "/app/deai/asr.py"]
-    ports:
-      - "8000:8000" # Expose a port for the DeAI API
+    # This command runs our bridge test script.
+    command: ["python3", "-u", "/app/deai/bridge_test.py"]
     networks:
       - axionax-network
-    restart: unless-stopped
+    restart: "no"
 
   # Hardhat/Anvil (from Testnet-in-a-Box)
   hardhat:
@@ -55,20 +50,4 @@ services:
       - "8547:8545" # Use a different host port to avoid conflict with core-node
     networks:
       - axionax-network
-    restart: unless-stopped
-
-  # Blockscout Explorer (optional, from Testnet-in-a-Box)
-  blockscout:
-    image: blockscout/blockscout:latest
-    container_name: axionax-explorer
-    environment:
-      - ETHEREUM_JSONRPC_VARIANT=geth
-      - ETHEREUM_JSONRPC_HTTP_URL=http://hardhat:8545
-      - CHAIN_ID=31337
-    ports:
-      - "4000:4000"
-    networks:
-      - axionax-network
-    depends_on:
-      - hardhat
     restart: unless-stopped
