@@ -1,0 +1,9 @@
+{
+  "name": "Axionax Local Testnet v1.5",
+  "rpc": "/rpc",
+  "chainId": 31337,
+  "symbol": "AXX",
+  "faucet": "/faucet",
+  "erc20": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+  "explorer": "/explorer"
+}
