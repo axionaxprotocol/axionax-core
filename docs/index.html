@@ -127,6 +127,9 @@
       /* Spacing */
       --container-max: 1280px;
       --section-padding: 6rem 2rem;
+      --bg-space: radial-gradient(ellipse 200% 80% at 50% 0%, #21244b 0%, #0b0b23 60%, #070712 100%);
+      --star-color: rgba(255,255,255,0.12);
+      --star-color2: #a6f1ff44;
     }
     
     * {
@@ -137,10 +140,26 @@
     
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: var(--bg-dark);
+      background: var(--bg-space), var(--bg-dark);
       color: var(--text-primary);
       line-height: 1.7;
       overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+    }
+    body::before {
+      content: '';
+      pointer-events: none;
+      position: fixed;
+      z-index: 0;
+      inset: 0;
+      background-image: 
+        repeating-radial-gradient(circle at 10% 30%, var(--star-color) 0, var(--star-color) 0.2px, transparent 0.5px),
+        repeating-radial-gradient(circle at 70% 60%, var(--star-color2) 0, var(--star-color2) 0.2px, transparent 0.7px);
+      opacity: 0.6;
+      background-size: 800px 800px, 1200px 800px;
+      pointer-events: none;
+      mix-blend-mode: lighten;
     }
     
     /* Animated Background */
@@ -319,7 +338,9 @@
       margin-bottom: 1.5rem;
       background: var(--gradient-primary);
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
+      color: transparent;
       background-clip: text;
       line-height: 1.2;
     }
@@ -415,7 +436,9 @@
       margin-bottom: 3rem;
       background: var(--gradient-primary);
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
+      color: transparent;
       background-clip: text;
     }
     
@@ -517,8 +540,8 @@
       font-size: 2rem;
       font-weight: 800;
       background: var(--gradient-primary);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: transparent;
       background-clip: text;
     }
     
@@ -594,8 +617,8 @@
       font-size: 3rem;
       font-weight: 800;
       background: var(--gradient-primary);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: transparent;
       background-clip: text;
       line-height: 1;
       margin-bottom: 0.5rem;
@@ -894,7 +917,9 @@
     .highlight {
       background: var(--gradient-primary);
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
+      color: transparent;
       background-clip: text;
       font-weight: 800;
     }
@@ -976,8 +1001,8 @@
     .timeline-date {
       display: inline-block;
       background: var(--gradient-primary);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: transparent;
       background-clip: text;
       font-weight: 700;
       font-size: 0.95rem;
@@ -1213,8 +1238,8 @@
       font-size: 2.5rem;
       font-weight: 800;
       background: var(--gradient-primary);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: transparent;
       background-clip: text;
       margin-bottom: 0.5rem;
     }
@@ -1432,6 +1457,46 @@
         height: 45px;
         font-size: 1.3rem;
       }
+    }
+    
+    /* Modal styles */
+    .modal-overlay {
+      position: fixed; z-index: 4000; left: 0; top: 0; width: 100vw; height: 100vh;
+      background: rgba(14,17,33,0.72); backdrop-filter: blur(2.5px);
+      display: flex; align-items: center; justify-content: center;
+      transition: opacity 0.3s; opacity: 1;
+    }
+    .modal {
+      background: linear-gradient(120deg, #181846 75%, #2f186c 100%);
+      border-radius: 1.5rem;
+      max-width: 540px; min-width: 270px; width: 92vw;
+      color: #eaf2ff;
+      padding: 2.4rem 2rem 1.3rem;
+      box-shadow: 0 16px 64px 8px #04002844, 0 1px 6px #5ef1d511;
+      position: relative;
+      display: flex; flex-direction: column; gap: 1rem;
+      z-index: 4100;
+      animation: fadeInUp 0.3s;
+    }
+    .modal h2 { font-size: 1.7rem; margin-bottom: 0.3em; background: linear-gradient(90deg,#6d73e6 10%,#ff90c3 90%);-webkit-background-clip:text; background-clip: text; -webkit-text-fill-color:transparent; color: transparent; }
+    .modal p { font-size: 1.1rem; }
+    .modal .modal-close {
+      position: absolute; top: 1.1rem; right: 1.3rem; font-size: 1.8rem;
+      background: none; color: #aac4ef; border:none; cursor:pointer; opacity:.75;
+    }
+    .modal .modal-close:focus { outline:2px solid #ffd3ea; }
+    .modal .preview-section { margin-bottom:1.1rem; }
+    .modal .preview-section h3 { margin-top:.7em; font-size:1.16rem; color:#89ddff; }
+    .modal .read-full-btn {
+      padding: 0.75rem 1.9rem; border-radius: 0.7rem;
+      font-weight: 600; background: var(--gradient-primary); color: white; border: none; margin: 0.6em 0 0;
+      box-shadow: 0 3px 25px #536eff33;
+      cursor: pointer;
+    }
+    .modal .read-full-btn:hover {background: var(--gradient-secondary);}
+    @media (max-width: 600px) {
+      .modal {padding:1.1rem 0.8rem;}
+      .modal h2 { font-size: 1.16rem;}
     }
   </style>
 </head>
@@ -2076,49 +2141,33 @@ python3 tests/integration_simple.py
       <h2 class="section-title">Documentation</h2>
       
       <div class="docs-grid">
-        <a href="API_REFERENCE.html" class="doc-link">
+        <a href="API_REFERENCE.html" class="doc-link" data-doc="api">
           <h3>📖 API Reference</h3>
           <p>Complete API documentation for all modules, RPC methods, and client SDKs.</p>
         </a>
-        
-        <a href="BUILD.html" class="doc-link">
+        <a href="BUILD.html" class="doc-link" data-doc="build">
           <h3>🔨 Build Guide</h3>
           <p>Step-by-step instructions for building and deploying Axionax nodes.</p>
         </a>
-        
-        <a href="TESTNET_INTEGRATION.html" class="doc-link">
+        <a href="TESTNET_INTEGRATION.html" class="doc-link" data-doc="testnet">
           <h3>🌐 Testnet Integration</h3>
           <p>Connect to the Axionax testnet and start validating transactions.</p>
         </a>
-        
-        <a href="NODE_INTEGRATION.html" class="doc-link">
+        <a href="NODE_INTEGRATION.html" class="doc-link" data-doc="node">
           <h3>⚙️ Node Integration</h3>
           <p>Full node setup with Network, State, and RPC integration guide.</p>
         </a>
-        
-        <a href="STATE_RPC_USAGE.html" class="doc-link">
+        <a href="STATE_RPC_USAGE.html" class="doc-link" data-doc="state">
           <h3>💾 State & RPC Usage</h3>
           <p>RocksDB state management and JSON-RPC 2.0 server documentation.</p>
         </a>
-        
-        <a href="../ARCHITECTURE.html" class="doc-link">
+        <a href="../ARCHITECTURE.html" class="doc-link" data-doc="arch">
           <h3>🏗️ Architecture</h3>
           <p>Deep dive into PoPC consensus, ASR, PPC, and DeAI security design.</p>
         </a>
-        
-        <a href="../QUICKSTART.html" class="doc-link">
+        <a href="../QUICKSTART.html" class="doc-link" data-doc="quick">
           <h3>🚀 Quick Start</h3>
           <p>Get started with Axionax in 5 minutes - beginner-friendly tutorial.</p>
-        </a>
-        
-        <a href="../SECURITY.md" class="doc-link">
-          <h3>🔐 Security</h3>
-          <p>Security model, chain identity verification, and best practices.</p>
-        </a>
-        
-        <a href="../TOKENOMICS.md" class="doc-link">
-          <h3>💎 Tokenomics</h3>
-          <p>Token economics, supply distribution, and incentive mechanisms.</p>
         </a>
       </div>
     </div>
@@ -2405,6 +2454,116 @@ python3 tests/integration_simple.py
     document.getElementById('mobileMenuBtn').addEventListener('click', toggleMobileMenu);
     document.getElementById('subscribeBtn').addEventListener('click', subscribeNewsletter);
     document.getElementById('backToTopBtn').addEventListener('click', scrollToTop);
+    
+    // === Modal preview logic for docs-grid ===
+    const docPreviews = {
+      api: {
+        title: 'Axionax Core API Reference',
+        summary: 'Comprehensive JSON-RPC API reference, including standard Ethereum methods, Axionax custom compute/worker/consensus extensions, error codes, usage and Web3/Go examples.',
+        highlights: [
+          {h: 'Standard Methods', p: 'eth_chainId, eth_getBalance, etc. – for integration with EVM tools.'},
+          {h: 'Custom Methods', p: 'axn_submitJob, axn_registerWorker, axn_getPricingInfo, ...'},
+          {h: 'Error Codes', p: 'JSON-RPC standard & Axionax-specific errors explained.'},
+          {h: 'Code Examples', p: 'curl, Go, JS/Web3 usage examples included.'}
+        ],
+        href: 'API_REFERENCE.html'
+      },
+      build: {
+        title: 'Axionax Core – Build & Development Guide',
+        summary: 'Step-by-step instructions to build, configure, and develop Axionax Core and Docker images (Go/Cross-platform supported).',
+        highlights: [
+          {h:'Quick Start',p:'Install Go, clone repo, make build.'},
+          {h:'Docker/Compose',p:'How to run nodes and networks.'},
+          {h:'Common Issues',p:'Troubleshooting build, dep, IDE, profiling etc.'}
+        ],
+        href: 'BUILD.html'
+      },
+      testnet: {
+        title: 'Testnet Integration Guide',
+        summary: 'How to connect and test with Axionax public/development testnet environments (RPC endpoints, faucet, explorer).',
+        highlights: [
+          {h:'RPC/Chain ID',p:'How to connect your client and configure chain ID.'},
+          {h:'Faucet/Explorer',p:'How to get tokens and use the explorer.'},
+          {h:'Node Registration',p:'Generate keys and register as validator/worker.'}
+        ],
+        href:'TESTNET_INTEGRATION.html'
+      },
+      node: {
+        title:'Node Integration',
+        summary:'Guide to configure/run a full Axionax node (Rust, RPC, networking, publishing blocks, querying state).',
+        highlights:[
+          {h:'AxionaxNode struct',p:'API for controlling and querying your node.'},
+          {h:'Publishing',p:'How to broadcast blocks/transactions.'},
+          {h:'Stats/Performance',p:'Query peer count, block height, stats.'}
+        ],
+        href:'NODE_INTEGRATION.html'
+      },
+      state: {
+        title:'State & RPC Usage',
+        summary:'How to store/query blockchain state and communicate with Axionax JSON-RPC endpoints.',
+        highlights:[
+          {h:'Persistent DB',p:'How chain data is stored and queried (RocksDB).'},
+          {h:'RPC Module',p:'Supported Ethereum-compatible and custom methods.'},
+          {h:'Performance',p:'Throughput/latency details; error codes.'}
+        ],
+        href:'STATE_RPC_USAGE.html'
+      },
+      arch: {
+        title:'Architecture Overview',
+        summary:'Breakdown of PoPC consensus, ASR auto-selection, fraud-proofing, DA layer, DAO governance and DeAI security.',
+        highlights:[
+          {h:'Core Workflow',p:'How jobs are assigned, executed and validated.'},
+          {h:'Consensus/DA',p:'Data availability, VRF challenge, sampling.'},
+          {h:'Security',p:'Slashing, anomaly detection, governance.'}
+        ],
+        href:'../ARCHITECTURE.html'
+      },
+      quick: {
+        title:'Quick Start Guide',
+        summary:'5-minute tutorial for getting Axionax running locally (testnet, validator, worker).',
+        highlights:[
+          {h:'Build Node',p:'Docker or source compile and run.'},
+          {h:'Follow User Path',p:'Validator/Worker/Client modes step-by-step.'},
+          {h:'Troubleshooting',p:'Common errors and how to fix.'}
+        ],
+        href:'../QUICKSTART.html'
+      }
+    };
+    let modal = null;
+    function openDocModal(docKey){
+      const data = docPreviews[docKey];
+      if(!data) return;
+      // Remove existing modal first
+      if(modal) modal.remove();
+      modal = document.createElement('div');
+      modal.className = 'modal-overlay';
+      modal.tabIndex = 0;
+      modal.innerHTML = `
+        <div class="modal" role="dialog" aria-label="Preview: ${data.title}">
+          <button class="modal-close" aria-label="Close Preview" tabindex="0">×</button>
+          <h2>${data.title}</h2>
+          <p class="preview-section">${data.summary}</p>
+          ${data.highlights.map(high=>`<div class='preview-section'><h3>${high.h}</h3><p>${high.p}</p></div>`).join('')}
+          <a href="${data.href}" target="_blank" class="read-full-btn">Read Full Documentation →</a>
+        </div>
+      `;
+      document.body.appendChild(modal);
+      // focus
+      setTimeout(()=>modal.querySelector('.modal-close').focus(), 20);
+      // close logic
+      function close(){ modal.remove(); modal=null;document.removeEventListener('keydown',escListener);}
+      modal.querySelector('.modal-close').onclick = close;
+      modal.onclick = e=>{if(e.target===modal)close();}
+      function escListener(e){if(e.key==='Escape'){close();}}
+      document.addEventListener('keydown',escListener);
+    }
+    document.querySelectorAll('.docs-grid .doc-link').forEach(link=>{
+      link.addEventListener('click',(e)=>{
+        e.preventDefault(); e.stopPropagation();
+        const docKey = link.getAttribute('data-doc');
+        openDocModal(docKey);
+      });
+    });
   </script>
 </body>
 </html>

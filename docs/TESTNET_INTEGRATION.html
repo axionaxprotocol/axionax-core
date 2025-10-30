@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testnet Integration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.1.0/github-markdown.min.css">
+    <style>
+        .markdown-body {
+            box-sizing: border-box;
+            min-width: 200px;
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 45px;
+        }
+    </style>
+</head>
+<body class="markdown-body">
+<pre>
+# Axionax Core - RPC Client Integration
+
+This package provides RPC client integration with the Axionax testnet running on Anvil.
+
+## Quick Setup
+
+### 1. Start Testnet-in-a-Box
+
+```bash
+cd Axionax_v1.5_Testnet_in_a_Box
+docker compose up -d
+```
+
+### 2. Connect to Testnet RPC
+
+The testnet exposes the following endpoints:
+
+- **RPC**: http://localhost:8545
+- **Chain ID**: 86137 (Axionax Testnet)
+- **Explorer**: http://localhost:4001
+- **Note**: For local dev, legacy chain ID 31337 may still be used
+
+### 3. Configure Axionax Core
+
+Edit `config.yaml` or use environment variables:
+
+```yaml
+node:
+  chain_id: 31337
+
+network:
+  bootstrap_nodes:
+    - "http://localhost:8545"
+```
+
+Or with environment variables:
+
+```bash
+export AXIONAX_NODE_CHAIN_ID=31337
+export AXIONAX_NETWORK_BOOTSTRAP_NODES="http://localhost:8545"
+```
+
+### 4. Run Axionax Node
+
+```bash
+# Initialize configuration
+./axionax-core config init
+
+# Start node
+./axionax-core start --network testnet
+```
+
+## Smart Contract Integration
+
+The testnet comes with pre-deployed contracts:
+
+- **AXX Token**: Check `Axionax_v1.5_Testnet_in_a_Box/shared/addresses.json`
+
+### Example: Query AXX Balance
+
+```go
+package main
+
+import (
+    "fmt"
+    "log"
+    "math/big"
+
+    "github.com/ethereum/go-ethereum/common"
+    "github.com/ethereum/go-ethereum/ethclient"
+)
+
+func main() {
+    // Connect to local Anvil
+    client, err := ethclient.Dial("http://localhost:8545")
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    // Query chain ID
+    chainID, err := client.ChainID(context.Background())
+    if err != nil {
+        log.Fatal(err)
+    }
+    fmt.Printf("Connected to Chain ID: %s\n", chainID)
+
+    // Query balance
+    address := common.HexToAddress("0xYourAddress")
+    balance, err := client.BalanceAt(context.Background(), address, nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    fmt.Printf("Balance: %s AXX\n", balance)
+}
+```
+
+## Faucet Integration
+
+Request test AXX tokens from the faucet:
+
+```bash
+# Using curl (with basic auth: admin:password)
+curl -H "Authorization: Basic YWRtaW46cGFzc3dvcmQ=" \
+  "http://localhost:8081/request?address=0xYourAddress"
+
+# Or use the web UI
+# Open http://localhost:8080 in your browser
+```
+
+## Development Workflow
+
+### 1. Generate Test Keys
+
+```bash
+./axionax-core keys generate --type validator
+./axionax-core keys generate --type worker
+```
+
+### 2. Fund Accounts
+
+Use the faucet to fund your test accounts.
+
+### 3. Register as Validator
+
+```bash
+# Stake AXX tokens
+./axionax-core stake deposit 10000 --address <your-address>
+
+# Start validator
+./axionax-core validator start
+```
+
+### 4. Register as Worker
+
+```bash
+# Create worker specs
+cat > worker-specs.json <<EOF
+{
+  "gpus": [
+    {
+      "model": "NVIDIA RTX 4090",
+      "vram": 24,
+      "count": 1
+    }
+  ],
+  "cpu_cores": 16,
+  "ram": 64,
+  "storage": 1000,
+  "bandwidth": 1000,
+  "region": "us-west",
+  "asn": "AS15169",
+  "organization": "example-org"
+}
+EOF
+
+# Register worker
+./axionax-core worker register --specs worker-specs.json
+
+# Start worker
+./axionax-core worker start
+```
+
+## Monitoring
+
+### Check Node Status
+
+```bash
+# Check validator status
+./axionax-core validator status
+
+# Check worker status
+./axionax-core worker status
+
+# View configuration
+./axionax-core config show
+```
+
+### View Metrics
+
+Prometheus metrics are available at:
+```
+http://localhost:9090/metrics
+```
+
+### View Transactions
+
+Use Blockscout explorer:
+```
+http://localhost:4001
+```
+
+## Troubleshooting
+
+### Connection Refused
+
+Make sure the testnet is running:
+```bash
+cd Axionax_v1.5_Testnet_in_a_Box
+docker compose ps
+```
+
+### Chain ID Mismatch
+
+Ensure your config has:
+```yaml
+node:
+  chain_id: 31337
+```
+
+### RPC Errors
+
+Check Anvil logs:
+```bash
+docker compose logs hardhat
+```
+
+## API Reference
+
+See full API documentation in `docs/API_REFERENCE.md`.
+
+## Next Steps
+
+- Read the [Architecture Overview](../ARCHITECTURE.md)
+- Review [PoPC Implementation](../docs/POPC.md)
+- Learn about [ASR Selection](../docs/ASR.md)
+- Understand [PPC Pricing](../docs/PPC.md)
+</pre>
+</body>
+</html>
