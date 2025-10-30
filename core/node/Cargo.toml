@@ -16,6 +16,9 @@ blockchain = { path = "../blockchain" }
 crypto = { path = "../crypto" }
 consensus = { path = "../consensus" }
 
+# CLI Parsing
+clap = { version = "4.4", features = ["derive"] }
+
 # Async runtime
 tokio = { workspace = true, features = ["full"] }
 async-trait = { workspace = true }
@@ -25,8 +28,8 @@ serde = { workspace = true }
 serde_json = { workspace = true }
 
 # Error handling
-thiserror = "2.0"
-anyhow = "1.0"
+thiserror = { workspace = true }
+anyhow = { workspace = true }
 
 # Encoding
 hex = "0.4"
