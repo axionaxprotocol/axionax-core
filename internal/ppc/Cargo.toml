@@ -1,0 +1,10 @@
+[package]
+name = "ppc"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "ppc"
+path = "mod.rs"
+
+[dependencies]

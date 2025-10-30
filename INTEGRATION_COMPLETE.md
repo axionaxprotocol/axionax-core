@@ -34,9 +34,22 @@ axx.PyTransaction(from, to, value, data)
 
 **Build Process**:
 ```bash
-cd bridge/rust-python
-cargo build --release
-./build.sh  # Copies to deai/lib/axionax_python.so
+#!/bin/bash
+set -e # Exit immediately if a command exits with a non-zero status.
+
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
+PROJECT_ROOT=$(dirname "$(dirname "$SCRIPT_DIR")")
+
+echo "Building Rust-Python bridge..."
+cd "$SCRIPT_DIR" && cargo build --release
+
+TARGET_DIR="$PROJECT_ROOT/deai/lib"
+mkdir -p "$TARGET_DIR"
+
+echo "Copying shared library to $TARGET_DIR"
+cp "$SCRIPT_DIR/target/release/libaxionax_python.so" "$TARGET_DIR/axionax_python.so"
+
+echo "Build complete."
 ```
 
 ---

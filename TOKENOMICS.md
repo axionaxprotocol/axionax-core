@@ -208,6 +208,6 @@ All economic parameters can be adjusted via governance proposals:
 
 ---
 
-**Note**: Token allocation and economics are subject to regulatory review and may be adjusted before mainnet launch.
+**Note**: Token allocation and economics are subject to change based on DAO governance and regulatory review.
 
-Last Updated: 2025-01-21 | v1.5.0
+Last Updated: 2025-10-24 | v1.6.0

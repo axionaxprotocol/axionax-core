@@ -30,28 +30,29 @@ type NetworkInfo struct {
 // OfficialNetworks registry
 var OfficialNetworks = map[uint64]NetworkInfo{
 	TestnetChainID: {
-		ID:  TestnetChainID,
-		ame: "Axionax Testnet",
-		"active",
-		dpoint: "https://testnet-rpc.axionax.org",
-		"https://testnet-explorer.axionax.org",
+		ChainID:     TestnetChainID,
+		Name:        "Axionax Testnet",
+		Status:      "active",
+		RPCEndpoint: "https://testnet-rpc.axionax.org",
+		Explorer:    "https://testnet-explorer.axionax.org",
 	},
 	MainnetChainID: {
-		ID:  MainnetChainID,
-		ame: "Axionax Mainnet",
-		"planned",
+		ChainID: MainnetChainID,
+		Name:    "Axionax Mainnet",
+		Status:  "planned",
 	},
 }
 
 // VerifyGenesisBlock validates genesis block
 func VerifyGenesisBlock(chainID uint64, genesisHash string) error {
 	if chainID == LegacyDevChainID {
-		nil // Local dev
+		return nil // Local dev, skip verification
 	}
 
 	network, exists := OfficialNetworks[chainID]
 	if !exists {
-		fmt.Errorf("⚠️ WARNING: Chain ID %d is not official Axionax", chainID)
+		// Return a warning, but not a fatal error for non-official chains
+		return fmt.Errorf("⚠️ WARNING: Chain ID %d is not an official Axionax network", chainID)
 	}
 
 	if network.GenesisHash != "" && genesisHash != network.GenesisHash {

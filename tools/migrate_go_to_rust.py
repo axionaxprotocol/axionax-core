@@ -148,15 +148,31 @@ class RustDataWriter:
         
         return blocks_count, txs_count
     
-    def save_state(self, go_state: Dict[str, Any]) -> int:
-        """Save state data (Rust state module will handle this)"""
-        # For now, save as JSON (Rust state module will load this)
-        state_file = os.path.join(self.data_dir, "migrated_state.json")
+    def migrate_state(self, go_state: Dict[str, Any]) -> int:
+        """
+        Migrate state data directly into Rust's state database via PyO3 bindings.
+        Falls back to JSON dump if direct binding is not available.
+        """
+        # This assumes a PyStateDB object is exposed via PyO3
+        # with a `set(key, value)` method.
+        count = 0
+        try:
+            # Example: self.blockchain.state_db() returns the state DB object
+            state_db = self.blockchain.state_db() 
+            print("   -> Using direct state migration via Rust bindings.")
+            for key, value in go_state.items():
+                # Assuming the state DB binding accepts string key and JSON-encoded string value
+                state_db.set(key, json.dumps(value))
+                count += 1
+        except (AttributeError, NotImplementedError):
+            print("   -> Warning: Direct state migration not available. Falling back to JSON dump.")
+            # Fallback to JSON dump if direct binding is not implemented
+            state_file = os.path.join(self.data_dir, "migrated_state.json")
+            with open(state_file, 'w') as f:
+                json.dump(go_state, f, indent=2)
+            return len(go_state)
         
-        with open(state_file, 'w') as f:
-            json.dump(go_state, f, indent=2)
-        
-        return len(go_state)
+        return count
 
 
 class MigrationValidator:
@@ -221,25 +237,38 @@ class MigrationValidator:
     def validate_state(self) -> tuple[bool, List[str]]:
         """Validate state migration"""
         errors = []
-        
         go_state = self.go_reader.read_state()
-        state_file = os.path.join(self.rust_writer.data_dir, "migrated_state.json")
-        
-        if not os.path.exists(state_file):
-            errors.append("Migrated state file not found")
-            return False, errors
-        
-        with open(state_file, 'r') as f:
-            rust_state = json.load(f)
-        
-        # Validate state keys
-        go_keys = set(go_state.keys())
-        rust_keys = set(rust_state.keys())
-        
-        missing_keys = go_keys - rust_keys
-        if missing_keys:
-            errors.append(f"Missing state keys: {missing_keys}")
-        
+
+        # Try to validate directly from Rust's state DB first
+        try:
+            state_db = self.rust_writer.blockchain.state_db()
+            print("   -> Validating state directly from Rust DB.")
+            for key, go_value in go_state.items():
+                rust_value_json = state_db.get(key)
+                if rust_value_json is None:
+                    errors.append(f"State key missing in Rust DB: {key}")
+                    continue
+                
+                rust_value = json.loads(rust_value_json)
+                if rust_value != go_value:
+                    errors.append(f"State value mismatch for key: {key}")
+
+        except (AttributeError, NotImplementedError):
+            # Fallback to validating the JSON file if direct access is not available
+            print("   -> Direct state validation not available. Falling back to JSON file.")
+            state_file = os.path.join(self.rust_writer.data_dir, "migrated_state.json")
+            if not os.path.exists(state_file):
+                errors.append("Migrated state file (migrated_state.json) not found for validation.")
+                return False, errors
+            
+            with open(state_file, 'r') as f:
+                rust_state = json.load(f)
+            
+            if set(go_state.keys()) != set(rust_state.keys()):
+                missing = set(go_state.keys()) - set(rust_state.keys())
+                extra = set(rust_state.keys()) - set(rust_state.keys())
+                errors.append(f"State key mismatch. Missing: {missing}, Extra: {extra}")
+
         return len(errors) == 0, errors
 
 
@@ -301,7 +330,7 @@ class MigrationManager:
         # Step 4: Migrate state
         print("\n💾 Step 4: Migrating state...")
         go_state = self.go_reader.read_state()
-        state_entries = self.rust_writer.save_state(go_state)
+        state_entries = self.rust_writer.migrate_state(go_state)
         print(f"   Migrated {state_entries} state entries")
         
         # Step 5: Validation

@@ -98,9 +98,8 @@ Time Multiplier:
 - Implementation plan
 
 **Submission**: Via governance dashboard or CLI
-
 ```bash
-axionax-core governance propose \
+axionax-cli governance propose \
   --title "Adjust ASR parameter K to 128" \
   --description "..." \
   --type parameter-adjustment \

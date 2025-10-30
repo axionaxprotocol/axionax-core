@@ -1,104 +1,462 @@
-# Axionax v1.5 — Testnet-in-a-Box
-อัปเดต: 2025-10-18
+# 🛡️ Security Policy
 
-สแต็กทดสอบบนเครื่อง (local testnet) ด้วย Docker Compose ที่ประกอบด้วย:
-- โหนดเชน: Foundry Anvil (RPC: http://localhost:8545, Chain ID: 31337)
-- Blockscout Explorer Backend API (http://localhost:4000) + Postgres
-- Blockscout Frontend UI (http://localhost:4001)
-- Faucet API/Server (http://localhost:8081) + UI หน้าเว็บ (http://localhost:8080)
-- Deployer (ดีพลอย AXX และสัญญาที่เกี่ยวข้องตามสคริปต์)
+## 🚨 Official Axionax Networks
 
-ค่าเริ่มต้นสำคัญที่ตั้งไว้แล้ว
-- Chain ID: 31337 (สอดคล้องกับ Anvil)
-- สกุลเงิน: AXX
-- Faucet เปิด Basic Auth (ดีฟอลต์: admin:password)
+### ✅ Testnet (Active)
 
-## เริ่มต้นใช้งานอย่างรวดเร็ว (Windows)
-1) ติดตั้ง Docker Desktop และเปิดใช้งาน Docker Compose
-2) เปิด PowerShell/Command Prompt ที่โฟลเดอร์โปรเจกต์นี้ แล้วรัน:
+```yaml
+Network Name: Axionax Testnet
+Chain ID:     86137
+Genesis Hash: [To be published after deployment]
+Status:       ACTIVE (v1.6)
 
-	(ตัวอย่างคำสั่ง, รันได้ใน PowerShell หรือ cmd)
+RPC Endpoints:
+  - https://testnet-rpc.axionax.org
+  - wss://testnet-ws.axionax.org
 
-	docker compose up -d
+Block Explorer:
+  - https://testnet-explorer.axionax.org
 
-3) ตรวจสอบคอนเทนเนอร์ขึ้นครบ
+Faucet:
+  - https://testnet-faucet.axionax.org
+```
 
-	docker compose ps
+**Testnet Purpose:**
+- Test v1.6 multi-language architecture (Rust/Python/TypeScript)
+- Validate PoPC consensus and ASR mechanisms
+- Community stress testing
+- Developer dApp experimentation
 
-บริการและพอร์ต
-- RPC (Anvil):       http://localhost:8545
-- Blockscout Backend: http://localhost:4000 (API)
-- Blockscout Frontend: http://localhost:4001 (UI)
-- Faucet API:        http://localhost:8081
-- Faucet Web (UI):   http://localhost:8080
-	- มี proxy ไปยัง Blockscout API ผ่านพาธเดียวกัน เพื่อเลี่ยง CORS: http://localhost:8080/blockscout-api/
+**Testnet Tokens:**
+- Symbol: tAXX (test tokens only)
+- NO economic value
+- Free from official faucet
 
-## การตรวจสอบ (Smoke test)
-- ตรวจสอบ Blockscout API v2 (ตัวอย่างดึงบล็อกล่าสุด)
-  - ตรงไปที่ backend:
+### 🚧 Mainnet (NOT LAUNCHED)
 
-	  curl.exe -s "http://localhost:4000/api/v2/blocks?type=canonical&limit=1"
+```yaml
+Status:          NOT LAUNCHED
+Launch Date:     TBD (Q4 2026 estimated)
+Announcement:    https://axionax.org/mainnet-launch
+Reserved Chain ID: 86150
+```
 
-  - หรือผ่าน proxy ของ UI (เลี่ยง CORS):
+⚠️ **CRITICAL WARNING:**
 
-	  curl.exe -s "http://localhost:8080/blockscout-api/api/v2/blocks?type=canonical&limit=1"
+**ANY network claiming to be "Axionax Mainnet" is a SCAM until officially announced.**
 
-- ตรวจสอบ Faucet health (มี Basic Auth)
+**How to verify official launch:**
+1. ✅ Announcement on https://axionax.org
+2. ✅ Confirmed on Twitter: @AxionaxProtocol
+3. ✅ Posted in Discord: https://discord.gg/axionax
+4. ✅ Genesis hash published in this repository
+5. ✅ Signed with foundation PGP key
 
-	curl.exe -s -H "Authorization: Basic YWRtaW46cGFzc3dvcmQ=" "http://localhost:8081/health"
+**Mainnet launch will include:**
+- Security audit reports (consensus, cryptography, smart contracts)
+- Genesis block specification with official hash
+- Validator requirements and whitelist
+- Token distribution details (no pre-sales)
+- Governance framework
 
-ผลที่คาดหวัง: ควรได้ JSON ที่มี ok=true และ chainId=31337
+**RED FLAGS for FAKE mainnet:**
+- 🚩 No announcement on axionax.org
+- 🚩 Different chain ID than 86150
+- 🚩 No genesis hash in GitHub
+- 🚩 Promises of "early access tokens"
+- 🚩 Requests for private keys
+- 🚩 Unofficial RPC endpoints
 
-## ขอเหรียญจาก Faucet
-Faucet รองรับการโอน Native (AXX) และหากตั้งค่าไว้จะโอน ERC-20 AXX ด้วย
+---
 
-- ตัวอย่างขอ Native ไปยังแอดเดรสจาก Anvil (ใช้ Basic Auth):
+## 🔒 Reporting Security Issues
 
-  1) ขอรายการบัญชีตัวอย่างจาก Anvil:
+### Vulnerability Disclosure
 
-	  docker compose exec hardhat cast rpc eth_accounts
+The Axionax team takes security vulnerabilities seriously. We appreciate your efforts to responsibly disclose your findings.
 
-  2) ใช้ที่อยู่หนึ่งอันไปขอจาก faucet:
+**Please DO NOT file a public issue for security vulnerabilities.**
 
-	  curl.exe -s -H "Authorization: Basic YWRtaW46cGFzc3dvcmQ=" "http://localhost:8081/request?address=0x70997970c51812dc3a010c7d01b50e0d17dc79c8"
+**Report to:** security@axionax.org  
+**PGP Key:** https://axionax.org/security.asc
 
-จะได้ผลลัพธ์ JSON ที่มี hash ธุรกรรมและ blockNumber ซึ่งสามารถเปิดดูใน Blockscout ได้
+### What to Include
 
-หมายเหตุเรื่อง PowerShell vs curl
-- บน Windows PowerShell คำว่า `curl` เป็น alias ของ Invoke-WebRequest แนะนำเรียก `curl.exe` เพื่อตัดปัญหา alias/การครอบสตริง
-- หากใช้ `Invoke-RestMethod` ให้ระวังการต่อสตริงด้วย `+` และใช้ `-Uri` อย่างชัดเจน
+When reporting a vulnerability, please include:
+1. **Description**: Clear description of the vulnerability
+2. **Impact**: Potential impact and attack scenarios
+3. **Reproduction Steps**: Detailed steps to reproduce the issue
+4. **Proof of Concept**: Code or logs demonstrating the vulnerability (if available)
+5. **Suggested Fix**: Your recommendations for fixing the issue (optional)
+6. **Contact Information**: How we can reach you for follow-up
 
-## ตั้งค่า MetaMask
-เพิ่มเครือข่ายแบบกำหนดเอง:
-- Network Name: Axionax Local (Anvil)
-- RPC URL: http://127.0.0.1:8545
-- Chain ID: 31337
-- Currency Symbol: AXX
-- Block Explorer: http://127.0.0.1:4000
-	(หน้า UI ของ Blockscout อยู่ที่ http://127.0.0.1:4001; ในหน้าเว็บของโปรเจกต์นี้มีปุ่มเปิด/คัดลอกลิงก์สำเร็จรูป)
+### Response Timeline
 
-## การปรับแต่งค่า
-- UI config: `ui/config.json` (เช่น chainId, explorer, faucet)
-- Faucet ค่าเริ่มต้น: แก้ไฟล์ `.env` ที่รูทโปรเจกต์
-  - RPC_URL, CHAIN_ID, PORT, BASIC_AUTH, FAUCET_PRIVATE_KEY, ERC20_TOKEN_ADDRESS, ฯลฯ
-  - เปลี่ยนค่าแล้วให้รีสตาร์ทคอนเทนเนอร์ faucet: `docker compose restart faucet`
-- Docker Compose: `docker-compose.yml`
-  - โหนด Anvil ถูกตั้งให้ `--chain-id 31337` และ listen ที่ 0.0.0.0
-  - Blockscout ใช้ ETHEREUM_JSONRPC_VARIANT=geth, ชี้ RPC ไปที่ anvil, และ CHAIN_ID=31337
+- **Critical**: Within 24 hours (v1.6+)
+- **High**: Within 72 hours
+- **Medium**: Within 1 week
+- **Low**: Within 2 weeks
 
-## Known issues & Troubleshooting
-- PowerShell แสดง error เรื่อง `&` หรือการต่อสตริงด้วย `+` ให้ใช้ `curl.exe` หรือ `Invoke-RestMethod` พร้อมครอบสตริงอย่างถูกต้อง
-- Blockscout API รุ่นใหม่ใช้เส้นทาง `/api/v2/...` ถ้าเรียก `/api?module=...` อาจเจอ "Unknown module"
-- หาก Blockscout ชี้ไปยังเชน/ฐานข้อมูลผิดพลาดแล้วเกิดข้อมูลค้างใน DB ให้หยุด Blockscout แล้วรีเซ็ตสคีมาของ Postgres (ขั้นสูง, ทำเฉพาะกรณีจำเป็น):
-  - หยุด Blockscout แล้วรันในคอนเทนเนอร์ postgres: `DROP SCHEMA public CASCADE; CREATE SCHEMA public;` จากนั้นสตาร์ท Blockscout ใหม่เพื่อรัน migrations
+**Bug Bounty:** Coming soon (Q2 2025)
 
-## โครงสร้างสำคัญ
-- `docker-compose.yml` – orchestration ของทุกบริการ
-- `ui/config.json` – ตั้งค่า chainId, rpc, faucet, explorer สำหรับหน้าเว็บ
-- `.env` – คอนฟิก faucet (Basic Auth, RPC URL, Chain ID, คีย์กระเป๋า faucet)
-- `shared/addresses.json` – ที่อยู่สัญญาที่ deployer บันทึกไว้ (ถ้ามี)
-- `chain/`, `deployer/`, `faucet/` – โค้ดและสคริปต์ของแต่ละบริการ
+---
 
-## ความปลอดภัย
-- อย่าใช้คีย์และรหัสผ่านดีฟอลต์สำหรับการเปิดใช้งานสาธารณะ
-- หากเปิดพอร์ตออกอินเทอร์เน็ต แนะนำให้ตั้ง reverse proxy, rate limit และเปลี่ยนค่า BASIC_AUTH/FAUCET_PRIVATE_KEY ทันที
+## 🎣 Reporting Network Impersonation
+
+### Clone Networks / Fake Mainnets
+
+If you discover networks impersonating Axionax:
+
+**Email:** security@axionax.org
+
+**Include:**
+- Chain ID and genesis hash
+- RPC URL and website
+- Screenshots of branding
+- Social media accounts
+- Date discovered
+
+**Examples of impersonation:**
+- Networks claiming to be "Axionax Official Mainnet"
+- Using "AXX" token symbol without authorization
+- Copying Axionax branding and logo
+- Fake validator recruitment programs
+- Phishing websites mimicking axionax.org
+
+### Fake Token Listings
+
+**Official token status:**
+- ❌ NOT yet listed on any exchange
+- ❌ NO pre-sales or "early access"
+- ✅ Will be announced ONLY on axionax.org when ready
+
+**Report fake tokens:**
+1. security@axionax.org (priority)
+2. Platform's fraud department
+3. Discord #security channel
+
+**Platforms to verify:**
+- CoinMarketCap: No official listing yet
+- CoinGecko: No official listing yet
+- Uniswap: No official pool yet
+
+---
+
+## 🔍 Verifying Network Authenticity
+
+### Official Domains
+
+✅ **Legitimate:**
+- axionax.org
+- axionax.com  
+- github.com/axionaxprotocol
+
+🚩 **Common phishing patterns:**
+- axionax.co (missing 'm')
+- axionax-network.com
+- axionax-official.io
+- axionaxtoken.com
+
+### Verify Genesis Hash
+
+```bash
+# Check testnet genesis
+axionax-cli verify-genesis --chain-id 86137
+
+# Expected output:
+# Chain ID: 86137
+# Genesis Hash: 0x[official hash from GitHub]
+# Status: ✅ VERIFIED
+
+# WARNING if mismatch:
+# ⚠️ Genesis mismatch - possible fake network
+```
+
+### Verify Network Parameters
+
+```bash
+# Get network info
+axionax-cli network-info
+
+# Should display:
+# Network: Axionax Testnet
+# Chain ID: 86137
+# Version: v1.6.0
+# Genesis: 0x[official]
+```
+
+---
+
+## Threat Model
+
+### Trust Assumptions
+
+**Trusted Components:**
+- DAO governance process (assumes honest majority)
+- Validator set (assumes >66% honest stake)
+- VRF implementation (cryptographic security)
+
+**Untrusted Components:**
+- Individual workers (can be malicious)
+- Individual validators (can vote incorrectly)
+- Network participants (can attempt Sybil attacks)
+- External data sources
+
+### Attack Vectors & Mitigations
+
+#### 1. Worker Fraud (Submitting Incorrect Outputs)
+
+**Attack**: Worker submits fraudulent compute results to earn rewards without doing work.
+
+**Mitigations**:
+- ✅ PoPC statistical sampling (P_detect = 1 - (1-f)^s)
+- ✅ Stratified sampling ensures coverage
+- ✅ Adaptive escalation for suspicious workers
+- ✅ 100% stake slashing on proven fraud
+- ✅ Fraud-proof window allows retroactive challenges
+- ✅ Replica diversity (β% redundant execution)
+
+**Residual Risk**: Low (if s ≥ 600 and β ≥ 2%)
+
+---
+
+#### 2. Validator Collusion (False-PASS Voting)
+
+**Attack**: Validators collude to pass fraudulent work from co-conspirator workers.
+
+**Mitigations**:
+- ✅ Economic penalties: False-PASS slashing (≥500bp)
+- ✅ Fraud-proof window allows challenge after sealing
+- ✅ Reputation tracking and adaptive escalation
+- ✅ Geographic and organizational diversity requirements
+- ✅ Public attestations and transparency
+
+**Residual Risk**: Medium (requires ongoing monitoring)
+
+---
+
+#### 3. VRF Grinding (Predicting Challenge Sets)
+
+**Attack**: Worker attempts to manipulate VRF seed to get favorable challenge samples.
+
+**Mitigations**:
+- ✅ Delayed VRF (k-block delay, k ≥ 2)
+- ✅ Seed derived from future block hashes (unpredictable at commit time)
+- ✅ Cryptographic VRF guarantees
+
+**Residual Risk**: Very Low (cryptographically secure)
+
+---
+
+#### 4. DA Withholding (Hiding Outputs)
+
+**Attack**: Worker commits o_root but refuses to provide data for verification.
+
+**Mitigations**:
+- ✅ DA pre-commit requirement (erasure coded)
+- ✅ Live DA audits by independent auditors
+- ✅ Immediate slashing for DA unavailability (50% stake)
+- ✅ Time-bound DA windows (Δt_DA)
+
+**Residual Risk**: Low (immediate penalties)
+
+---
+
+#### 5. Sybil Attacks (Fake Identities)
+
+**Attack**: Attacker creates many fake workers/validators to gain influence.
+
+**Mitigations**:
+- ✅ Stake requirements (economic barrier)
+- ✅ Quota limits per organization/ASN/region
+- ✅ Reputation building required for high-value jobs
+- ✅ Geographic diversity tracking
+
+**Residual Risk**: Medium (requires ongoing monitoring)
+
+---
+
+#### 6. ASR Gaming (Quota Bypass)
+
+**Attack**: Worker attempts to game ASR scoring to receive disproportionate jobs.
+
+**Mitigations**:
+- ✅ Hard quota enforcement (q_max per epoch)
+- ✅ FairnessBoost penalty for exceeding quota
+- ✅ Organization/ASN aggregation
+- ✅ DeAI Sentinel anomaly detection
+- ✅ VRF-weighted selection (not just highest score)
+
+**Residual Risk**: Low (multiple enforcement layers)
+
+---
+
+#### 7. Price Manipulation
+
+**Attack**: Colluding parties manipulate PPC to artificially inflate/deflate prices.
+
+**Mitigations**:
+- ✅ Protocol-controlled pricing (no bidding)
+- ✅ Automatic adjustment based on real metrics (util, queue)
+- ✅ Governance-set price bounds (p_min, p_max)
+- ✅ Transparent price update logs
+- ✅ DeAI monitoring for anomalies
+
+**Residual Risk**: Low (limited manipulation vectors)
+
+---
+
+#### 8. Long-Range Attacks
+
+**Attack**: Attacker rewrites history using old validator keys.
+
+**Mitigations**:
+- ✅ Checkpointing mechanism (finality gadget)
+- ✅ Weak subjectivity requirements
+- ✅ Social consensus on canonical chain
+
+**Residual Risk**: Low (standard PoS mitigations)
+
+---
+
+#### 9. Denial of Service (Network Level)
+
+**Attack**: Flood network with spam transactions or jobs.
+
+**Mitigations**:
+- ✅ Gas fees (economic spam deterrent)
+- ✅ Rate limiting per address
+- ✅ Priority fee market
+- ✅ DDoS protection at infrastructure level
+
+**Residual Risk**: Medium (always a concern for public networks)
+
+---
+
+#### 10. Smart Contract Vulnerabilities
+
+**Attack**: Exploit bugs in governance, staking, or settlement contracts.
+
+**Mitigations**:
+- ✅ External security audits (planned Q1-Q2 2026)
+- ✅ Formal verification (critical components)
+- ✅ Bug bounty program (TBA)
+- ✅ Timelock on governance changes
+- ✅ Emergency pause mechanisms
+
+**Residual Risk**: Medium (requires continuous auditing)
+
+---
+
+## Security Best Practices
+
+### For Validators
+
+1. **Key Management**
+   - Use hardware security modules (HSM) for validator keys
+   - Never share private keys
+   - Implement multi-sig for high-value operations
+
+2. **Infrastructure Security**
+   - Keep nodes updated with latest patches
+   - Use firewall rules to restrict access
+   - Monitor for unusual activity
+   - Implement DDoS protection
+
+3. **Operational Security**
+   - Diversify validator infrastructure across regions
+   - Use monitoring and alerting systems
+   - Have incident response plan
+   - Participate in fraud detection
+
+### For Workers
+
+1. **Determinism Assurance**
+   - Test jobs for deterministic behavior
+   - Use pinned dependencies and versions
+   - Document execution environment requirements
+
+2. **Data Availability**
+   - Ensure reliable storage backend
+   - Implement redundancy
+   - Monitor DA health metrics
+   - Respond quickly to DA challenges
+
+3. **Stake Management**
+   - Only stake what you can afford to lose
+   - Understand slashing conditions
+   - Monitor reputation scores
+   - Maintain high uptime
+
+### For Clients (Job Submitters)
+
+1. **Job Specification**
+   - Clearly define determinism requirements
+   - Set appropriate SLA parameters
+   - Use reasonable timeout values
+
+2. **Result Verification**
+   - Implement application-level checks
+   - Use fraud-proof mechanism if suspicious
+   - Monitor worker reputation
+
+3. **Economic Security**
+   - Understand pricing mechanism
+   - Set appropriate budgets
+   - Monitor for price anomalies
+
+---
+
+## Audits and Reviews
+
+### Completed Audits
+- None yet (testnet phase)
+
+### Planned Audits
+
+| Component | Auditor | Timeline | Status |
+|-----------|---------|----------|--------|
+| Core Consensus (PoPC) | TBD | Q1 2026 | Planned |
+| ASR & PPC | TBD | Q1 2026 | Planned |
+| Smart Contracts | TBD | Q2 2026 | Planned |
+| Cryptography (VRF) | TBD | Q2 2026 | Planned |
+| DA Layer | TBD | Q2 2026 | Planned |
+
+### Bug Bounty Program
+
+**Status**: Coming Soon
+
+We plan to launch a bug bounty program before mainnet with rewards for:
+- Critical vulnerabilities: Up to $100,000
+- High severity: Up to $50,000
+- Medium severity: Up to $10,000
+- Low severity: Up to $1,000
+
+Details will be published at: https://axionax.org/bounty
+
+---
+
+## Security Updates
+
+### Notification Channels
+- **Security Advisory**: https://github.com/axionaxprotocol/axionax-core/security/advisories
+- **Discord #security**: https://discord.gg/axionax
+- **Twitter**: @axionaxprotocol
+- **Email Newsletter**: Subscribe at https://axionax.org
+
+### Update Policy
+- Critical patches: Released immediately
+- Security patches: Released within 7 days
+- Non-security updates: Regular release cycle
+
+---
+
+## Contact
+
+- **General Security**: security@axionax.org
+- **PGP Key**: https://axionax.org/security.asc
+- **Security Page**: https://axionax.org/security
+
+---
+
+Last Updated: 2025-10-21 | v1.5.0

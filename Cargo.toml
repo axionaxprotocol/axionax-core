@@ -8,6 +8,12 @@ members = [
     "core/rpc",
     "core/node",
     "bridge/rust-python",
+    "cmd/axionax",
+    "internal/popc",
+    "internal/ppc",
+    "pkg/config",
+    "pkg/genesis",
+    "pkg/types",
 ]
 
 resolver = "2"

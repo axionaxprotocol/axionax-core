@@ -30,22 +30,16 @@ git remote add upstream https://github.com/axionaxprotocol/axionax-core.git
 
 **Prerequisites:**
 - Go 1.21+ or Rust 1.75+
+- Python 3.10+
 - Git
-- Make
 - Docker (optional, for testing)
 
 ```bash
-# Install dependencies
-make deps
+# Install Python dependencies
+pip install -r deai/requirements.txt
 
-# Build the project
-make build
-
-# Run tests
-make test
-
-# Run linter
-make lint
+# Build and run all tests
+./run_tests.sh
 ```
 
 ### 3. Create a Branch
@@ -83,14 +77,8 @@ git checkout -b feature/your-feature-name
 ### 2. Code Style
 
 **Go Code:**
-```bash
-# Format code
-gofmt -w .
-
-# Run linter
-golangci-lint run
-```
-
+> *Note: The Go implementation is now considered legacy. New contributions should focus on the Rust/Python/TypeScript architecture.*
+ 
 **Rust Code:**
 ```bash
 # Format code
@@ -98,6 +86,14 @@ cargo fmt
 
 # Run linter
 cargo clippy
+```
+
+**Python Code:**
+```bash
+# We recommend using tools like `black` for formatting and `flake8` or `pylint` for linting.
+# pip install black flake8
+black .
+flake8 .
 ```
 
 **Commit Message Format:**

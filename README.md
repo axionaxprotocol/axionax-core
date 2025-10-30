@@ -58,44 +58,6 @@ flowchart LR
 
 📖 **[Full Architecture Documentation →](./ARCHITECTURE.md)**
 
-## 🚀 Quick Start
-
-> **🎯 New to Axionax?** Start with our [Quick Start Guide](./QUICKSTART.md) for a step-by-step tutorial!
-
-### Prerequisites
-
-- **Rust 1.70+** (for building core) - [Install](https://rustup.rs/)
-- **Python 3.10+** (for ML layer) - [Download](https://www.python.org/downloads/)
-- **Node.js 18+** (for SDK) - [Download](https://nodejs.org/)
-- **Docker Desktop** (for testnet) - [Download](https://www.docker.com/products/docker-desktop)
-- **16GB RAM** minimum
-- **100GB SSD** storage (for full node)
-
-### Quick Setup (5 minutes)
-
-```bash
-# 1. Clone the repository
-git clone https://github.com/axionaxprotocol/axionax-core.git
-cd axionax-core
-
-# 2. Build Rust core
-cargo build --release --workspace
-
-# 3. Build Python-Rust bridge
-cd bridge/rust-python && ./build.sh && cd ../..
-
-# 4. Install Python dependencies
-pip install -r deai/requirements.txt
-
-# 5. Build TypeScript SDK (optional)
-cd sdk && npm install && npm run build && cd ..
-
-# 6. Run integration tests
-python3 tests/integration_simple.py
-```
-
-**🎉 That's it!** All components are built and tested.
-
 ### Architecture Overview
 
 Axionax v1.6 uses a **multi-language architecture** for optimal performance:
@@ -124,6 +86,27 @@ Axionax v1.6 uses a **multi-language architecture** for optimal performance:
 ```
 
 **Performance**: 3x faster than Go, 2.67x less memory usage
+
+## 🚀 Quick Start (v1.6 Rust/Python Architecture)
+
+### Prerequisites
+
+- **Rust 1.75+** & Cargo - [Install](https://rustup.rs/)
+- **Python 3.10+** - [Download](https://www.python.org/downloads/)
+- **Shell Environment** (Bash, Zsh, etc.)
+
+### Build & Test
+
+This single script builds the Rust core, the Python bridge, and runs all integration tests and benchmarks.
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/axionaxprotocol/axionax-core.git
+cd axionax-core
+
+# 2. Run the unified test script
+./run_tests.sh
+```
 
 ### Performance Benchmarks
 
@@ -185,6 +168,10 @@ const status = await client.getJobStatus(jobId);
 
 📖 **[Python API Docs](./docs/PYTHON_API.md)** | 📖 **[TypeScript SDK Docs](./sdk/README.md)**
 
+## Legacy Go Implementation
+
+The previous Go implementation (v1.5) and its related documentation have been moved to the `legacy/go-v1.5` directory for archival purposes. New development should focus on the Rust/Python/TypeScript architecture.
+
 ## 📊 Tokenomics
 
 - **Total Supply**: 1,000,000,000,000 AXX (1 Trillion, fixed cap)
@@ -210,21 +197,15 @@ const status = await client.getJobStatus(jobId);
 
 ### Core Documentation
 - **[New Architecture (v1.6)](./NEW_ARCHITECTURE.md)** - Multi-language design
-- **[Integration & Migration Guide](./INTEGRATION_MIGRATION_GUIDE.md)** - PyO3, testing, deployment
 - **[Project Completion](./PROJECT_COMPLETION.md)** - v1.6 implementation summary
 - **[Architecture Overview](./ARCHITECTURE.md)** - System design
 - **[Project Status](./STATUS.md)** - Current status and next steps
 
-### Integration Guides
-- **[Integration README](./INTEGRATION_README.md)** - Quick start for integration
-- **[Integration Summary (TH)](./INTEGRATION_SUMMARY_TH.md)** - สรุปภาษาไทย
-- **[Testnet Integration](./docs/TESTNET_INTEGRATION.md)** - Connect to testnet
-
-### Developer Resources
-- **[Build Guide](./docs/BUILD.md)** - Building from source
-- **[API Reference](./docs/API_REFERENCE.md)** - Complete API documentation
-- **[Testing Guide](./TESTING_GUIDE.md)** - Running tests
-- **[Contributing](./CONTRIBUTING.md)** - How to contribute
+### Key Guides
+- **[Integration & Migration Guide](./INTEGRATION_MIGRATION_GUIDE.md)** - PyO3, testing, deployment
+- **[Contributing Guide](./CONTRIBUTING.md)** - How to contribute
+- **[Python API Docs](./docs/PYTHON_API.md)** - Python bindings reference
+- **[TypeScript SDK Docs](./sdk/README.md)** - TypeScript SDK reference
 
 ### Protocol & Economics
 - **[Security Model](./SECURITY.md)** - Threat model and mitigations
@@ -233,9 +214,9 @@ const status = await client.getJobStatus(jobId);
 
 ### Testing & Performance
 
-- **[Integration Tests](./tests/integration_simple.py)** - Rust-Python integration tests
-- **[Benchmark Suite](./tools/benchmark.py)** - Performance benchmarks
-- **[Migration Tool](./tools/migrate_go_to_rust.py)** - Go to Rust migration
+- **[Unified Test Script](./run_tests.sh)** - Builds and tests all components
+- **[Integration Tests](./tests/integration_simple.py)** - Python tests for Rust bindings
+- **[Benchmark Suite](./tools/benchmark.py)** - Performance benchmark script
 
 ## 🔐 Security
 
@@ -262,7 +243,7 @@ We welcome contributions! Please see our [Contributing Guide](./CONTRIBUTING.md)
 
 ## 📜 License
 
-This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+This project is licensed under the **GNU Affero General Public License v3.0 (AGPLv3)** with additional terms. See the [LICENSE](./LICENSE) and [LICENSE_NOTICE.md](./LICENSE_NOTICE.md) files for details.
 
 ## 🔗 Links
 
