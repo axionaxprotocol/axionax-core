@@ -3,155 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quick Start Guide</title>
+    <title>Axionax Core v1.5 – Quick Start Guide</title>
+    <meta name="description" content="Step-by-step quick start guide to install, configure, and join the Axionax blockchain network as a node, validator, or worker.">
+    <link rel="canonical" href="https://axionax.org/docs/QUICKSTART.html" />
+    <meta property="og:title" content="Axionax Core v1.5 – Quick Start Guide">
+    <meta property="og:description" content="Quick start and troubleshooting for installing/testnet/validator/worker/node on Axionax L1 blockchain.">
+    <meta property="og:type" content="article"/>
+    <meta property="og:url" content="https://axionax.org/docs/QUICKSTART.html" />
+    <meta property="og:image" content="https://axionax.org/assets/og-image.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.1.0/github-markdown.min.css">
     <style>
-        .markdown-body {
-            box-sizing: border-box;
-            min-width: 200px;
+        main.markdown-body {
             max-width: 980px;
             margin: 0 auto;
             padding: 45px;
+            background: #fff;
+            color: #23272f;
         }
+        .code-block {
+            background: #f3f6fa;
+            border-radius: 6px;
+            padding: 16px;
+            font-size: 0.97em;
+            margin: 1em 0;
+        }
+        ul, ol { margin-bottom: 1.2em; }
+        table { border-collapse: collapse; margin: 16px 0; width: 100% }
+        table,th,td{border:1px solid #aab;}
+        th,td{padding:8px;text-align:left}
     </style>
 </head>
-<body class="markdown-body">
-<pre>
-# Axionax Core v1.5 - Quick Start Guide
+<body>
+<main class="markdown-body" aria-label="Axionax Quick Start">
+    <h1>Axionax Core v1.5 – Quick Start Guide</h1>
+    <section>
+        <h2>🎯 What You'll Learn</h2>
+        <ul>
+            <li>Start a local testnet environment</li>
+            <li>Run an Axionax node</li>
+            <li>Become a validator</li>
+            <li>Register as a compute worker</li>
+            <li>Submit and monitor jobs</li>
+        </ul>
+    </section>
 
-Welcome to Axionax! This guide will help you get started with running a node, validator, or worker on the Axionax testnet.
-
-## 🎯 What You'll Learn
-
-- Start a local testnet environment
-- Run an Axionax node
-- Become a validator
-- Register as a compute worker
-- Submit and monitor jobs
-
-## ⚡ Quick Setup (5 minutes)
-
-### Step 1: Prerequisites
-
-Ensure you have:
-- **Docker Desktop** installed and running
-- **Go 1.21+** (for building from source)
-- **16GB RAM** available
-
-### Step 2: Clone and Build
-
-```bash
-# Clone repository
+    <section>
+        <h2>⚡ Quick Setup (5 minutes)</h2>
+        <h3>Step 1: Prerequisites</h3>
+        <ul>
+            <li><strong>Docker Desktop</strong> installed and running</li>
+            <li><strong>Go 1.21+</strong> (for building from source)</li>
+            <li>16GB RAM available</li>
+        </ul>
+        <h3>Step 2: Clone and Build</h3>
+        <div class="code-block"><pre><code># Clone repository
 git clone https://github.com/axionaxprotocol/axionax-core.git
 cd axionax-core
-
 # Build Axionax Core
-make build
-```
-
-### Step 3: Start Testnet
-
-```bash
-# Start local testnet (Anvil + Explorer + Faucet)
+make build</code></pre></div>
+        <h3>Step 3: Start Testnet</h3>
+        <div class="code-block"><pre><code># Start local testnet (Anvil + Explorer + Faucet)
 cd Axionax_v1.5_Testnet_in_a_Box
 docker compose up -d
-
 # Verify services
-docker compose ps
-```
+docker compose ps</code></pre></div>
+        <ul>
+            <li>✅ hardhat (Anvil) - http://localhost:8545</li>
+            <li>✅ blockscout - http://localhost:4001</li>
+            <li>✅ faucet - http://localhost:8080</li>
+        </ul>
+        <h3>Step 4: Configure Axionax Node</h3>
+        <div class="code-block"><pre><code>cd ..
+./build/axionax-core config init</code></pre></div>
+        <p>Edit <code>config.yaml</code> to connect to local testnet (already configured by default).</p>
+        <h3>Step 5: Start Your Node</h3>
+        <div class="code-block"><pre><code>./build/axionax-core start --network testnet</code></pre></div>
+        <p>🎉 <strong>Success!</strong> Your Axionax node is now running!</p>
+    </section>
 
-You should see:
-- ✅ hardhat (Anvil) - http://localhost:8545
-- ✅ blockscout - http://localhost:4001
-- ✅ faucet - http://localhost:8080
-
-### Step 4: Configure Axionax Node
-
-```bash
-cd ..
-./build/axionax-core config init
-```
-
-Edit `config.yaml` to connect to local testnet (already configured by default).
-
-### Step 5: Start Your Node
-
-```bash
-./build/axionax-core start --network testnet
-```
-
-🎉 **Success!** Your Axionax node is now running!
-
----
-
-## 👤 User Paths
-
-Choose your path:
-
-### Path A: 🏛️ Run a Validator
-
-Validators secure the network by performing PoPC validation.
-
-**Requirements:**
-- Minimum 10,000 AXX stake
-- Reliable uptime
-- Fast verification capabilities
-
-**Steps:**
-
-1. **Generate keys:**
-```bash
-./build/axionax-core keys generate --type validator
-# Your address: 0xYourValidatorAddress
-```
-
-2. **Get testnet AXX:**
-```bash
-# Using curl
-curl -H "Authorization: Basic YWRtaW46cGFzc3dvcmQ=" \
-  "http://localhost:8081/request?address=0xYourValidatorAddress"
-
-# Or visit http://localhost:8080 in browser
-```
-
-3. **Stake AXX:**
-```bash
-./build/axionax-core stake deposit 10000 --address 0xYourValidatorAddress
-```
-
-4. **Start validating:**
-```bash
-./build/axionax-core validator start
-```
-
-5. **Check status:**
-```bash
-./build/axionax-core validator status
-```
-
-**Expected output:**
-```
+    <section>
+        <h2>👤 User Paths</h2>
+        <p>Choose your path:</p>
+        <h3>Path A: 🏛️ Run a Validator</h3>
+        <ul>
+            <li>Minimum 10,000 AXX stake</li>
+            <li>Reliable uptime</li>
+            <li>Fast verification capabilities</li>
+        </ul>
+        <ol>
+            <li><b>Generate keys:</b> <div class="code-block"><pre><code>./build/axionax-core keys generate --type validator</code></pre></div></li>
+            <li><b>Get testnet AXX:</b> <div class="code-block"><pre><code>curl -H "Authorization: Basic YWRtaW46cGFzc3dvcmQ=" "http://localhost:8081/request?address=0xYourValidatorAddress"
+# Or visit http://localhost:8080 in browser</code></pre></div></li>
+            <li><b>Stake AXX:</b> <div class="code-block"><pre><code>./build/axionax-core stake deposit 10000 --address 0xYourValidatorAddress</code></pre></div></li>
+            <li><b>Start validating:</b> <div class="code-block"><pre><code>./build/axionax-core validator start</code></pre></div></li>
+            <li><b>Check status:</b> <div class="code-block"><pre><code>./build/axionax-core validator status</code></pre></div></li>
+        </ol>
+        <div class="code-block"><pre><code># Expected output:
 📊 Validator Status:
   Status: Active
   Stake: 10,000 AXX
   Validations: 0
-  Success Rate: N/A (new validator)
-```
+  Success Rate: N/A (new validator)</code></pre></div>
 
-### Path B: 🔧 Run a Worker
-
-Workers provide compute power and earn rewards.
-
-**Requirements:**
-- Capable hardware (GPU recommended)
-- Stable internet connection
-- Minimum stake for registration
-
-**Steps:**
-
-1. **Create hardware spec:**
-```bash
-cat > worker-specs.json <<EOF
+        <h3>Path B: 🔧 Run a Worker</h3>
+        <ul>
+            <li>Capable hardware (GPU recommended)</li>
+            <li>Stable internet connection</li>
+            <li>Minimum stake for registration</li>
+        </ul>
+        <ol>
+            <li><b>Create hardware spec:</b> <div class="code-block"><pre><code>cat &gt; worker-specs.json &lt;&lt;EOF
 {
   "gpus": [{
     "model": "NVIDIA RTX 4090",
@@ -166,49 +127,25 @@ cat > worker-specs.json <<EOF
   "asn": "AS15169",
   "organization": "my-org"
 }
-EOF
-```
-
-2. **Generate worker keys:**
-```bash
-./build/axionax-core keys generate --type worker
-```
-
-3. **Get testnet AXX from faucet** (same as validator)
-
-4. **Register as worker:**
-```bash
-./build/axionax-core worker register --specs worker-specs.json
-```
-
-5. **Start worker:**
-```bash
-./build/axionax-core worker start
-```
-
-6. **Monitor status:**
-```bash
-./build/axionax-core worker status
-```
-
-**Expected output:**
-```
+EOF</code></pre></div></li>
+            <li><b>Generate worker keys:</b> <div class="code-block"><pre><code>./build/axionax-core keys generate --type worker</code></pre></div></li>
+            <li><b>Get testnet AXX from faucet (same as validator)</b></li>
+            <li><b>Register as worker:</b> <div class="code-block"><pre><code>./build/axionax-core worker register --specs worker-specs.json</code></pre></div></li>
+            <li><b>Start worker:</b> <div class="code-block"><pre><code>./build/axionax-core worker start</code></pre></div></li>
+            <li><b>Monitor status:</b> <div class="code-block"><pre><code>./build/axionax-core worker status</code></pre></div></li>
+        </ol>
+        <div class="code-block"><pre><code># Expected output:
 📊 Worker Status:
   Status: Active
   Jobs Completed: 0
   Success Rate: N/A (new worker)
-  Current Quota: 0%
-```
+  Current Quota: 0%</code></pre></div>
 
-### Path C: 💼 Submit Jobs (Client)
-
-Submit compute jobs to the network.
-
-**Steps:**
-
-1. **Create job specification:**
-```json
-{
+        <h3>Path C: 💼 Submit Jobs (Client)</h3>
+        <ol>
+            <li>
+                <b>Create job specification:</b>
+                <div class="code-block"><pre><code>{
   "specs": {
     "gpu": "NVIDIA RTX 4090",
     "vram": 24,
@@ -221,193 +158,132 @@ Submit compute jobs to the network.
     "timeout": "300s",
     "required_uptime": 0.99
   }
-}
-```
-
-2. **Submit via RPC:**
-```bash
-curl -X POST http://localhost:8545 \
+}</code></pre></div>
+            </li>
+            <li>
+                <b>Submit via RPC:</b>
+                <div class="code-block"><pre><code>curl -X POST http://localhost:8545 \
   -H "Content-Type: application/json" \
-  -d 
-  {
+  -d '{
     "jsonrpc": "2.0",
     "method": "axn_submitJob",
     "params": [/* job spec here */],
     "id": 1
-  }
-```
-
-3. **Monitor job:**
-```bash
-curl -X POST http://localhost:8545 \
+  }'</code></pre></div>
+            </li>
+            <li>
+                <b>Monitor job:</b>
+                <div class="code-block"><pre><code>curl -X POST http://localhost:8545 \
   -H "Content-Type: application/json" \
-  -d 
-  {
+  -d '{
     "jsonrpc": "2.0",
     "method": "axn_getJobStatus",
     "params": ["job_abc123"],
     "id": 1
-  }
-```
+  }'</code></pre></div>
+            </li>
+        </ol>
+    </section>
 
----
-
-## 🔍 Monitoring & Debugging
-
-### View Logs
-
-```bash
-# Node logs
+    <section>
+        <h2>🔍 Monitoring & Debugging</h2>
+        <h3>View Logs</h3>
+        <div class="code-block"><pre><code># Node logs
 tail -f ~/.axionax/logs/node.log
-
 # Docker logs
 cd Axionax_v1.5_Testnet_in_a_Box
-docker compose logs -f hardhat
-```
-
-### Check Metrics
-
-Visit http://localhost:9090/metrics for Prometheus metrics.
-
-### Explore Blockchain
-
-Visit http://localhost:4001 for Blockscout explorer.
-
-### Query Pricing
-
-```bash
-curl -X POST http://localhost:8545 \
+docker compose logs -f hardhat</code></pre></div>
+        <h3>Check Metrics</h3>
+        <p>Visit <a href="http://localhost:9090/metrics" target="_blank">http://localhost:9090/metrics</a> for Prometheus metrics.</p>
+        <h3>Explore Blockchain</h3>
+        <p>Visit <a href="http://localhost:4001" target="_blank">http://localhost:4001</a> for Blockscout explorer.</p>
+        <h3>Query Pricing</h3>
+        <div class="code-block"><pre><code>curl -X POST http://localhost:8545 \
   -H "Content-Type: application/json" \
-  -d '{"jsonrpc":"2.0","method":"axn_getPricingInfo","params":[],"id":1}'
-```
+  -d '{"jsonrpc":"2.0","method":"axn_getPricingInfo","params":[],"id":1}'</code></pre></div>
+    </section>
 
----
-
-## 🛠️ Common Commands
-
-### Configuration
-
-```bash
-# Show current config
+    <section>
+        <h2>🛠️ Common Commands</h2>
+        <h3>Configuration</h3>
+        <div class="code-block"><pre><code># Show current config
 ./build/axionax-core config show
-
 # Initialize default config
-./build/axionax-core config init
-```
-
-### Keys Management
-
-```bash
-# Generate new key
+./build/axionax-core config init</code></pre></div>
+        <h3>Keys Management</h3>
+        <div class="code-block"><pre><code># Generate new key
 ./build/axionax-core keys generate --type validator
-
 # List keys
-./build/axionax-core keys list
-```
-
-### Staking
-
-```bash
-# Check balance
+./build/axionax-core keys list</code></pre></div>
+        <h3>Staking</h3>
+        <div class="code-block"><pre><code># Check balance
 ./build/axionax-core stake balance
-
 # Deposit stake
 ./build/axionax-core stake deposit 10000 --address 0x...
-
 # Withdraw stake
-./build/axionax-core stake withdraw 5000
-```
-
-### Status Checks
-
-```bash
-# Node version
+./build/axionax-core stake withdraw 5000</code></pre></div>
+        <h3>Status Checks</h3>
+        <div class="code-block"><pre><code># Node version
 ./build/axionax-core version
-
 # Validator status
 ./build/axionax-core validator status
-
 # Worker status
-./build/axionax-core worker status
-```
+./build/axionax-core worker status</code></pre></div>
+    </section>
 
----
-
-## 🐛 Troubleshooting
-
-### Connection Refused
-
-**Problem:** Cannot connect to RPC endpoint
-
-**Solution:**
-```bash
-# Check if testnet is running
+    <section>
+        <h2>🐛 Troubleshooting</h2>
+        <h3>Connection Refused</h3>
+        <p><b>Problem:</b> Cannot connect to RPC endpoint</p>
+        <div class="code-block"><pre><code># Check if testnet is running
 cd Axionax_v1.5_Testnet_in_a_Box
 docker compose ps
-
 # Restart if needed
-docker compose restart
-```
-
-### Chain ID Mismatch
-
-**Problem:** Wrong chain ID
-
-**Solution:** Check config.yaml has `chain_id: 31337`
-
-### Insufficient Funds
-
-**Problem:** Not enough AXX for transactions
-
-**Solution:** Request more from faucet:
-```bash
-curl -H "Authorization: Basic YWRtaW46cGFzc3dvcmQ=" \
-  "http://localhost:8081/request?address=0xYourAddress"
-```
-
-### Docker Issues
-
-**Problem:** Docker containers not starting
-
-**Solution:**
-```bash
-# Clean up
+docker compose restart</code></pre></div>
+        <h3>Chain ID Mismatch</h3>
+        <p><b>Problem:</b> Wrong chain ID</p>
+        <p><b>Solution:</b> Check config.yaml has <code>chain_id: 31337</code></p>
+        <h3>Insufficient Funds</h3>
+        <p><b>Problem:</b> Not enough AXX for transactions</p>
+        <p><b>Solution:</b> Request from faucet:</p>
+        <div class="code-block"><pre><code>curl -H "Authorization: Basic YWRtaW46cGFzc3dvcmQ=" \
+  "http://localhost:8081/request?address=0xYourAddress"</code></pre></div>
+        <h3>Docker Issues</h3>
+        <p><b>Problem:</b> Docker containers not starting</p>
+        <div class="code-block"><pre><code># Clean up
 docker compose down -v
-
 # Restart
-docker compose up -d
-```
+docker compose up -d</code></pre></div>
+    </section>
 
----
+    <section>
+        <h2>📚 Next Steps</h2>
+        <ul>
+            <li><a href="../ARCHITECTURE.html">Deep Dive: Read Architecture Overview</a></li>
+            <li><a href="./API_REFERENCE.html">API Reference: See API Documentation</a></li>
+            <li><a href="./BUILD.html">Build from Source: Follow Build Guide</a></li>
+            <li><a href="./TESTNET_INTEGRATION.html">Production Deploy: Check Testnet Integration</a></li>
+            <li><a href="https://discord.gg/axionax" target="_blank">Join Community: Discord</a></li>
+        </ul>
+    </section>
 
-## 📚 Next Steps
+    <section>
+        <h2>🆘 Getting Help</h2>
+        <ul>
+            <li><a href="https://docs.axionax.org">Documentation</a></li>
+            <li><a href="https://github.com/axionaxprotocol/axionax-core/issues">GitHub Issues</a></li>
+            <li><a href="https://discord.gg/axionax">Discord</a></li>
+            <li><a href="https://t.me/axionax">Telegram</a></li>
+        </ul>
+    </section>
 
-- **Deep Dive:** Read [Architecture Overview](../ARCHITECTURE.md)
-- **API Reference:** See [API Documentation](./API_REFERENCE.md)
-- **Build from Source:** Follow [Build Guide](./BUILD.md)
-- **Production Deploy:** Check [Testnet Integration](./TESTNET_INTEGRATION.md)
-- **Join Community:** Discord at https://discord.gg/axionax
-
----
-
-## 🆘 Getting Help
-
-- **Documentation:** https://docs.axionax.org
-- **GitHub Issues:** https://github.com/axionaxprotocol/axionax-core/issues
-- **Discord:** https://discord.gg/axionax
-- **Telegram:** https://t.me/axionax
-
----
-
-## ⚠️ Testnet Disclaimer
-
-This is a **testnet** environment. Do not use real assets or run this in production without proper security audits.
-
----
-
-**Made with 💜 by the Axionax community**
-
-Happy building! 🚀
-</pre>
+    <section>
+        <h2>⚠️ Testnet Disclaimer</h2>
+        <p>This is a <b>testnet</b> environment. Do not use real assets or run this in production without proper security audits.</p>
+    </section>
+    <footer>
+        <p>Rendered from <code>QUICKSTART.html</code> — Last updated Oct 2025 — <a href="https://axionax.org">Axionax</a></p>
+    </footer>
+</main>
 </body>
 </html>

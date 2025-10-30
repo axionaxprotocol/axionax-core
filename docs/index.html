@@ -140,26 +140,59 @@
     
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: var(--bg-space), var(--bg-dark);
+      background:
+        radial-gradient(circle at 66% 3%, #373b8e99 0px, transparent 400px),
+        radial-gradient(ellipse 80% 80% at 20% 30%, #ce37bd22 0, transparent 640px),
+        radial-gradient(ellipse 110% 80% at 80% 90%, #1ae9c110 0, #403baa07 100%),
+        linear-gradient(180deg,#191a31 0%, #02030a 100%);
+      position: relative; min-height: 100vh; overflow-x: hidden;
       color: var(--text-primary);
       line-height: 1.7;
-      overflow-x: hidden;
-      position: relative;
-      min-height: 100vh;
     }
     body::before {
+      /* Layer 1: Fine stars */
       content: '';
       pointer-events: none;
-      position: fixed;
-      z-index: 0;
-      inset: 0;
-      background-image: 
-        repeating-radial-gradient(circle at 10% 30%, var(--star-color) 0, var(--star-color) 0.2px, transparent 0.5px),
-        repeating-radial-gradient(circle at 70% 60%, var(--star-color2) 0, var(--star-color2) 0.2px, transparent 0.7px);
-      opacity: 0.6;
-      background-size: 800px 800px, 1200px 800px;
-      pointer-events: none;
+      position: fixed; z-index: 0; inset: 0;
+      background:
+        repeating-radial-gradient(circle at 12% 9%, #fff6 0 0.75px, transparent 1.2px),
+        repeating-radial-gradient(circle at 52% 80%, #a5f2fc55 0 1.3px, transparent 1.8px),
+        repeating-radial-gradient(circle at 90% 13%, #fff3 0 0.5px, transparent 1.65px),
+        repeating-radial-gradient(circle at 30% 50%, #ffffff24 0 1.4px, transparent 2.2px),
+        repeating-radial-gradient(circle at 71% 70%, #cdfffc14 0 1.1px, transparent 2.1px);
+      background-blend-mode: lighten;
+      opacity: 0.87;
+      background-size: 700px 700px, 870px 660px, 1200px 1300px, 1420px 900px, 900px 1550px;
       mix-blend-mode: lighten;
+    }
+    body::after {
+      /* Layer 2: Nebula glow soft clouds */
+      content: '';
+      position: fixed; z-index: 0; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(circle at 60% 15%, #7266fb22 0, #14123500 60%),
+        radial-gradient(ellipse 45% 22% at 16% 25%, #e78cff30 0, #29184400 80%),
+        radial-gradient(circle 350px at 80% 82%, #a8ffe786 0, #00fff300 100%),
+        radial-gradient(circle 180px at 74% 10%, #fffdef18 0, #0c0c2e00 75%);
+      opacity: 0.54;
+      filter: blur(3px);
+      mix-blend-mode: lighten;
+    }
+    .shooting-star {
+      position: fixed; z-index: 2; pointer-events: none;
+      width: 2px; height: 90px; background: linear-gradient(90deg,#fff,#a6ecf5cc,#33f0f0cc,transparent 95%);
+      border-radius: 50%/9px;
+      opacity:0.82; filter: blur(0.3px);
+      left: 80vw; top: 7vh; animation: shooting 2.9s cubic-bezier(.77,.18,.12,.61) infinite;
+    }
+    .shooting-star.s2 { left:33vw; top:43vh; width:1.5px; height:54px; animation-delay:1s; opacity: 0.68; }
+    .shooting-star.s3 { left: 56vw; top:20vh; width:2.5px; height:80px; animation-delay:2.3s; opacity:0.61; }
+    @keyframes shooting {
+      0% {transform:translate(-20px,-15px) scaleY(.9); opacity:0;}
+      9% {opacity:0.64;}
+      35% {transform:translate(-100px,60px) scaleY(.92); opacity:1;}
+      80% {transform:translate(-420px,215px) scaleY(.99); opacity:0.03;}
+      100% {opacity:0;}
     }
     
     /* Animated Background */
@@ -1501,6 +1534,11 @@
   </style>
 </head>
 <body>
+  <!-- Shooting star overlays -->
+  <div class="shooting-star"></div>
+  <div class="shooting-star s2"></div>
+  <div class="shooting-star s3"></div>
+  
   <div class="bg-animation"></div>
   
   <!-- Header -->

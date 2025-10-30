@@ -3,529 +3,204 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API Reference</title>
+    <title>Axionax Core – API Reference v1.5</title>
+    <meta name="description" content="Axionax Core API reference covering all available JSON-RPC endpoints for standard, custom compute, worker/validator, and node management.">
+    <link rel="canonical" href="https://axionax.org/docs/API_REFERENCE.html" />
+    <meta property="og:title" content="Axionax Core – API Reference v1.5">
+    <meta property="og:description" content="Comprehensive API reference for Axionax: JSON-RPC, PoPC, ASR, pricing, worker registry, metrics, and error code documentation.">
+    <meta property="og:type" content="article"/>
+    <meta property="og:url" content="https://axionax.org/docs/API_REFERENCE.html" />
+    <meta property="og:image" content="https://axionax.org/assets/og-image.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.1.0/github-markdown.min.css">
     <style>
-        .markdown-body {
-            box-sizing: border-box;
-            min-width: 200px;
+        main.markdown-body {
             max-width: 980px;
             margin: 0 auto;
             padding: 45px;
+            background: #fff;
+            color: #23272f;
         }
+        .code-block {
+            background: #f3f6fa;
+            border-radius: 6px;
+            padding: 16px;
+            font-size: 0.97em;
+            margin: 1em 0;
+        }
+        ul, ol { margin-bottom: 1.2em; }
+        table { border-collapse: collapse; margin: 18px 0; width: 100% }
+        table, th, td { border: 1px solid #aab; }
+        th, td { padding: 7px 10px; text-align: left; }
     </style>
 </head>
-<body class="markdown-body">
-<pre>
-# Axionax Core API Reference
+<body>
+<main class="markdown-body" aria-label="Axionax API Reference">
+    <h1>Axionax Core API Reference</h1>
+    <p>Version: 1.5.0-testnet</p>
 
-Version: 1.5.0-testnet
+    <section>
+        <h2>Overview</h2>
+        <p>Axionax Core provides JSON-RPC API compatible with Ethereum clients + custom extensions for compute, consensus, worker, and network status.</p>
+        <ul>
+            <li><b>Standard JSON-RPC</b> (port 8545): Ethereum-compatible</li>
+            <li><b>WebSocket</b> (port 8546): Real-time event subscriptions</li>
+            <li><b>Metrics</b> (port 9090): Prometheus metrics endpoint</li>
+        </ul>
+    </section>
 
-## Overview
-
-Axionax Core provides JSON-RPC APIs compatible with Ethereum clients, plus custom extensions for PoPC, ASR, and protocol-specific features.
-
-## Endpoints
-
-### Standard JSON-RPC (Port 8545)
-
-Standard Ethereum JSON-RPC methods are supported.
-
-### WebSocket (Port 8546)
-
-Real-time event subscriptions.
-
-### Metrics (Port 9090)
-
-Prometheus-compatible metrics endpoint.
-
----
-
-## Standard Ethereum Methods
-
-### eth_chainId
-
-Returns the current chain ID.
-
-**Request:**
-```json
-{
+    <section>
+        <h2>Standard Ethereum Methods</h2>
+        <h3>eth_chainId</h3>
+        <p>Returns the current chain ID.</p>
+        <div class="code-block"><pre><code>{
   "jsonrpc": "2.0",
   "method": "eth_chainId",
   "params": [],
   "id": 1
-}
-```
-
-**Response:**
-```json
-{
+}</code></pre></div>
+        <p><b>Example result:</b></p>
+        <div class="code-block"><pre><code>{
   "jsonrpc": "2.0",
   "result": "0x7a69",
   "id": 1
-}
-```
-
-### eth_getBalance
-
-Get AXX balance of an address.
-
-**Parameters:**
-1. `address` - Address to check
-2. `block` - Block number or "latest"
-
-**Request:**
-```json
-{
+}</code></pre></div>
+        <h3>eth_getBalance</h3>
+        <ul>
+            <li><b>Parameters:</b> address, block number or "latest"</li>
+        </ul>
+        <div class="code-block"><pre><code>{
   "jsonrpc": "2.0",
   "method": "eth_getBalance",
   "params": ["0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb", "latest"],
   "id": 1
-}
-```
+}</code></pre></div>
+    </section>
 
-**Response:**
-```json
-{
-  "jsonrpc": "2.0",
-  "result": "0x1b1ae4d6e2ef500000",
-  "id": 1
-}
-```
-
----
-
-## Axionax Custom Methods
-
-### axn_submitJob
-
-Submit a compute job to the network.
-
-**Parameters:**
-1. `job` - Job specification object
-
-**Request:**
-```json
-{
+    <section>
+        <h2>Axionax Custom Methods</h2>
+        <h3>axn_submitJob</h3>
+        <ul>
+            <li><b>Submit a compute job to the network.</b></li>
+            <li>Parameter: job spec object</li>
+        </ul>
+        <div class="code-block"><pre><code>{
   "jsonrpc": "2.0",
   "method": "axn_submitJob",
   "params": [{
-    "specs": {
-      "gpu": "NVIDIA RTX 4090",
-      "vram": 24,
-      "framework": "PyTorch",
-      "region": "us-west"
-    },
-    "sla": {
-      "max_latency": "30s",
-      "max_retries": 3,
-      "timeout": "300s",
-      "required_uptime": 0.99
-    },
+    "specs": {"gpu": "NVIDIA RTX 4090", "vram": 24, "framework": "PyTorch", "region": "us-west"},
+    "sla": {...},
     "data": "0x..."
   }],
   "id": 1
-}
-```
+}</code></pre></div>
+        <h3>axn_getJobStatus</h3>
+        <ul>
+            <li><b>Status of submitted job.</b> Parameter: <code>job_id</code></li>
+        </ul>
+        <div class="code-block"><pre><code>{
+  "jsonrpc": "2.0", "method": "axn_getJobStatus", "params": ["job_abc123"], "id": 1
+}</code></pre></div>
+        <h3>axn_registerWorker</h3>
+        <ul>
+            <li>Register as compute worker. Parameter: specs</li>
+        </ul>
+        <div class="code-block"><pre><code>{"jsonrpc":"2.0","method":"axn_registerWorker","params":[{...} ],"id":1}</code></pre></div>
+        <h3>axn_getWorkerStatus</h3>
+        <ul><li>Get worker stats. Parameter: address</li></ul>
+        <div class="code-block"><pre><code>{"jsonrpc":"2.0","method":"axn_getWorkerStatus","params":["0x..."],"id":1}</code></pre></div>
+        <h3>axn_getPricingInfo</h3>
+        <ul><li>Get current job pricing from PPC</li></ul>
+        <div class="code-block"><pre><code>{"jsonrpc":"2.0","method":"axn_getPricingInfo","params":[],"id":1}</code></pre></div>
+        <h3>axn_getValidatorInfo</h3>
+        <ul><li>Get validator info. Parameter: address</li></ul>
+    </section>
 
-**Response:**
-```json
-{
-  "jsonrpc": "2.0",
-  "result": {
-    "job_id": "job_abc123",
-    "assigned_worker": "0x...",
-    "price": "0.1",
-    "status": "assigned"
-  },
-  "id": 1
-}
-```
+    <section>
+        <h2>WebSocket Subscriptions</h2>
+        <ul>
+            <li>Subscribe to new jobs: <code>axn_subscribe : ["newJobs"]</code></li>
+            <li>Subscribe job updates: <code>axn_subscribe : ["jobUpdates", {job_id}]</code></li>
+            <li>Subscribe price updates: <code>axn_subscribe : ["priceUpdates"]</code></li>
+        </ul>
+    </section>
 
-### axn_getJobStatus
+    <section>
+        <h2>Error Codes</h2>
+        <table>
+            <tr><th>Code</th><th>Message</th><th>Description</th></tr>
+            <tr><td>-32700</td><td>Parse error</td><td>Invalid JSON</td></tr>
+            <tr><td>-32600</td><td>Invalid request</td><td>Not valid JSON-RPC</td></tr>
+            <tr><td>-32601</td><td>Method not found</td><td>Method does not exist</td></tr>
+            <tr><td>-32602</td><td>Invalid params</td><td>Invalid method parameters</td></tr>
+            <tr><td>-32603</td><td>Internal error</td><td>Internal JSON-RPC error</td></tr>
+            <tr><td>-32000</td><td>Job not found</td><td>Job ID does not exist</td></tr>
+            <tr><td>-32001</td><td>Worker not found</td><td>Worker address not registered</td></tr>
+            <tr><td>-32002</td><td>Insufficient stake</td><td>Not enough staked AXX</td></tr>
+            <tr><td>-32003</td><td>Invalid specs</td><td>Hardware specs don't meet reqs</td></tr>
+            <tr><td>-32004</td><td>Quota exceeded</td><td>Worker exceeded epoch quota</td></tr>
+            <tr><td>-32005</td><td>Validation failed</td><td>PoPC validation failed</td></tr>
+        </table>
+    </section>
 
-Get status of a submitted job.
-
-**Parameters:**
-1. `job_id` - Job identifier
-
-**Request:**
-```json
-{
-  "jsonrpc": "2.0",
-  "method": "axn_getJobStatus",
-  "params": ["job_abc123"],
-  "id": 1
-}
-```
-
-**Response:**
-```json
-{
-  "jsonrpc": "2.0",
-  "result": {
-    "job_id": "job_abc123",
-    "status": "completed",
-    "worker": "0x...",
-    "output_root": "0x...",
-    "popc_passed": true,
-    "completed_at": "2025-10-22T10:30:00Z"
-  },
-  "id": 1
-}
-```
-
-### axn_registerWorker
-
-Register as a compute worker.
-
-**Parameters:**
-1. `specs` - Worker hardware specifications
-
-**Request:**
-```json
-{
-  "jsonrpc": "2.0",
-  "method": "axn_registerWorker",
-  "params": [{
-    "gpus": [{
-      "model": "NVIDIA RTX 4090",
-      "vram": 24,
-      "count": 1
-    }],
-    "cpu_cores": 16,
-    "ram": 64,
-    "storage": 1000,
-    "bandwidth": 1000,
-    "region": "us-west",
-    "asn": "AS15169",
-    "organization": "example-org"
-  }],
-  "id": 1
-}
-```
-
-**Response:**
-```json
-{
-  "jsonrpc": "2.0",
-  "result": {
-    "address": "0x...",
-    "status": "active",
-    "registered_at": "2025-10-22T10:00:00Z"
-  },
-  "id": 1
-}
-```
-
-### axn_getWorkerStatus
-
-Get worker status and statistics.
-
-**Parameters:**
-1. `address` - Worker address
-
-**Request:**
-```json
-{
-  "jsonrpc": "2.0",
-  "method": "axn_getWorkerStatus",
-  "params": ["0x..."],
-  "id": 1
-}
-```
-
-**Response:**
-```json
-{
-  "jsonrpc": "2.0",
-  "result": {
-    "address": "0x...",
-    "status": "active",
-    "performance": {
-      "total_jobs": 567,
-      "successful_jobs": 564,
-      "failed_jobs": 3,
-      "popc_pass_rate": 0.995,
-      "da_reliability": 0.998,
-      "avg_latency": 12.5,
-      "uptime": 0.997
-    },
-    "quota_used": 0.082,
-    "reputation": 0.96
-  },
-  "id": 1
-}
-```
-
-### axn_getPricingInfo
-
-Get current pricing information from PPC.
-
-**Request:**
-```json
-{
-  "jsonrpc": "2.0",
-  "method": "axn_getPricingInfo",
-  "params": [],
-  "id": 1
-}
-```
-
-**Response:**
-```json
-{
-  "jsonrpc": "2.0",
-  "result": {
-    "current_price": 0.15,
-    "utilization": 0.68,
-    "queue_time": 55.2,
-    "target_utilization": 0.7,
-    "target_queue_time": 60.0,
-    "min_price": 0.001,
-    "max_price": 10.0
-  },
-  "id": 1
-}
-```
-
-### axn_getValidatorInfo
-
-Get validator information.
-
-**Parameters:**
-1. `address` - Validator address
-
-**Request:**
-```json
-{
-  "jsonrpc": "2.0",
-  "method": "axn_getValidatorInfo",
-  "params": ["0x..."],
-  "id": 1
-}
-```
-
-**Response:**
-```json
-{
-  "jsonrpc": "2.0",
-  "result": {
-    "address": "0x...",
-    "stake": "10000",
-    "status": "active",
-    "total_votes": 1234,
-    "correct_votes": 1230,
-    "false_pass": 4,
-    "commission": 0.05
-  },
-  "id": 1
-}
-```
-
-### axn_getPoPCChallenge
-
-Get PoPC challenge for a job (validators only).
-
-**Parameters:**
-1. `job_id` - Job identifier
-
-**Request:**
-```json
-{
-  "jsonrpc": "2.0",
-  "method": "axn_getPoPCChallenge",
-  "params": ["job_abc123"],
-  "id": 1
-}
-```
-
-**Response:**
-```json
-{
-  "jsonrpc": "2.0",
-  "result": {
-    "job_id": "job_abc123",
-    "samples": [12, 45, 78, 123, ...],
-    "vrf_seed": "0x...",
-    "block_delay": 2
-  },
-  "id": 1
-}
-```
-
-### axn_submitPoPCProof
-
-Submit PoPC proof (workers only).
-
-**Parameters:**
-1. `proof` - PoPC proof object
-
-**Request:**
-```json
-{
-  "jsonrpc": "2.0",
-  "method": "axn_submitPoPCProof",
-  "params": [{
-    "job_id": "job_abc123",
-    "samples": {
-      "12": "0x...",
-      "45": "0x...",
-      ...
-    },
-    "merkle_paths": {
-      "12": ["0x...", "0x...", ...],
-      "45": ["0x...", "0x...", ...],
-      ...
-    },
-    "output_root": "0x..."
-  }],
-  "id": 1
-}
-```
-
-**Response:**
-```json
-{
-  "jsonrpc": "2.0",
-  "result": {
-    "job_id": "job_abc123",
-    "passed": true,
-    "samples_verified": 1000,
-    "samples_total": 1000,
-    "confidence": 0.9995
-  },
-  "id": 1
-}
-```
-
----
-
-## WebSocket Subscriptions
-
-### Subscribe to New Jobs
-
-```json
-{
-  "jsonrpc": "2.0",
-  "method": "axn_subscribe",
-  "params": ["newJobs"],
-  "id": 1
-}
-```
-
-### Subscribe to Job Updates
-
-```json
-{
-  "jsonrpc": "2.0",
-  "method": "axn_subscribe",
-  "params": ["jobUpdates", {"job_id": "job_abc123"}],
-  "id": 1
-}
-```
-
-### Subscribe to Price Updates
-
-```json
-{
-  "jsonrpc": "2.0",
-  "method": "axn_subscribe",
-  "params": ["priceUpdates"],
-  "id": 1
-}
-```
-
----
-
-## Error Codes
-
-| Code | Message | Description |
-|------|---------|-------------|
-| -32700 | Parse error | Invalid JSON |
-| -32600 | Invalid request | Request is not valid JSON-RPC |
-| -32601 | Method not found | Method does not exist |
-| -32602 | Invalid params | Invalid method parameters |
-| -32603 | Internal error | Internal JSON-RPC error |
-| -32000 | Job not found | Job ID does not exist |
-| -32001 | Worker not found | Worker address not registered |
-| -32002 | Insufficient stake | Not enough staked AXX |
-| -32003 | Invalid specs | Hardware specs don't meet requirements |
-| -32004 | Quota exceeded | Worker has exceeded epoch quota |
-| -32005 | Validation failed | PoPC validation failed |
-
----
-
-## Rate Limits
-
-- Standard RPC: 100 requests/second per IP
-- WebSocket: 50 subscriptions per connection
-- Burst: 200 requests in 10 seconds
-
----
-
-## Authentication
-
-Most endpoints are public. Sensitive operations require signed transactions:
-
-```json
-{
+    <section>
+        <h2>Rate Limits</h2>
+        <ul>
+            <li>Standard RPC: 100 reqs/second/IP</li>
+            <li>WebSocket: 50 subscriptions/connection</li>
+            <li>Burst: 200 reqs in 10 seconds</li>
+        </ul>
+    </section>
+    <section>
+        <h2>Authentication/Security</h2>
+        <ul>
+            <li>Most endpoints public</li>
+            <li>Sensitive operations (stake, register, submit proofs) require signed tx</li>
+        </ul>
+        <div class="code-block"><pre><code>{
   "from": "0x...",
   "signature": "0x...",
-  "nonce": 123,
-  ...
-}
-```
-
----
-
-## Examples
-
-### Using curl
-
-```bash
-# Get chain ID
+  "nonce": 123
+}</code></pre></div>
+    </section>
+    <section>
+        <h2>Example Usage</h2>
+        <h3>Using curl</h3>
+        <div class="code-block"><pre><code># Get chain ID
 curl -X POST http://localhost:8545 \
-  -H "Content-Type: application/json" \
+  -H 'Content-Type: application/json' \
   -d '{"jsonrpc":"2.0","method":"eth_chainId","params":[],"id":1}'
-
 # Get pricing info
 curl -X POST http://localhost:8545 \
-  -H "Content-Type: application/json" \
-  -d '{"jsonrpc":"2.0","method":"axn_getPricingInfo","params":[],"id":1}'
-```
-
-### Using Go
-
-```go
-import "github.com/ethereum/go-ethereum/rpc"
-
-client, _ := rpc.Dial("http://localhost:8545")
-
-var result string
-client.Call(&result, "eth_chainId")
-```
-
-### Using JavaScript
-
-```javascript
-const Web3 = require('web3');
+  -H 'Content-Type: application/json' \
+  -d '{"jsonrpc":"2.0","method":"axn_getPricingInfo","params":[],"id":1}'</code></pre></div>
+        <h3>Using TypeScript (Web3.js)</h3>
+        <div class="code-block"><pre><code>import Web3 from 'web3';
 const web3 = new Web3('http://localhost:8545');
-
-// Standard methods
-const chainId = await web3.eth.getChainId();
-
-// Custom methods
-const pricing = await web3.currentProvider.send('axn_getPricingInfo', []);
-```
-
----
-
-## Additional Resources
-
-- [Testnet Integration Guide](./TESTNET_INTEGRATION.md)
-- [Architecture Overview](../ARCHITECTURE.md)
-- [GitHub Repository](https://github.com/axionaxprotocol/axionax-core)
-</pre>
+// Standard
+gp const chainId = await web3.eth.getChainId();
+// Custom
+gp const pricing = await web3.currentProvider.send('axn_getPricingInfo', []);
+</code></pre></div>
+        <h3>Using Python (web3.py)</h3>
+        <div class="code-block"><pre><code>from web3 import Web3
+w3 = Web3(Web3.HTTPProvider('http://localhost:8545'))
+# Standard method
+chain_id = w3.eth.chain_id
+# Custom Axionax method
+pricing = w3.provider.make_request('axn_getPricingInfo', [])
+</code></pre></div>
+    </section>
+    <section>
+        <h2>Additional Resources</h2>
+        <ul>
+            <li><a href="./TESTNET_INTEGRATION.html">Testnet Integration Guide</a></li>
+            <li><a href="../ARCHITECTURE.html">Architecture Overview</a></li>
+            <li><a href="https://github.com/axionaxprotocol/axionax-core">GitHub Repository</a></li>
+        </ul>
+    </section>
+    <footer>
+        <p>Rendered from <code>API_REFERENCE.html</code> — Last updated Oct 2025 — <a href="https://axionax.org">Axionax</a></p>
+    </footer>
+</main>
 </body>
 </html>
