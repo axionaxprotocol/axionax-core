@@ -1453,7 +1453,7 @@
         <a href="#docs">Documentation</a>
         <a href="https://github.com/axionaxprotocol/axionax-core" target="_blank">GitHub</a>
       </nav>
-      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
         <span></span>
         <span></span>
         <span></span>
@@ -1463,11 +1463,11 @@
   
   <!-- Mobile Menu -->
   <div id="mobileMenu" class="mobile-menu">
-    <a href="#features" onclick="closeMobileMenu()">Features</a>
-    <a href="#tech" onclick="closeMobileMenu()">Technology</a>
-    <a href="#architecture" onclick="closeMobileMenu()">Architecture</a>
-    <a href="#roadmap" onclick="closeMobileMenu()">Roadmap</a>
-    <a href="#docs" onclick="closeMobileMenu()">Documentation</a>
+    <a href="#features">Features</a>
+    <a href="#tech">Technology</a>
+    <a href="#architecture">Architecture</a>
+    <a href="#roadmap">Roadmap</a>
+    <a href="#docs">Documentation</a>
     <a href="https://github.com/axionaxprotocol/axionax-core" target="_blank">GitHub</a>
   </div>
   
@@ -2037,7 +2037,7 @@ python3 tests/integration_simple.py
         <div class="newsletter-form">
           <div class="input-group">
             <input type="email" placeholder="Enter your email" class="email-input" id="emailInput">
-            <button class="btn btn-primary" onclick="subscribeNewsletter()">Subscribe</button>
+            <button class="btn btn-primary" id="subscribeBtn">Subscribe</button>
           </div>
           <p class="newsletter-note">
             🔒 We respect your privacy. Unsubscribe anytime. No spam, ever.
@@ -2049,21 +2049,21 @@ python3 tests/integration_simple.py
             <div class="cta-icon">🚀</div>
             <h3>Build on Axionax</h3>
             <p>Start building decentralized compute applications today</p>
-            <a href="../QUICKSTART.md" class="btn btn-secondary">Get Started</a>
+            <a href="../QUICKSTART.html" class="btn btn-secondary">Get Started</a>
           </div>
           
           <div class="cta-card">
             <div class="cta-icon">⚡</div>
             <h3>Run a Node</h3>
             <p>Join the network as a validator or worker node</p>
-            <a href="NODE_INTEGRATION.md" class="btn btn-secondary">Setup Node</a>
+            <a href="NODE_INTEGRATION.html" class="btn btn-secondary">Setup Node</a>
           </div>
           
           <div class="cta-card">
             <div class="cta-icon">💎</div>
             <h3>Join Testnet</h3>
             <p>Test your applications on our live testnet</p>
-            <a href="TESTNET_INTEGRATION.md" class="btn btn-secondary">Connect Now</a>
+            <a href="TESTNET_INTEGRATION.html" class="btn btn-secondary">Connect Now</a>
           </div>
         </div>
       </div>
@@ -2076,37 +2076,37 @@ python3 tests/integration_simple.py
       <h2 class="section-title">Documentation</h2>
       
       <div class="docs-grid">
-        <a href="API_REFERENCE.md" class="doc-link">
+        <a href="API_REFERENCE.html" class="doc-link">
           <h3>📖 API Reference</h3>
           <p>Complete API documentation for all modules, RPC methods, and client SDKs.</p>
         </a>
         
-        <a href="BUILD.md" class="doc-link">
+        <a href="BUILD.html" class="doc-link">
           <h3>🔨 Build Guide</h3>
           <p>Step-by-step instructions for building and deploying Axionax nodes.</p>
         </a>
         
-        <a href="TESTNET_INTEGRATION.md" class="doc-link">
+        <a href="TESTNET_INTEGRATION.html" class="doc-link">
           <h3>🌐 Testnet Integration</h3>
           <p>Connect to the Axionax testnet and start validating transactions.</p>
         </a>
         
-        <a href="NODE_INTEGRATION.md" class="doc-link">
+        <a href="NODE_INTEGRATION.html" class="doc-link">
           <h3>⚙️ Node Integration</h3>
           <p>Full node setup with Network, State, and RPC integration guide.</p>
         </a>
         
-        <a href="STATE_RPC_USAGE.md" class="doc-link">
+        <a href="STATE_RPC_USAGE.html" class="doc-link">
           <h3>💾 State & RPC Usage</h3>
           <p>RocksDB state management and JSON-RPC 2.0 server documentation.</p>
         </a>
         
-        <a href="../ARCHITECTURE.md" class="doc-link">
+        <a href="../ARCHITECTURE.html" class="doc-link">
           <h3>🏗️ Architecture</h3>
           <p>Deep dive into PoPC consensus, ASR, PPC, and DeAI security design.</p>
         </a>
         
-        <a href="../QUICKSTART.md" class="doc-link">
+        <a href="../QUICKSTART.html" class="doc-link">
           <h3>🚀 Quick Start</h3>
           <p>Get started with Axionax in 5 minutes - beginner-friendly tutorial.</p>
         </a>
@@ -2145,7 +2145,7 @@ python3 tests/integration_simple.py
   </footer>
   
   <!-- Back to Top Button -->
-  <button class="back-to-top" onclick="scrollToTop()" aria-label="Back to top">
+  <button id="backToTopBtn" class="back-to-top" aria-label="Back to top">
     ↑
   </button>
   
@@ -2351,6 +2351,8 @@ python3 tests/integration_simple.py
       entries.forEach(entry => {
         if (entry.isIntersecting && !entry.target.dataset.animated) {
           entry.target.dataset.animated = 'true';
+          // Ensure the stat becomes visible before animating the value
+          entry.target.style.opacity = '1';
           const text = entry.target.textContent.trim();
           
           if (text.includes('K+')) {
@@ -2400,6 +2402,9 @@ python3 tests/integration_simple.py
       }
     `;
     document.head.appendChild(style);
+    document.getElementById('mobileMenuBtn').addEventListener('click', toggleMobileMenu);
+    document.getElementById('subscribeBtn').addEventListener('click', subscribeNewsletter);
+    document.getElementById('backToTopBtn').addEventListener('click', scrollToTop);
   </script>
 </body>
 </html>
