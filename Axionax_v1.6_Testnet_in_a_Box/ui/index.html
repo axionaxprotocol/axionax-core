@@ -26,11 +26,12 @@
     .footer{margin-top:22px;color:#9fb3d9;font-size:13px;text-align:center}
     @media (max-width:900px){.grid{grid-template-columns:1fr}}
   /* Space background layers */
-  #space-canvas{position:fixed;left:0;top:0;width:100%;height:100%;z-index:0;pointer-events:none}
-  .galaxy-overlay{position:fixed;left:0;top:0;width:100%;height:100%;z-index:0;pointer-events:none;mix-blend-mode:screen}
+  /* Put canvas behind UI content explicitly */
+  #space-canvas{position:fixed;left:0;top:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+  .galaxy-overlay{position:fixed;left:0;top:0;width:100%;height:100%;z-index:-1;pointer-events:none;mix-blend-mode:screen}
   .galaxy-overlay::before{content:'';position:absolute;left:10%;top:5%;width:1200px;height:1200px;background:radial-gradient(circle at 30% 25%, rgba(124,226,255,0.20), rgba(124,226,255,0.06) 8%, rgba(124,226,255,0.02) 20%, rgba(0,0,0,0) 40%), radial-gradient(circle at 75% 70%, rgba(156,102,255,0.12), rgba(156,102,255,0.02) 12%, rgba(0,0,0,0) 40%);filter:blur(80px);transform:translate3d(0,0,0)}
   .galaxy-overlay::after{content:'';position:absolute;right:5%;bottom:10%;width:900px;height:900px;background:radial-gradient(circle at 65% 50%, rgba(255,220,180,0.14), rgba(255,220,180,0.02) 10%, rgba(0,0,0,0) 45%);filter:blur(90px)}
-  .wrap{position:relative;z-index:1}
+  .wrap{position:relative;z-index:2}
   </style>
 </head>
 <body>

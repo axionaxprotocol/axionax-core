@@ -1531,6 +1531,16 @@
       .modal {padding:1.1rem 0.8rem;}
       .modal h2 { font-size: 1.16rem;}
     }
+    /* Space background overrides: make sure canvas/overlay are visible
+       - Force a black base to avoid earlier gradients occluding the canvas
+       - Lower decorative pseudo-elements so the canvas renders above them
+       - Keep header and modals above the background (they already have high z-index)
+    */
+    html, body { background-color: #000 !important; }
+    body::before, body::after { z-index: -1 !important; }
+    #space-canvas { position: fixed; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0 !important; }
+    .galaxy-overlay { position: fixed; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0 !important; mix-blend-mode: screen; }
+    .bg-animation { z-index: -2 !important; }
   </style>
   </head>
   <body>
