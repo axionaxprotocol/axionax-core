@@ -26,26 +26,19 @@ COPY ./bridge ./bridge
 COPY ./cmd ./cmd
 
 # Build the specific example
-# Install build dependencies required by some crates (zstd, bindgen/libclang, pkg-config)
-RUN apt-get update \
- && apt-get install -y --no-install-recommends clang libclang-dev pkg-config build-essential libzstd-dev llvm-dev ca-certificates \
- && rm -rf /var/lib/apt/lists/*
-
-# Ensure bindgen can find libclang (common location on Debian-based images)
-ENV LIBCLANG_PATH=/usr/lib/x86_64-linux-gnu
-
 RUN cargo build --release --example full_node -p node
 
 # Stage 2: Final image
-FROM debian:bookworm-slim
+FROM debian:bullseye-slim
 
-# Install runtime dependencies (SSL, libstdc++ newer versions, libclang)
-RUN apt-get update && \
-	apt-get install -y --no-install-recommends libssl-dev ca-certificates libstdc++6 clang libclang-dev && \
-	rm -rf /var/lib/apt/lists/*
+# Install OpenSSL, which is dynamically linked
+RUN apt-get update && apt-get install -y libssl-dev ca-certificates && rm -rf /var/lib/apt/lists/*
 
-# Set LIBCLANG_PATH to a common lib location
-ENV LIBCLANG_PATH=/usr/lib/x86_64-linux-gnu
+# Install additional dependencies for libclang
+RUN apt-get update && apt-get install -y clang libclang-dev && rm -rf /var/lib/apt/lists/*
+
+# Set LIBCLANG_PATH environment variable
+ENV LIBCLANG_PATH=/usr/lib/llvm-11/lib
 
 # Copy the built binary from the builder stage
 COPY --from=builder /axionax-node/target/release/examples/full_node /usr/local/bin/axionax-node
