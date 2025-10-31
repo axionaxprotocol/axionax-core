@@ -2384,7 +2384,7 @@ python3 tests/integration_simple.py
     
     // Animate performance bars when visible
     const performanceObserver = new IntersectionObserver((entries) => {
-      entries.forEach entry => {
+      entries.forEach(entry => {
         if (entry.isIntersecting && !entry.target.dataset.animated) {
           entry.target.dataset.animated = 'true';
           const fills = entry.target.querySelectorAll('.performance-fill');
