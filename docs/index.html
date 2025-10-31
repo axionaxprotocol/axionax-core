@@ -140,14 +140,32 @@
     
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background:
-        radial-gradient(circle at 66% 3%, #373b8e99 0px, transparent 400px),
-        radial-gradient(ellipse 80% 80% at 20% 30%, #ce37bd22 0, transparent 640px),
-        radial-gradient(ellipse 110% 80% at 80% 90%, #1ae9c110 0, #403baa07 100%),
-        linear-gradient(180deg,#191a31 0%, #02030a 100%);
-      position: relative; min-height: 100vh; overflow-x: hidden;
-      color: var(--text-primary);
-      line-height: 1.7;
+      background: radial-gradient(circle at 50% 50%, #1a2a6c, #b21f1f, #fdbb2d);
+      color: #ffffff;
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.1), transparent 70%),
+                  radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.05), transparent 80%);
+      z-index: -1;
+      pointer-events: none;
+    }
+    #space-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      pointer-events: none;
     }
     body::before {
       /* Layer 1: Fine stars */
@@ -2366,7 +2384,7 @@ python3 tests/integration_simple.py
     
     // Animate performance bars when visible
     const performanceObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
+      entries.forEach entry => {
         if (entry.isIntersecting && !entry.target.dataset.animated) {
           entry.target.dataset.animated = 'true';
           const fills = entry.target.querySelectorAll('.performance-fill');
