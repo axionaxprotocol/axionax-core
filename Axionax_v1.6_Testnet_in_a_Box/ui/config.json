@@ -1,5 +1,5 @@
 {
-  "name": "Axionax Local Testnet v1.5",
+  "name": "Axionax Local Testnet v1.6",
   "rpc": "/rpc",
   "chainId": 31337,
   "symbol": "AXX",

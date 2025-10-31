@@ -25,6 +25,26 @@ COPY ./core ./core
 COPY ./bridge ./bridge
 COPY ./cmd ./cmd
 
+# Install build dependencies and libclang in the builder stage so bindgen can run
+RUN apt-get update && \
+	apt-get install -y --no-install-recommends \
+		clang \
+		libclang-dev \
+		llvm-dev \
+		pkg-config \
+		libzstd-dev \
+		build-essential && \
+	# create symlink if needed
+	set -eux; \
+	for p in /usr/lib/llvm-* /lib/x86_64-linux-gnu /usr/lib; do \
+		if ls "$p"/libclang.so* 1>/dev/null 2>&1; then \
+			target=$(ls -1 "$p"/libclang.so* | head -n1); \
+			ln -sf "$target" /usr/lib/libclang.so || true; \
+			break; \
+		fi; \
+	done && \
+	rm -rf /var/lib/apt/lists/*
+
 # Build the specific example
 RUN cargo build --release --example full_node -p node
 
@@ -33,12 +53,6 @@ FROM debian:bullseye-slim
 
 # Install OpenSSL, which is dynamically linked
 RUN apt-get update && apt-get install -y libssl-dev ca-certificates && rm -rf /var/lib/apt/lists/*
-
-# Install additional dependencies for libclang
-RUN apt-get update && apt-get install -y clang libclang-dev && rm -rf /var/lib/apt/lists/*
-
-# Set LIBCLANG_PATH environment variable
-ENV LIBCLANG_PATH=/usr/lib/llvm-11/lib
 
 # Copy the built binary from the builder stage
 COPY --from=builder /axionax-node/target/release/examples/full_node /usr/local/bin/axionax-node
