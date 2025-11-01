@@ -89,11 +89,35 @@ Axionax v1.6 uses a **multi-language architecture** for optimal performance:
 
 ## 🚀 Quick Start (v1.6 Rust/Python Architecture)
 
-### Prerequisites
+### Prerequisites Installation
 
-- **Rust 1.75+** & Cargo - [Install](https://rustup.rs/)
-- **Python 3.10+** - [Download](https://www.python.org/downloads/)
-- **Shell Environment** (Bash, Zsh, etc.)
+We provide automated dependency installers for all major platforms:
+
+#### 🐧 Linux (Ubuntu/Debian/CentOS/RHEL/Arch/Alpine)
+```bash
+curl -sSL https://raw.githubusercontent.com/axionaxprotocol/axionax-core/main/scripts/install_dependencies_linux.sh | bash
+```
+
+#### 🪟 Windows (PowerShell as Administrator)
+```powershell
+irm https://raw.githubusercontent.com/axionaxprotocol/axionax-core/main/scripts/install_dependencies_windows.ps1 | iex
+```
+
+#### 🍎 macOS (10.15+)
+```bash
+curl -sSL https://raw.githubusercontent.com/axionaxprotocol/axionax-core/main/scripts/install_dependencies_macos.sh | bash
+```
+
+**These scripts install:**
+- Rust 1.75+ & Cargo
+- Python 3.10+
+- Node.js 20 LTS
+- Docker & Docker Compose
+- PostgreSQL, Nginx, Redis
+- Development tools (build-essential, pkg-config, openssl-dev)
+- Optional: VS Code
+
+**Manual Installation:** See [Prerequisites](#manual-prerequisites) below for manual setup.
 
 ### Build & Test
 
@@ -107,6 +131,17 @@ cd axionax-core
 # 2. Run the unified test script
 ./scripts/run_tests.sh
 ```
+
+### Manual Prerequisites
+
+If you prefer to install dependencies manually:
+
+- **Rust 1.75+** & Cargo - [Install](https://rustup.rs/)
+- **Python 3.10+** - [Download](https://www.python.org/downloads/)
+- **Node.js 20 LTS** - [Download](https://nodejs.org/)
+- **Docker** - [Install](https://docs.docker.com/get-docker/)
+- **PostgreSQL 14+** - [Install](https://www.postgresql.org/download/)
+- **Shell Environment** (Bash, Zsh, etc.)
 
 ### Performance Benchmarks
 

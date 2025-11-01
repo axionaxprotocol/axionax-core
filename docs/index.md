@@ -9,6 +9,44 @@ title: Axionax Protocol Documentation
 Welcome to the official documentation for Axionax Protocol - a next-generation decentralized compute infrastructure powered by novel consensus mechanisms.
 
 ## 🚀 Quick Start
+
+### Prerequisites Installation
+
+We provide automated dependency installers for all major platforms:
+
+#### 🐧 Linux (Ubuntu/Debian/CentOS/RHEL/Arch/Alpine)
+```bash
+curl -sSL https://raw.githubusercontent.com/axionaxprotocol/axionax-core/main/scripts/install_dependencies_linux.sh | bash
+```
+
+#### 🪟 Windows (PowerShell as Administrator)
+```powershell
+irm https://raw.githubusercontent.com/axionaxprotocol/axionax-core/main/scripts/install_dependencies_windows.ps1 | iex
+```
+
+#### 🍎 macOS (10.15+)
+```bash
+curl -sSL https://raw.githubusercontent.com/axionaxprotocol/axionax-core/main/scripts/install_dependencies_macos.sh | bash
+```
+
+**These scripts install:** Rust, Node.js, Python, Docker, PostgreSQL, Nginx, Redis, and all development tools.
+
+### Build & Run
+
+```bash
+# Clone repository
+git clone https://github.com/axionaxprotocol/axionax-core.git
+cd axionax-core
+
+# Build all components
+cargo build --release --workspace
+
+# Run tests
+python3 tests/integration_simple.py
+```
+
+📖 **[Full Getting Started Guide →](../GETTING_STARTED.md)**
+
 - [Getting Started](../GETTING_STARTED.md)
 - [Quick Start Guide](../QUICKSTART.md)
 - [Build Instructions](./BUILD.md)

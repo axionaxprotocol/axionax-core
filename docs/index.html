@@ -583,24 +583,55 @@
       </div>
       
       <div class="code-section">
-        <pre><code><span class="comment"># Quick Start - Build All Components</span>
+        <h3 style="color: var(--primary); margin-bottom: 1rem;">🚀 Quick Start Installation</h3>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+          <div style="background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.3); border-radius: 8px; padding: 1rem;">
+            <h4 style="color: #fff; margin-bottom: 0.5rem;">🐧 Linux</h4>
+            <pre style="background: rgba(0,0,0,0.3); padding: 0.75rem; border-radius: 4px; font-size: 0.85rem; overflow-x: auto;"><code>curl -sSL https://raw.githubusercontent.com/axionaxprotocol/axionax-core/main/scripts/install_dependencies_linux.sh | bash</code></pre>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.5rem;">Ubuntu/Debian, CentOS/RHEL, Arch, Alpine</p>
+          </div>
+          
+          <div style="background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.3); border-radius: 8px; padding: 1rem;">
+            <h4 style="color: #fff; margin-bottom: 0.5rem;">🪟 Windows</h4>
+            <pre style="background: rgba(0,0,0,0.3); padding: 0.75rem; border-radius: 4px; font-size: 0.85rem; overflow-x: auto;"><code>irm https://raw.githubusercontent.com/axionaxprotocol/axionax-core/main/scripts/install_dependencies_windows.ps1 | iex</code></pre>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.5rem;">PowerShell as Administrator required</p>
+          </div>
+          
+          <div style="background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.3); border-radius: 8px; padding: 1rem;">
+            <h4 style="color: #fff; margin-bottom: 0.5rem;">🍎 macOS</h4>
+            <pre style="background: rgba(0,0,0,0.3); padding: 0.75rem; border-radius: 4px; font-size: 0.85rem; overflow-x: auto;"><code>curl -sSL https://raw.githubusercontent.com/axionaxprotocol/axionax-core/main/scripts/install_dependencies_macos.sh | bash</code></pre>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.5rem;">macOS 10.15+, M1/M2/M3 & Intel</p>
+          </div>
+        </div>
+        
+        <h3 style="color: var(--primary); margin: 2rem 0 1rem;">📦 Then Build All Components</h3>
+        <pre><code><span class="comment"># 1. Clone repository</span>
+git clone https://github.com/axionaxprotocol/axionax-core.git
+cd axionax-core
 
-<span class="comment"># 1. Build Rust core (consensus, blockchain, crypto, network, state, RPC)</span>
+<span class="comment"># 2. Build Rust core (consensus, blockchain, crypto, network, state, RPC)</span>
 cargo build --release --workspace
 
-<span class="comment"># 2. Build Rust-Python bridge</span>
+<span class="comment"># 3. Build Rust-Python bridge</span>
 cd bridge/rust-python && ./build.sh && cd ../..
 
-<span class="comment"># 3. Install Python ML dependencies</span>
+<span class="comment"># 4. Install Python ML dependencies</span>
 pip install -r deai/requirements.txt
 
-<span class="comment"># 4. Build TypeScript SDK</span>
+<span class="comment"># 5. Build TypeScript SDK</span>
 cd sdk && npm install && npm run build && cd ..
 
-<span class="comment"># 5. Run integration tests</span>
+<span class="comment"># 6. Run integration tests</span>
 python3 tests/integration_simple.py
 
 <span class="comment"># ✅ All 20/20 tests should pass!</span></code></pre>
+        
+        <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 8px; padding: 1rem; margin-top: 1.5rem;">
+          <p style="margin: 0; color: #10b981;">
+            <strong>✨ What gets installed:</strong> Rust, Node.js, Python, Docker, PostgreSQL, Nginx, Redis, and all build tools
+          </p>
+        </div>
       </div>
     </div>
   </section>
