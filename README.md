@@ -19,8 +19,8 @@
 
 **ANY network claiming to be "Axionax Mainnet" is a SCAM. Verify at:**
 - 🌐 https://axionax.org/networks
-- 📄 [SECURITY.md](./SECURITY.md)
-- 📜 [LICENSE_NOTICE.md](./LICENSE_NOTICE.md)
+- 📄 [SECURITY.md](./docs/SECURITY.md)
+- 📜 [LICENSE_NOTICE.md](./docs/LICENSE_NOTICE.md)
 
 ---
 
@@ -56,7 +56,7 @@ flowchart LR
     DAO -.-> PPC
 ```
 
-📖 **[Full Architecture Documentation →](./ARCHITECTURE.md)**
+📖 **[Full Architecture Documentation →](./docs/ARCHITECTURE.md)**
 
 ### Architecture Overview
 
@@ -105,7 +105,7 @@ git clone https://github.com/axionaxprotocol/axionax-core.git
 cd axionax-core
 
 # 2. Run the unified test script
-./run_tests.sh
+./scripts/run_tests.sh
 ```
 
 ### Performance Benchmarks
@@ -121,7 +121,7 @@ cd axionax-core
 
 **Python Integration (PyO3 overhead):** < 10% for all operations
 
-📊 **[Run benchmarks](./tools/benchmark.py)** | 📖 **[Full results](./INTEGRATION_MIGRATION_GUIDE.md#3-performance-benchmarks)**
+� **[Run benchmarks](./tools/benchmark.py)** | 📖 **[Full results](./docs/INTEGRATION_MIGRATION_GUIDE.md#3-performance-benchmarks)**
 
 ### Developer Quick Start
 
@@ -178,7 +178,7 @@ The previous Go implementation (v1.5) and its related documentation have been mo
 - **Emission Rate**: ~2.25% APY from Ecosystem Reserve
 - **Token Utilities**: Gas fees, Staking, Medium of Exchange, Governance
 
-📖 **[Full Tokenomics Documentation →](./TOKENOMICS.md)**
+📖 **[Full Tokenomics Documentation →](./docs/TOKENOMICS.md)**
 
 ## 🗺️ Roadmap
 
@@ -191,32 +191,45 @@ The previous Go implementation (v1.5) and its related documentation have been mo
 | **v2.0 Mainnet** | Q4'26 | 📅 Planned | Public launch, production ready |
 | **Guardian Nodes** | 2028-2029 | 🔬 Research | Space-based validator nodes |
 
-📖 **[Full Roadmap →](./ROADMAP.md)**
+📖 **[Full Roadmap →](./docs/ROADMAP.md)**
 
 ## 📚 Documentation
 
 ### Core Documentation
-- **[New Architecture (v1.6)](./NEW_ARCHITECTURE.md)** - Multi-language design
-- **[Project Completion](./PROJECT_COMPLETION.md)** - v1.6 implementation summary
-- **[Architecture Overview](./ARCHITECTURE.md)** - System design
-- **[Project Status](./STATUS.md)** - Current status and next steps
+- **[New Architecture (v1.6)](./docs/NEW_ARCHITECTURE.md)** - Multi-language design
+- **[Project Completion](./docs/PROJECT_COMPLETION.md)** - v1.6 implementation summary
+- **[Architecture Overview](./docs/ARCHITECTURE.md)** - System design
+- **[Project Status](./docs/STATUS.md)** - Current status and next steps
+- **[Getting Started](./docs/GETTING_STARTED.md)** - Setup and installation
+- **[Quick Start](./docs/QUICKSTART.md)** - Quick start guide
 
 ### Key Guides
-- **[Integration & Migration Guide](./INTEGRATION_MIGRATION_GUIDE.md)** - PyO3, testing, deployment
-- **[Contributing Guide](./CONTRIBUTING.md)** - How to contribute
+- **[Integration & Migration Guide](./docs/INTEGRATION_MIGRATION_GUIDE.md)** - PyO3, testing, deployment
+- **[Integration README](./docs/INTEGRATION_README.md)** - Integration overview
+- **[Contributing Guide](./docs/CONTRIBUTING.md)** - How to contribute
 - **[Python API Docs](./docs/PYTHON_API.md)** - Python bindings reference
 - **[TypeScript SDK Docs](./sdk/README.md)** - TypeScript SDK reference
+- **[Testing Guide](./docs/TESTING_GUIDE.md)** - Testing strategies
 
 ### Protocol & Economics
-- **[Security Model](./SECURITY.md)** - Threat model and mitigations
-- **[Governance Guide](./GOVERNANCE.md)** - DAO participation
-- **[Tokenomics](./TOKENOMICS.md)** - Token economics and distribution
+- **[Security Model](./docs/SECURITY.md)** - Threat model and mitigations
+- **[Security Implementation](./docs/SECURITY_IMPLEMENTATION.md)** - Security details
+- **[Governance Guide](./docs/GOVERNANCE.md)** - DAO participation
+- **[Tokenomics](./docs/TOKENOMICS.md)** - Token economics and distribution
+- **[Roadmap](./docs/ROADMAP.md)** - Development roadmap
+
+### Environment & Deployment
+- **[Testnet v1.5](./environments/testnet/Axionax_v1.5_Testnet_in_a_Box/)** - Testnet v1.5 setup
+- **[Testnet v1.6](./environments/testnet/Axionax_v1.6_Testnet_in_a_Box/)** - Testnet v1.6 setup
+- **[Config Example](./environments/config.example.yaml)** - Configuration template
+- **[Docker Compose](./environments/docker-compose.yaml)** - Docker setup
 
 ### Testing & Performance
 
-- **[Unified Test Script](./run_tests.sh)** - Builds and tests all components
+- **[Unified Test Script](./scripts/run_tests.sh)** - Builds and tests all components
 - **[Integration Tests](./tests/integration_simple.py)** - Python tests for Rust bindings
 - **[Benchmark Suite](./tools/benchmark.py)** - Performance benchmark script
+- **[Quick Test Scripts](./scripts/)** - Various testing utilities
 
 ## 🔐 Security
 
@@ -231,7 +244,7 @@ Key security mechanisms:
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see our [Contributing Guide](./CONTRIBUTING.md) for details.
+We welcome contributions! Please see our [Contributing Guide](./docs/CONTRIBUTING.md) for details.
 
 ### Development Workflow
 
@@ -243,7 +256,7 @@ We welcome contributions! Please see our [Contributing Guide](./CONTRIBUTING.md)
 
 ## 📜 License
 
-This project is licensed under the **GNU Affero General Public License v3.0 (AGPLv3)** with additional terms. See the [LICENSE](./LICENSE) and [LICENSE_NOTICE.md](./LICENSE_NOTICE.md) files for details.
+This project is licensed under the **GNU Affero General Public License v3.0 (AGPLv3)** with additional terms. See the [LICENSE](./LICENSE) and [LICENSE_NOTICE.md](./docs/LICENSE_NOTICE.md) files for details.
 
 ## 🔗 Links
 
