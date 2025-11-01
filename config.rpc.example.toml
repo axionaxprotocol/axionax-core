@@ -1,0 +1,171 @@
+# Axionax Node Configuration
+# This is an example configuration for Axionax testnet RPC node
+
+[network]
+# Chain ID (86137 for testnet, 86150 for mainnet)
+chain_id = 86137
+
+# P2P listen address
+listen_addr = "0.0.0.0:30303"
+
+# Maximum number of peers
+max_peers = 50
+
+# Bootstrap nodes for initial peer discovery
+bootstrap_nodes = [
+    # Add bootstrap node addresses here
+    # Format: "/ip4/192.168.1.1/tcp/30303/p2p/QmNodeID"
+]
+
+# Network discovery enabled
+discovery_enabled = true
+
+[rpc]
+# Enable HTTP JSON-RPC server
+enabled = true
+
+# RPC listen address (127.0.0.1 for local only, 0.0.0.0 for external)
+http_addr = "127.0.0.1:8545"
+
+# CORS origins (use ["*"] for public access, or specify domains)
+http_cors = ["*"]
+
+# Enabled RPC method namespaces
+http_methods = ["eth", "web3", "net", "popc"]
+
+# Maximum concurrent connections
+max_connections = 1000
+
+# Request timeout in seconds
+request_timeout = 30
+
+[websocket]
+# Enable WebSocket server for real-time subscriptions
+enabled = true
+
+# WebSocket listen address
+ws_addr = "127.0.0.1:8546"
+
+# Allowed origins for WebSocket connections
+ws_origins = ["*"]
+
+# Maximum WebSocket connections
+max_connections = 500
+
+# Ping interval in seconds
+ping_interval = 30
+
+[state]
+# Path to RocksDB state database
+db_path = "/var/lib/axionax/state"
+
+# Cache size in megabytes
+cache_size = 1024
+
+# Enable pruning of old state data
+pruning_enabled = false
+
+# Keep last N blocks if pruning enabled
+pruning_keep_blocks = 100000
+
+[consensus]
+# Consensus mechanism (popc = Proof of Probabilistic Checking)
+mechanism = "popc"
+
+# Block time target in seconds
+block_time = 5
+
+# Maximum block size in bytes
+max_block_size = 1048576  # 1 MB
+
+[validator]
+# Enable validator mode (requires staking)
+enabled = false
+
+# Validator private key file
+key_file = "/var/lib/axionax/validator.key"
+
+# Coinbase address for rewards
+coinbase = "0x0000000000000000000000000000000000000000"
+
+[mempool]
+# Maximum transactions in mempool
+max_transactions = 10000
+
+# Maximum transaction size in bytes
+max_tx_size = 131072  # 128 KB
+
+# Minimum gas price in wei
+min_gas_price = 1000000000  # 1 Gwei
+
+[gas]
+# Gas price oracle settings
+price_oracle = "weighted_average"
+
+# Blocks to sample for gas price estimation
+sample_blocks = 20
+
+# Target gas usage percentage
+target_usage = 50
+
+[logging]
+# Log level: trace, debug, info, warn, error
+level = "info"
+
+# Log to file
+log_file = "/var/lib/axionax/logs/axionax.log"
+
+# Maximum log file size in megabytes
+max_size = 100
+
+# Number of rotated log files to keep
+max_backups = 10
+
+# Log format: json or text
+format = "text"
+
+[metrics]
+# Enable Prometheus metrics
+enabled = true
+
+# Metrics listen address
+listen_addr = "127.0.0.1:9090"
+
+# Metrics update interval in seconds
+update_interval = 15
+
+[security]
+# Enable rate limiting
+rate_limiting = true
+
+# Requests per minute per IP
+rate_limit_rpm = 1000
+
+# Enable request authentication (for sensitive endpoints)
+auth_enabled = false
+
+# JWT secret for authentication (generate random string)
+jwt_secret = ""
+
+[performance]
+# Number of worker threads (0 = number of CPU cores)
+worker_threads = 0
+
+# Enable database compression
+db_compression = true
+
+# Sync mode: full, fast, snap
+sync_mode = "fast"
+
+[api]
+# Custom API namespace enabled
+custom_enabled = true
+
+# Enable admin API (dangerous - only enable for trusted connections)
+admin_enabled = false
+
+# Enable debug API
+debug_enabled = false
+
+# Enable trace API (resource intensive)
+trace_enabled = false
