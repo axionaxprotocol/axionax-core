@@ -1,20 +1,38 @@
 # Axionax Core - Build and Development Guide
 
+> **Version**: v1.6+ (Rust + Python + TypeScript)  
+> **Last Updated**: November 2025
+
 ## Prerequisites
 
 ### Required Software
 
-- **Go 1.21+**: Download from https://go.dev/dl/
-- **Make**: (optional, for using Makefile)
+- **Rust 1.75+**: Install via rustup (https://rustup.rs/)
+- **Python 3.10+**: For DeAI modules
+- **Node.js 18+**: For TypeScript SDK
+- **Make**: (optional) For build automation
 - **Docker**: For containerized deployment
 - **Git**: For version control
 
 ### Verify Installation
 
 ```bash
-go version
-# Should output: go version go1.21.x ...
+# Check Rust
+rustc --version
+# Should output: rustc 1.75.x or higher
 
+# Check Cargo
+cargo --version
+
+# Check Python
+python3 --version
+# Should output: Python 3.10.x or higher
+
+# Check Node.js
+node --version
+# Should output: v18.x.x or higher
+
+# Check Docker
 docker --version
 # Should output: Docker version 24.x.x ...
 ```
@@ -28,60 +46,99 @@ git clone https://github.com/axionaxprotocol/axionax-core.git
 cd axionax-core
 ```
 
-### 2. Download Dependencies
+### 2. Install Rust (if not installed)
 
 ```bash
-go mod download
-go mod tidy
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source $HOME/.cargo/env
+
+# Install nightly (recommended for performance)
+rustup install nightly
+rustup default nightly
 ```
 
-### 3. Build the Binary
+### 3. Build the Rust Core
+
+**Using Cargo:**
+```bash
+cargo build --release
+```
 
 **Using Make:**
 ```bash
-make build
+make build-rust
 ```
 
-**Using Go directly:**
+The binary will be at `target/release/axionax-core`
+
+### 4. Build Python DeAI Modules
+
 ```bash
-go build -o build/axionax-core ./cmd/axionax
+cd deai
+python3 -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+### 5. Build TypeScript SDK
+
+```bash
+cd sdk
+npm install
+npm run build
 ```
 
 **Build with version info:**
 ```bash
-go build -ldflags "-X main.Version=v1.5.0 -X main.Commit=$(git rev-parse --short HEAD)" \
-  -o build/axionax-core ./cmd/axionax
+cargo build --release --features "version-info"
+# Or set environment variables
+export AXIONAX_VERSION="v1.6.0"
+export AXIONAX_COMMIT=$(git rev-parse --short HEAD)
+cargo build --release
 ```
 
-### 4. Verify Build
+### 6. Verify Build
 
 ```bash
-./build/axionax-core version
+./target/release/axionax-core --version
+# Should output: axionax-core v1.6.0
+
+# Test Python modules
+cd deai
+python3 -c "import asr; print('ASR module OK')"
+python3 -c "import fraud_detection; print('Fraud detection OK')"
+
+# Test TypeScript SDK
+cd sdk
+npm test
 ```
 
 Expected output:
 ```
-Axionax Core
-Version:    v1.5.0-testnet
+Axionax Core v1.6.0
 Git Commit: abc1234
-Built:      2025-10-22_10:30:00
-Go Version: go1.21+
+Built:      2025-11-01
+Rust:       1.75.0
+Python:     3.10.x
+Node.js:    18.x.x
 ```
 
 ## Building for Multiple Platforms
 
+**Rust Cross-Compilation:**
+
 ```bash
-# Linux (AMD64)
-GOOS=linux GOARCH=amd64 go build -o build/axionax-core-linux-amd64 ./cmd/axionax
+# Install cross-compilation targets
+rustup target add x86_64-unknown-linux-gnu
+rustup target add x86_64-apple-darwin
+rustup target add aarch64-apple-darwin
+rustup target add x86_64-pc-windows-gnu
 
-# macOS (Intel)
-GOOS=darwin GOARCH=amd64 go build -o build/axionax-core-darwin-amd64 ./cmd/axionax
-
-# macOS (Apple Silicon)
-GOOS=darwin GOARCH=arm64 go build -o build/axionax-core-darwin-arm64 ./cmd/axionax
-
-# Windows
-GOOS=windows GOARCH=amd64 go build -o build/axionax-core-windows-amd64.exe ./cmd/axionax
+# Build for different platforms
+cargo build --release --target x86_64-unknown-linux-gnu
+cargo build --release --target x86_64-apple-darwin
+cargo build --release --target aarch64-apple-darwin
+cargo build --release --target x86_64-pc-windows-gnu
 ```
 
 Or use Make:
@@ -94,7 +151,7 @@ make build-all
 ### Build Docker Image
 
 ```bash
-docker build -t axionax-core:v1.5.0 .
+docker build -t axionax-core:v1.6.0 .
 ```
 
 ### Run in Docker
@@ -102,7 +159,7 @@ docker build -t axionax-core:v1.5.0 .
 ```bash
 docker run -p 8545:8545 -p 30303:30303 \
   -v $(pwd)/data:/home/axionax/.axionax \
-  axionax-core:v1.5.0
+  axionax-core:v1.6.0
 ```
 
 ### Using Docker Compose
@@ -115,105 +172,191 @@ docker compose up -d
 
 ### Running Tests
 
+**Rust Tests:**
 ```bash
 # Run all tests
-go test ./...
+cargo test
 
-# Run tests with coverage
-go test -cover ./...
+# Run tests with output
+cargo test -- --nocapture
 
-# Generate coverage report
-make test-coverage
-# Opens coverage.html in browser
+# Run specific test
+cargo test test_consensus
+
+# Run benchmarks
+cargo bench
+```
+
+**Python Tests:**
+```bash
+cd deai
+source venv/bin/activate
+pytest tests/
+# or
+python -m unittest discover tests/
+```
+
+**TypeScript Tests:**
+```bash
+cd sdk
+npm test
+npm run test:coverage
+```
+
+**Integration Tests:**
+```bash
+# Run all integration tests
+make test-integration
+
+# Or manually
+cargo test --features integration
 ```
 
 ### Code Quality
 
+**Rust:**
 ```bash
 # Format code
-go fmt ./...
-# or
-make fmt
+cargo fmt
 
-# Run linter (requires golangci-lint)
-golangci-lint run ./...
-# or
-make lint
+# Run linter (clippy)
+cargo clippy -- -D warnings
 
-# Run go vet
-go vet ./...
 # or
-make vet
+make lint-rust
+```
+
+**Python:**
+```bash
+cd deai
+source venv/bin/activate
+
+# Format code
+black .
+# or
+autopep8 --in-place --recursive .
+
+# Lint
+pylint deai/
+flake8 .
+
+# Type checking
+mypy deai/
+```
+
+**TypeScript:**
+```bash
+cd sdk
+
+# Format
+npm run format
+
+# Lint
+npm run lint
+
+# Type check
+npm run type-check
 ```
 
 ### Development Mode
 
+**Run Rust node in dev mode:**
 ```bash
-# Run directly without building
-go run ./cmd/axionax start --network testnet --dev
+# Run with debug logging
+RUST_LOG=debug cargo run -- start --network testnet --dev
 
 # Or use Make
 make dev
 ```
 
-### Hot Reload (with air)
-
-Install air:
+**Run with watch mode:**
 ```bash
-go install github.com/cosmtrek/air@latest
+# Install cargo-watch
+cargo install cargo-watch
+
+# Run with auto-reload
+cargo watch -x run
 ```
 
-Run with hot reload:
+**Python development:**
 ```bash
-air
+cd deai
+source venv/bin/activate
+
+# Run in dev mode
+python3 asr.py --dev
+
+# Or use pytest watch
+ptw -- tests/
 ```
 
-## Project Structure
+### Hot Reload
+
+**Rust (with cargo-watch):**
+```bash
+cargo watch -x 'run -- start'
+```
+
+**TypeScript SDK:**
+```bash
+cd sdk
+npm run dev  # with watch mode
+```
+
+## Project Structure Reference
 
 ```
 axionax-core/
-├── cmd/
-│   └── axionax/          # CLI entry point
-│       └── main.go
-├── pkg/                  # Public packages
-│   ├── types/            # Core types
-│   └── config/           # Configuration
-├── internal/             # Private packages
-│   ├── popc/             # PoPC validation
-│   ├── asr/              # ASR router
-│   ├── ppc/              # PPC controller
-│   ├── da/               # Data availability
-│   ├── vrf/              # VRF implementation
-│   └── consensus/        # Consensus engine
-├── docs/                 # Documentation
-├── Axionax_v1.5_Testnet_in_a_Box/  # Testnet environment
-├── go.mod                # Go dependencies
-├── go.sum
-├── Makefile              # Build automation
-├── Dockerfile            # Docker image
-├── docker-compose.yaml   # Docker Compose config
+├── cmd/axionax/              # 🦀 Main Rust application
+│   └── src/main.rs
+├── core/                     # 🦀 Core Rust modules
+│   ├── blockchain/
+│   ├── consensus/
+│   └── crypto/
+├── deai/                     # 🐍 Python DeAI layer
+│   ├── asr.py
+│   └── fraud_detection.py
+├── sdk/                      # 📘 TypeScript SDK
+│   └── src/
+├── Cargo.toml                # Rust workspace
+├── Makefile                  # Build automation
 └── README.md
 ```
 
 ## Common Issues
 
-### Go Not Found
-
-**Solution:** Install Go from https://go.dev/dl/ and add to PATH
-
-### Dependency Errors
+### Rust Build Errors
 
 **Solution:**
 ```bash
-go clean -modcache
-go mod download
-go mod tidy
+# Clean build cache
+cargo clean
+
+# Update dependencies
+cargo update
+
+# Rebuild
+cargo build --release
 ```
 
-### Build Errors
+### Python Module Not Found
 
 **Solution:**
 ```bash
+cd deai
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+### TypeScript Errors
+
+**Solution:**
+```bash
+cd sdk
+rm -rf node_modules package-lock.json
+npm install
+npm run build
 # Clean build artifacts
 make clean
 

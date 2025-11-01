@@ -88,9 +88,8 @@ axionax-core/
 │   ├── debug/                        # Debug builds
 │   └── release/                      # Release builds
 │
-├── Cargo.toml                        # Rust project config
-├── go.mod                            # Go module definition
-├── Makefile                          # Build automation
+├── Cargo.toml                        # Rust workspace config
+├── Makefile                          # Build automation (multi-language)
 ├── Dockerfile                        # Docker image definition
 ├── README.md                         # Main README
 ├── LICENSE                           # License file
@@ -102,7 +101,7 @@ axionax-core/
 ### Entry Points
 
 - **`README.md`**: Main project overview and documentation links
-- **`cmd/axionax/main.go`**: Main CLI application (Go legacy)
+- **`cmd/axionax/src/main.rs`**: Main CLI application (Rust)
 - **`core/`**: Rust core implementation (primary)
 - **`deai/`**: Python DeAI layer with ML components
 
@@ -212,8 +211,7 @@ make benchmark       # Run performance benchmarks
 - **TypeScript**: Defined in `sdk/package.json`
   - Key packages: ethers, web3
 
-- **Go** (legacy): Defined in `go.mod`
-  - Key packages: ethereum/go-ethereum, cobra, viper
+> **Note**: Go implementation (v1.5) has been fully migrated to Rust (v1.6) for better performance and memory safety.
 
 ## Development Status (v1.6)
 
