@@ -26,7 +26,7 @@ These additional terms supplement the GNU Affero General Public License v3.0:
    and all related trademarks are the exclusive property of Axionax Foundation.
    
    Use of these marks requires explicit written permission from:
-   legal@axionax.io
+   legal@axionax.org
    
    This restriction does NOT apply to:
    - Factual references in documentation
@@ -45,7 +45,7 @@ These additional terms supplement the GNU Affero General Public License v3.0:
    - Operating networks that could confuse users with the official Axionax Network
    - Creating token systems branded as "AXX" or "Axionax Token"
    
-   Authorization requests: mainnet-auth@axionax.io
+   Authorization requests: mainnet-auth@axionax.org
 
 3. CHAIN IDENTITY REQUIREMENT
    Any modified version or fork MUST:
@@ -55,7 +55,7 @@ These additional terms supplement the GNU Affero General Public License v3.0:
    - NOT misrepresent itself as the official Axionax Network
    
    Official chain IDs:
-   - Testnet: 86137 (AXI testnet)
+   - Testnet: 86137 (AXX testnet)
    - Mainnet: 86150 (reserved, not yet launched)
 
 4. NETWORK COMPATIBILITY
@@ -71,19 +71,19 @@ These additional terms supplement the GNU Affero General Public License v3.0:
    - DMCA takedown requests
    - Community warnings and blacklisting
    
-   Report violations: security@axionax.io
+   Report violations: security@axionax.org
 
 6. OFFICIAL NETWORK REGISTRY
    Verify authentic Axionax networks at:
-   https://axionax.io/networks
+   https://axionax.org/networks
    
    Any network not listed there is NOT officially endorsed.
 
 ===================================================================
 
 For questions about these terms:
-- Legal inquiries: legal@axionax.io
-- Technical questions: dev@axionax.io
-- Security reports: security@axionax.io
+- Legal inquiries: legal@axionax.org
+- Technical questions: dev@axionax.org
+- Security reports: security@axionax.org
 
-Last updated: October 24, 2025
+Last updated: November 1, 2025
