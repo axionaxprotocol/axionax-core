@@ -1424,3 +1424,429 @@
     #space-canvas { position: fixed; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0 !important; }
     .galaxy-overlay { position: fixed; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0 !important; mix-blend-mode: screen; }
     .bg-animation { z-index: -2 !important; }
+
+/* ========================================
+   Public Testnet & Network Dashboard Styles
+   ======================================== */
+
+.testnet-live {
+  padding: var(--section-padding);
+  background: var(--bg-darker);
+  position: relative;
+}
+
+.testnet-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.testnet-header .section-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Network Dashboard */
+.network-dashboard {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 2rem;
+  margin-bottom: 3rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.dashboard-header h3 {
+  font-size: 1.5rem;
+  color: var(--text-primary);
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(16, 185, 129, 0.1);
+  border-radius: 2rem;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+.status-online {
+  background: var(--success);
+  box-shadow: 0 0 10px var(--success);
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.1); }
+}
+
+.status-text {
+  color: var(--success);
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+/* Metrics Grid */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.metric-card {
+  background: rgba(99, 102, 241, 0.05);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.metric-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary);
+  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+}
+
+.metric-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.metric-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.metric-label {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.metric-trend {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  display: inline-block;
+  font-weight: 600;
+}
+
+.trend-up {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--success);
+}
+
+.trend-down {
+  background: rgba(239, 68, 68, 0.15);
+  color: var(--error);
+}
+
+.trend-stable {
+  background: rgba(59, 130, 246, 0.15);
+  color: var(--accent);
+}
+
+/* Health Indicators */
+.health-indicators {
+  display: grid;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.health-item {
+  display: grid;
+  grid-template-columns: 120px 1fr 60px;
+  align-items: center;
+  gap: 1rem;
+}
+
+.health-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.health-bar {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.health-fill {
+  height: 100%;
+  border-radius: 1rem;
+  transition: width 1s ease;
+}
+
+.health-value {
+  text-align: right;
+  font-weight: 600;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text-primary);
+  font-size: 0.875rem;
+}
+
+/* Testnet Info Grid */
+.testnet-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.testnet-info-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+.testnet-info-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(99, 102, 241, 0.2);
+}
+
+.testnet-info-card h3 {
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.info-item:last-child {
+  border-bottom: none;
+}
+
+.info-label {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.info-value {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.code-value {
+  font-family: 'JetBrains Mono', monospace;
+  background: rgba(99, 102, 241, 0.1);
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.info-link {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+
+.info-link:hover {
+  color: var(--secondary);
+  text-decoration: underline;
+}
+
+.copy-btn {
+  background: rgba(99, 102, 241, 0.1);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  color: var(--primary);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.3s;
+}
+
+.copy-btn:hover {
+  background: var(--primary);
+  color: white;
+  transform: scale(1.1);
+}
+
+.cta-mini {
+  margin-top: 1rem;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: rgba(99, 102, 241, 0.1);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: 0.75rem;
+  color: var(--text-primary);
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+}
+
+.action-icon {
+  font-size: 1.5rem;
+}
+
+/* Activity Feed */
+.activity-feed {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.activity-feed h3 {
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+  font-size: 1.25rem;
+}
+
+.activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.activity-item {
+  display: grid;
+  grid-template-columns: 80px 120px 1fr;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 0.5rem;
+  transition: all 0.3s;
+  align-items: center;
+}
+
+.activity-item:hover {
+  background: rgba(99, 102, 241, 0.1);
+  transform: translateX(5px);
+}
+
+.activity-time {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.activity-type {
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  background: rgba(99, 102, 241, 0.15);
+  color: var(--primary);
+  text-align: center;
+}
+
+.activity-desc {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+.code-inline {
+  font-family: 'JetBrains Mono', monospace;
+  background: rgba(99, 102, 241, 0.1);
+  padding: 0.125rem 0.5rem;
+  border-radius: 0.25rem;
+  color: var(--primary);
+  font-size: 0.8125rem;
+}
+
+.btn-sm {
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .dashboard-header {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .testnet-info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .action-buttons {
+    grid-template-columns: 1fr;
+  }
+
+  .activity-item {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .health-item {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .health-value {
+    text-align: left;
+  }
+}

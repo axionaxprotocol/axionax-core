@@ -147,7 +147,7 @@
     <div class="container">
       <div class="badge animate-in">
         <span class="pulse"></span>
-        <span>v1.6.0-dev • Testnet Active</span>
+        <span>v1.6.0-dev • 🌐 Public Testnet LIVE</span>
       </div>
       
       <h1 class="animate-in" style="animation-delay: 0.1s;">
@@ -172,6 +172,243 @@
         <a href="https://github.com/axionaxprotocol/axionax-core" class="btn btn-secondary" target="_blank">
           💻 View on GitHub
         </a>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Public Testnet Section -->
+  <section class="testnet-live">
+    <div class="container">
+      <div class="testnet-header">
+        <h2 class="section-title">
+          🌐 Public Testnet is LIVE
+        </h2>
+        <p style="text-align: center; color: var(--text-secondary); max-width: 800px; margin: 0 auto 2rem;">
+          Join our public testnet and start building on Axionax today!
+        </p>
+      </div>
+
+      <!-- Network Status Dashboard -->
+      <div class="network-dashboard">
+        <div class="dashboard-header">
+          <h3>📊 Network Status Dashboard</h3>
+          <div class="status-indicator">
+            <span class="status-dot status-online"></span>
+            <span class="status-text">All Systems Operational</span>
+          </div>
+        </div>
+
+        <!-- Real-time Metrics -->
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-icon">📦</div>
+            <div class="metric-value" id="block-height">Loading...</div>
+            <div class="metric-label">Block Height</div>
+            <div class="metric-trend trend-up">↑ 12/min</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon">⚡</div>
+            <div class="metric-value" id="block-time">5.2s</div>
+            <div class="metric-label">Avg Block Time</div>
+            <div class="metric-trend trend-stable">≈ Target: 5s</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon">👥</div>
+            <div class="metric-value" id="validators">Loading...</div>
+            <div class="metric-label">Active Validators</div>
+            <div class="metric-trend trend-up">↑ 100% online</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon">💸</div>
+            <div class="metric-value" id="transactions">Loading...</div>
+            <div class="metric-label">Total Transactions</div>
+            <div class="metric-trend trend-up">↑ +1.2K today</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon">🔄</div>
+            <div class="metric-value" id="tps">Loading...</div>
+            <div class="metric-label">Current TPS</div>
+            <div class="metric-trend trend-stable">Peak: 250 TPS</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon">🌐</div>
+            <div class="metric-value" id="peers">Loading...</div>
+            <div class="metric-label">Network Peers</div>
+            <div class="metric-trend trend-up">↑ Healthy mesh</div>
+          </div>
+        </div>
+
+        <!-- Network Health Indicators -->
+        <div class="health-indicators">
+          <div class="health-item" data-health="consensus">
+            <div class="health-label">⚡ Consensus</div>
+            <div class="health-bar">
+              <div class="health-fill" style="width: 100%; background: #10b981;"></div>
+            </div>
+            <div class="health-value">100%</div>
+          </div>
+
+          <div class="health-item" data-health="network">
+            <div class="health-label">🔗 Network</div>
+            <div class="health-bar">
+              <div class="health-fill" style="width: 98%; background: #10b981;"></div>
+            </div>
+            <div class="health-value">98%</div>
+          </div>
+
+          <div class="health-item" data-health="storage">
+            <div class="health-label">💾 Storage</div>
+            <div class="health-bar">
+              <div class="health-fill" style="width: 85%; background: #3b82f6;"></div>
+            </div>
+            <div class="health-value">85%</div>
+          </div>
+
+          <div class="health-item" data-health="security">
+            <div class="health-label">🛡️ Security</div>
+            <div class="health-bar">
+              <div class="health-fill" style="width: 100%; background: #10b981;"></div>
+            </div>
+            <div class="health-value">100%</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testnet Connection Info -->
+      <div class="testnet-info-grid">
+        <div class="testnet-info-card">
+          <h3>📋 Network Details</h3>
+          <div class="info-list">
+            <div class="info-item">
+              <span class="info-label">Network Name:</span>
+              <span class="info-value">Axionax Testnet</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Chain ID:</span>
+              <span class="info-value code-value">86137</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Currency:</span>
+              <span class="info-value">AXX (Testnet)</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Block Explorer:</span>
+              <a href="https://testnet-explorer.axionax.org" target="_blank" class="info-link">
+                testnet-explorer.axionax.org →
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="testnet-info-card">
+          <h3>🔌 RPC Endpoints</h3>
+          <div class="info-list">
+            <div class="info-item">
+              <span class="info-label">HTTPS:</span>
+              <span class="info-value code-value">https://testnet-rpc.axionax.org</span>
+              <button class="copy-btn" data-copy="https://testnet-rpc.axionax.org" title="Copy">📋</button>
+            </div>
+            <div class="info-item">
+              <span class="info-label">WebSocket:</span>
+              <span class="info-value code-value">wss://testnet-ws.axionax.org</span>
+              <button class="copy-btn" data-copy="wss://testnet-ws.axionax.org" title="Copy">📋</button>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Rate Limit:</span>
+              <span class="info-value">1000 req/min</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testnet-info-card">
+          <h3>💰 Get Test Tokens</h3>
+          <div class="info-list">
+            <div class="info-item">
+              <span class="info-label">Faucet:</span>
+              <a href="https://testnet-faucet.axionax.org" target="_blank" class="info-link">
+                testnet-faucet.axionax.org →
+              </a>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Amount:</span>
+              <span class="info-value">100 AXX / request</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Cooldown:</span>
+              <span class="info-value">24 hours</span>
+            </div>
+            <div class="cta-mini">
+              <a href="https://testnet-faucet.axionax.org" target="_blank" class="btn btn-primary btn-sm">
+                Request Test Tokens
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="testnet-info-card">
+          <h3>🚀 Quick Actions</h3>
+          <div class="action-buttons">
+            <a href="#" id="add-metamask" class="action-btn">
+              <span class="action-icon">🦊</span>
+              <span>Add to MetaMask</span>
+            </a>
+            <a href="https://testnet-explorer.axionax.org" target="_blank" class="action-btn">
+              <span class="action-icon">🔍</span>
+              <span>View Explorer</span>
+            </a>
+            <a href="docs/VPS_VALIDATOR_SETUP.html" class="action-btn">
+              <span class="action-icon">⚙️</span>
+              <span>Run Validator</span>
+            </a>
+            <a href="docs/API_REFERENCE.html" class="action-btn">
+              <span class="action-icon">📖</span>
+              <span>API Docs</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Activity Feed -->
+      <div class="activity-feed">
+        <h3>📡 Recent Network Activity</h3>
+        <div class="activity-list" id="activityFeed">
+          <!-- Will be populated by JavaScript -->
+          <div class="activity-item">
+            <span class="activity-time">2s ago</span>
+            <span class="activity-type">🟢 Block</span>
+            <span class="activity-desc">Block #<span class="code-inline">1,234,567</span> mined by validator-03</span>
+          </div>
+          <div class="activity-item">
+            <span class="activity-time">5s ago</span>
+            <span class="activity-type">💸 Transaction</span>
+            <span class="activity-desc">0xabcd...ef12 → 0x1234...5678 (50 AXX)</span>
+          </div>
+          <div class="activity-item">
+            <span class="activity-time">8s ago</span>
+            <span class="activity-type">⚡ Contract</span>
+            <span class="activity-desc">Smart contract deployed at 0x9876...4321</span>
+          </div>
+          <div class="activity-item">
+            <span class="activity-time">12s ago</span>
+            <span class="activity-type">🟢 Block</span>
+            <span class="activity-desc">Block #<span class="code-inline">1,234,566</span> mined by validator-01</span>
+          </div>
+          <div class="activity-item">
+            <span class="activity-time">15s ago</span>
+            <span class="activity-type">👤 Validator</span>
+            <span class="activity-desc">New validator joined: validator-10</span>
+          </div>
+        </div>
+        <div style="text-align: center; margin-top: 1.5rem;">
+          <a href="https://testnet-explorer.axionax.org" target="_blank" class="btn btn-secondary btn-sm">
+            View All Activity →
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -1224,5 +1461,8 @@ python3 tests/integration_simple.py
     requestAnimationFrame(draw);
   })();
   </script>
+  
+  <!-- Dashboard JavaScript -->
+  <script src="assets/js/dashboard.js"></script>
 </body>
 </html>
