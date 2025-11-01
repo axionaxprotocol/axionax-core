@@ -147,7 +147,18 @@ make bench
 - Update API documentation
 - Add examples if needed
 
-### 5. Commit and Push
+### 5. Checking for Broken Links
+
+Before committing changes to HTML files, run the link checker script to ensure there are no broken links. This script uses `lychee` to find and report any issues.
+
+```bash
+# Run the link checker
+./tools/check-links.sh
+```
+
+> **Note:** The script may report "Network error" for external links if you are in an offline environment. This is expected. Please focus on fixing any "File not found" errors for internal links.
+
+### 6. Commit and Push
 
 ```bash
 # Add your changes
