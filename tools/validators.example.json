@@ -1,0 +1,54 @@
+{
+  "validators": [
+    {
+      "name": "Validator-01",
+      "address": "0x0000000000000000000000000000000000000001",
+      "operator": "Genesis Coordinator",
+      "stake": "50000000000000000000000",
+      "commission": 0.10,
+      "enode": "enode://REPLACE_WITH_REAL_ENODE@IP:30303",
+      "location": "Singapore",
+      "hardware": "8 vCPU, 32GB RAM, 1TB NVMe"
+    },
+    {
+      "name": "Validator-02",
+      "address": "0x0000000000000000000000000000000000000002",
+      "operator": "Community Validator 1",
+      "stake": "50000000000000000000000",
+      "commission": 0.10,
+      "enode": "enode://REPLACE_WITH_REAL_ENODE@IP:30303",
+      "location": "US-East",
+      "hardware": "8 vCPU, 32GB RAM, 1TB NVMe"
+    },
+    {
+      "name": "Validator-03",
+      "address": "0x0000000000000000000000000000000000000003",
+      "operator": "Community Validator 2",
+      "stake": "50000000000000000000000",
+      "commission": 0.10,
+      "enode": "enode://REPLACE_WITH_REAL_ENODE@IP:30303",
+      "location": "EU-West",
+      "hardware": "8 vCPU, 32GB RAM, 1TB NVMe"
+    },
+    {
+      "name": "Validator-04",
+      "address": "0x0000000000000000000000000000000000000004",
+      "operator": "Community Validator 3",
+      "stake": "50000000000000000000000",
+      "commission": 0.10,
+      "enode": "enode://REPLACE_WITH_REAL_ENODE@IP:30303",
+      "location": "Tokyo",
+      "hardware": "8 vCPU, 32GB RAM, 1TB NVMe"
+    },
+    {
+      "name": "Validator-05",
+      "address": "0x0000000000000000000000000000000000000005",
+      "operator": "Community Validator 4",
+      "stake": "50000000000000000000000",
+      "commission": 0.10,
+      "enode": "enode://REPLACE_WITH_REAL_ENODE@IP:30303",
+      "location": "Australia",
+      "hardware": "8 vCPU, 32GB RAM, 1TB NVMe"
+    }
+  ]
+}
