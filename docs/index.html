@@ -281,6 +281,67 @@
 
       <!-- Testnet Connection Info -->
       <div class="testnet-info-grid">
+        <!-- Service Status Overview -->
+        <div class="testnet-info-card" style="grid-column: 1 / -1; background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%); border: 1px solid rgba(99, 102, 241, 0.3);">
+          <h3>🚦 Service Status</h3>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+            <div class="status-item">
+              <span style="font-size: 1.5rem;">✅</span>
+              <div>
+                <div style="font-weight: 600; color: #10b981;">Core Protocol</div>
+                <div style="font-size: 0.875rem; color: #64748b;">Operational</div>
+              </div>
+            </div>
+            <div class="status-item">
+              <span style="font-size: 1.5rem;">🔜</span>
+              <div>
+                <div style="font-weight: 600; color: #fbbf24;">RPC Endpoint</div>
+                <div style="font-size: 0.875rem; color: #64748b;">Q1 2026</div>
+              </div>
+            </div>
+            <div class="status-item">
+              <span style="font-size: 1.5rem;">🔜</span>
+              <div>
+                <div style="font-weight: 600; color: #fbbf24;">Block Explorer</div>
+                <div style="font-size: 0.875rem; color: #64748b;">Q1 2026</div>
+              </div>
+            </div>
+            <div class="status-item">
+              <span style="font-size: 1.5rem;">🔜</span>
+              <div>
+                <div style="font-weight: 600; color: #fbbf24;">Token Faucet</div>
+                <div style="font-size: 0.875rem; color: #64748b;">Q1 2026</div>
+              </div>
+            </div>
+            <div class="status-item">
+              <span style="font-size: 1.5rem;">✅</span>
+              <div>
+                <div style="font-weight: 600; color: #10b981;">Documentation</div>
+                <div style="font-size: 0.875rem; color: #64748b;">Available</div>
+              </div>
+            </div>
+            <div class="status-item">
+              <span style="font-size: 1.5rem;">✅</span>
+              <div>
+                <div style="font-weight: 600; color: #10b981;">GitHub</div>
+                <div style="font-size: 0.875rem; color: #64748b;">Open Source</div>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(251, 191, 36, 0.1); border-radius: 8px; border: 1px solid rgba(251, 191, 36, 0.3);">
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <span style="font-size: 1.25rem;">📅</span>
+              <div>
+                <div style="font-weight: 600; color: #fbbf24;">Testnet Public Launch</div>
+                <div style="font-size: 0.875rem; color: #94a3b8; margin-top: 0.25rem;">
+                  RPC endpoints, Block Explorer, and Faucet will be available after testnet launch (Q1 2026). 
+                  <a href="../ROADMAP.html" style="color: #6366f1; text-decoration: underline;">View Roadmap →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="testnet-info-card">
           <h3>📋 Network Details</h3>
           <div class="info-list">
@@ -298,8 +359,8 @@
             </div>
             <div class="info-item">
               <span class="info-label">Block Explorer:</span>
-              <a href="https://testnet-explorer.axionax.org" target="_blank" class="info-link">
-                testnet-explorer.axionax.org →
+              <a href="coming-soon.html" class="info-link" style="color: #94a3b8;">
+                testnet-explorer.axionax.org <span style="background: rgba(251, 191, 36, 0.2); color: #fbbf24; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; margin-left: 0.5rem;">🔜 Coming Soon</span>
               </a>
             </div>
           </div>
@@ -310,17 +371,17 @@
           <div class="info-list">
             <div class="info-item">
               <span class="info-label">HTTPS:</span>
-              <span class="info-value code-value">https://testnet-rpc.axionax.org</span>
-              <button class="copy-btn" data-copy="https://testnet-rpc.axionax.org" title="Copy">📋</button>
+              <span class="info-value code-value" style="opacity: 0.6;">https://testnet-rpc.axionax.org</span>
+              <span style="background: rgba(251, 191, 36, 0.2); color: #fbbf24; padding: 4px 12px; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">Coming Soon</span>
             </div>
             <div class="info-item">
               <span class="info-label">WebSocket:</span>
-              <span class="info-value code-value">wss://testnet-ws.axionax.org</span>
-              <button class="copy-btn" data-copy="wss://testnet-ws.axionax.org" title="Copy">📋</button>
+              <span class="info-value code-value" style="opacity: 0.6;">wss://testnet-ws.axionax.org</span>
+              <span style="background: rgba(251, 191, 36, 0.2); color: #fbbf24; padding: 4px 12px; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">Coming Soon</span>
             </div>
             <div class="info-item">
-              <span class="info-label">Rate Limit:</span>
-              <span class="info-value">1000 req/min</span>
+              <span class="info-label">Status:</span>
+              <span class="info-value">📅 Testnet Launch: Q1 2026</span>
             </div>
           </div>
         </div>
@@ -330,8 +391,8 @@
           <div class="info-list">
             <div class="info-item">
               <span class="info-label">Faucet:</span>
-              <a href="https://testnet-faucet.axionax.org" target="_blank" class="info-link">
-                testnet-faucet.axionax.org →
+              <a href="coming-soon.html" class="info-link" style="color: #94a3b8;">
+                testnet-faucet.axionax.org <span style="background: rgba(251, 191, 36, 0.2); color: #fbbf24; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; margin-left: 0.5rem;">🔜 Coming Soon</span>
               </a>
             </div>
             <div class="info-item">
@@ -343,8 +404,8 @@
               <span class="info-value">24 hours</span>
             </div>
             <div class="cta-mini">
-              <a href="https://testnet-faucet.axionax.org" target="_blank" class="btn btn-primary btn-sm">
-                Request Test Tokens
+              <a href="coming-soon.html" class="btn btn-primary btn-sm" style="opacity: 0.7; cursor: not-allowed;">
+                🔜 Available After Launch
               </a>
             </div>
           </div>
@@ -353,21 +414,25 @@
         <div class="testnet-info-card">
           <h3>🚀 Quick Actions</h3>
           <div class="action-buttons">
-            <a href="#" id="add-metamask" class="action-btn">
+            <a href="#" id="add-metamask" class="action-btn" style="opacity: 0.6; cursor: not-allowed;" title="Available after testnet launch">
               <span class="action-icon">🦊</span>
               <span>Add to MetaMask</span>
+              <span style="font-size: 0.75rem; color: #fbbf24;">🔜</span>
             </a>
-            <a href="https://testnet-explorer.axionax.org" target="_blank" class="action-btn">
+            <a href="coming-soon.html" class="action-btn" style="opacity: 0.6;" title="Available after testnet launch">
               <span class="action-icon">🔍</span>
               <span>View Explorer</span>
+              <span style="font-size: 0.75rem; color: #fbbf24;">🔜</span>
             </a>
-            <a href="docs/VPS_VALIDATOR_SETUP.html" class="action-btn">
+            <a href="../docs/VPS_VALIDATOR_SETUP.html" class="action-btn">
               <span class="action-icon">⚙️</span>
               <span>Run Validator</span>
+              <span style="font-size: 0.75rem; color: #10b981;">✓</span>
             </a>
-            <a href="docs/API_REFERENCE.html" class="action-btn">
+            <a href="API_REFERENCE.html" class="action-btn">
               <span class="action-icon">📖</span>
               <span>API Docs</span>
+              <span style="font-size: 0.75rem; color: #10b981;">✓</span>
             </a>
           </div>
         </div>
@@ -921,46 +986,46 @@ python3 tests/integration_simple.py
       </p>
       
       <div class="community-grid">
-        <a href="https://discord.gg/axionax" class="community-card" target="_blank">
+        <a href="coming-soon.html" class="community-card" style="opacity: 0.7;">
           <div class="community-icon">💬</div>
           <h3>Discord</h3>
           <p>Join our Discord server for discussions, support, and community events</p>
-          <span class="community-badge">2,500+ Members</span>
+          <span class="community-badge" style="background: rgba(251, 191, 36, 0.2); color: #fbbf24;">🔜 Coming Soon</span>
         </a>
         
         <a href="https://github.com/axionaxprotocol/axionax-core" class="community-card" target="_blank">
           <div class="community-icon">💻</div>
           <h3>GitHub</h3>
           <p>Contribute to the codebase, report issues, and submit pull requests</p>
-          <span class="community-badge">Open Source</span>
+          <span class="community-badge" style="background: rgba(16, 185, 129, 0.2); color: #10b981;">✓ Open Source</span>
         </a>
         
-        <a href="https://twitter.com/axionaxprotocol" class="community-card" target="_blank">
+        <a href="coming-soon.html" class="community-card" style="opacity: 0.7;">
           <div class="community-icon">🐦</div>
           <h3>Twitter</h3>
           <p>Follow for updates, announcements, and ecosystem news</p>
-          <span class="community-badge">Follow Us</span>
+          <span class="community-badge" style="background: rgba(251, 191, 36, 0.2); color: #fbbf24;">🔜 Coming Soon</span>
         </a>
         
-        <a href="https://t.me/axionax" class="community-card" target="_blank">
+        <a href="coming-soon.html" class="community-card" style="opacity: 0.7;">
           <div class="community-icon">📱</div>
           <h3>Telegram</h3>
           <p>Real-time chat with the community and core team</p>
-          <span class="community-badge">Active 24/7</span>
+          <span class="community-badge" style="background: rgba(251, 191, 36, 0.2); color: #fbbf24;">🔜 Coming Soon</span>
         </a>
         
-        <a href="https://forum.axionax.org" class="community-card" target="_blank">
+        <a href="coming-soon.html" class="community-card" style="opacity: 0.7;">
           <div class="community-icon">🗣️</div>
           <h3>Forum</h3>
           <p>In-depth discussions on governance, proposals, and research</p>
-          <span class="community-badge">Governance</span>
+          <span class="community-badge" style="background: rgba(251, 191, 36, 0.2); color: #fbbf24;">🔜 Coming Soon</span>
         </a>
         
-        <a href="https://blog.axionax.org" class="community-card" target="_blank">
+        <a href="coming-soon.html" class="community-card" style="opacity: 0.7;">
           <div class="community-icon">📝</div>
           <h3>Blog</h3>
           <p>Technical deep-dives, tutorials, and ecosystem updates</p>
-          <span class="community-badge">Weekly Posts</span>
+          <span class="community-badge" style="background: rgba(251, 191, 36, 0.2); color: #fbbf24;">🔜 Coming Soon</span>
         </a>
       </div>
     </div>
@@ -1053,8 +1118,8 @@ python3 tests/integration_simple.py
       <div class="footer-links">
         <a href="https://github.com/axionaxprotocol/axionax-core" target="_blank">GitHub</a>
         <a href="https://axionax.org" target="_blank">Website</a>
-        <a href="https://discord.gg/axionax" target="_blank">Discord</a>
-        <a href="https://twitter.com/axionaxprotocol" target="_blank">Twitter</a>
+        <a href="coming-soon.html" style="opacity: 0.6;">Discord 🔜</a>
+        <a href="coming-soon.html" style="opacity: 0.6;">Twitter 🔜</a>
         <a href="../LICENSE" target="_blank">License (AGPLv3)</a>
       </div>
       

@@ -24,6 +24,25 @@
 
 ---
 
+## 🚦 Service Status
+
+| Service | Status | Availability |
+|---------|--------|--------------|
+| ✅ Core Protocol | **Operational** | Available Now |
+| ✅ GitHub Repository | **Open Source** | Available Now |
+| ✅ Documentation | **Complete** | Available Now |
+| 🔜 RPC Endpoint | Coming Soon | Q1 2026 (Testnet Launch) |
+| 🔜 Block Explorer | Coming Soon | Q1 2026 (Testnet Launch) |
+| 🔜 Token Faucet | Coming Soon | Q1 2026 (Testnet Launch) |
+| 🔜 Discord Community | Coming Soon | Q1 2026 |
+| 🔜 Twitter | Coming Soon | Q1 2026 |
+
+**Note:** Public testnet services (RPC, Explorer, Faucet) will be available after the official testnet launch. You can run your own local testnet now using our deployment scripts.
+
+**Want to prepare?** See [DNS Setup Guide](./docs/DNS_SETUP.md) and deployment scripts in `scripts/` directory.
+
+---
+
 ## 🎯 Vision
 
 Axionax is a Layer-1 blockchain that unifies **Execution**, **Validation (PoPC)**, **Data Availability**, and **Settlement** with emphasis on performance, transparency, and security for decentralized compute markets.
@@ -295,11 +314,21 @@ This project is licensed under the **GNU Affero General Public License v3.0 (AGP
 
 ## 🔗 Links
 
+### Available Now ✅
 - **Website**: https://axionax.org
-- **Documentation**: https://docs.axionax.org
-- **Discord**: https://discord.gg/axionax
-- **Twitter**: https://twitter.com/axionaxprotocol
-- **Telegram**: https://t.me/axionax
+- **GitHub**: https://github.com/axionaxprotocol/axionax-core
+- **Documentation**: [GitHub Pages](https://axionaxprotocol.github.io/axionax-core/) | [Local Docs](./docs/)
+- **Issues**: https://github.com/axionaxprotocol/axionax-core/issues
+
+### Coming Soon 🔜 (After Testnet Launch)
+- **RPC Endpoint**: https://testnet-rpc.axionax.org (Q1 2026)
+- **Block Explorer**: https://testnet-explorer.axionax.org (Q1 2026)
+- **Token Faucet**: https://testnet-faucet.axionax.org (Q1 2026)
+- **Discord**: https://discord.gg/axionax (Q1 2026)
+- **Twitter**: https://twitter.com/axionaxprotocol (Q1 2026)
+- **Telegram**: https://t.me/axionax (Q1 2026)
+
+**Want to prepare for launch?** See [DNS Setup Guide](./docs/DNS_SETUP.md)
 
 ## 🙏 Acknowledgments
 
