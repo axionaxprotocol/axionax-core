@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Axionax Testnet Faucet</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚰</text></svg>">
+  <style>
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --secondary: #7c3aed;
+      --success: #10b981;
+      --error: #ef4444;
+      --warning: #f59e0b;
+      --bg-dark: #0f0f23;
+      --bg-darker: #0a0a15;
+      --bg-card: #1a1a2e;
+      --text-primary: #f8fafc;
+      --text-secondary: #cbd5e1;
+      --text-muted: #64748b;
+      --border: #2d2d44;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg-darker);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 600px;
+      width: 100%;
+    }
+
+    .faucet-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 1.5rem;
+      padding: 3rem;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      color: var(--text-secondary);
+      font-size: 1rem;
+    }
+
+    .info-cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .info-card {
+      background: rgba(99, 102, 241, 0.05);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      border-radius: 0.75rem;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .info-label {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .info-value {
+      color: var(--text-primary);
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    input {
+      width: 100%;
+      background: var(--bg-darker);
+      border: 2px solid var(--border);
+      border-radius: 0.75rem;
+      padding: 1rem;
+      color: var(--text-primary);
+      font-size: 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      transition: all 0.3s;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+
+    input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .metamask-btn {
+      position: absolute;
+      right: 0.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--primary);
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.5rem 1rem;
+      color: white;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .metamask-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-50%) scale(1.05);
+    }
+
+    .request-btn {
+      width: 100%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border: none;
+      border-radius: 0.75rem;
+      padding: 1.25rem;
+      color: white;
+      font-size: 1.125rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-bottom: 1rem;
+    }
+
+    .request-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+    }
+
+    .request-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .spinner {
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top: 3px solid white;
+      width: 20px;
+      height: 20px;
+      animation: spin 1s linear infinite;
+      display: inline-block;
+      margin-right: 0.5rem;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .alert {
+      padding: 1rem;
+      border-radius: 0.75rem;
+      margin-bottom: 1rem;
+      display: none;
+    }
+
+    .alert.show {
+      display: block;
+      animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .alert-success {
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: var(--success);
+    }
+
+    .alert-error {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: var(--error);
+    }
+
+    .alert-info {
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      color: #3b82f6;
+    }
+
+    .tx-link {
+      color: var(--primary);
+      text-decoration: none;
+      word-break: break-all;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.875rem;
+    }
+
+    .tx-link:hover {
+      text-decoration: underline;
+    }
+
+    .stats {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 2rem;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+    }
+
+    .footer a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 640px) {
+      .faucet-card {
+        padding: 2rem 1.5rem;
+      }
+
+      .info-cards {
+        grid-template-columns: 1fr;
+      }
+
+      .metamask-btn {
+        position: static;
+        transform: none;
+        width: 100%;
+        margin-top: 0.5rem;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="faucet-card">
+      <div class="header">
+        <div class="icon">🚰</div>
+        <h1>Axionax Testnet Faucet</h1>
+        <p class="subtitle">Get free AXX tokens for testing</p>
+      </div>
+
+      <div class="info-cards">
+        <div class="info-card">
+          <div class="info-label">Amount</div>
+          <div class="info-value" id="faucetAmount">100 AXX</div>
+        </div>
+        <div class="info-card">
+          <div class="info-label">Cooldown</div>
+          <div class="info-value" id="cooldownTime">24 hours</div>
+        </div>
+      </div>
+
+      <div id="alertBox" class="alert"></div>
+
+      <form id="faucetForm">
+        <div class="form-group">
+          <label for="address">Wallet Address</label>
+          <div class="input-wrapper">
+            <input
+              type="text"
+              id="address"
+              name="address"
+              placeholder="0x..."
+              required
+              pattern="^0x[a-fA-F0-9]{40}$"
+            />
+            <button type="button" class="metamask-btn" id="connectMetaMask">
+              🦊 MetaMask
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="request-btn" id="submitBtn">
+          Request Tokens
+        </button>
+      </form>
+
+      <div class="stats" id="stats">
+        Loading stats...
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>
+        Need help? Visit our
+        <a href="https://docs.axionax.org" target="_blank">Documentation</a> or
+        <a href="https://discord.gg/axionax" target="_blank">Discord</a>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    const FAUCET_API = window.location.origin;
+    const EXPLORER_URL = 'https://testnet-explorer.axionax.org';
+    
+    // Load faucet info
+    async function loadInfo() {
+      try {
+        const res = await fetch(`${FAUCET_API}/info`);
+        const data = await res.json();
+        document.getElementById('faucetAmount').textContent = data.amount;
+        document.getElementById('cooldownTime').textContent = `${data.cooldown_hours} hours`;
+      } catch (error) {
+        console.error('Failed to load faucet info:', error);
+      }
+    }
+
+    // Load stats
+    async function loadStats() {
+      try {
+        const res = await fetch(`${FAUCET_API}/stats`);
+        const data = await res.json();
+        document.getElementById('stats').innerHTML = `
+          Total Requests: <strong>${data.total_requests}</strong> • 
+          Distributed: <strong>${data.total_distributed}</strong> • 
+          Faucet Balance: <strong>${data.faucet_balance}</strong>
+        `;
+      } catch (error) {
+        document.getElementById('stats').textContent = 'Stats unavailable';
+      }
+    }
+
+    // Show alert
+    function showAlert(message, type = 'info') {
+      const alertBox = document.getElementById('alertBox');
+      alertBox.className = `alert alert-${type} show`;
+      alertBox.innerHTML = message;
+      
+      if (type === 'success' || type === 'error') {
+        setTimeout(() => {
+          alertBox.classList.remove('show');
+        }, 10000);
+      }
+    }
+
+    // Connect MetaMask
+    document.getElementById('connectMetaMask').addEventListener('click', async () => {
+      if (typeof window.ethereum === 'undefined') {
+        showAlert('Please install MetaMask to use this feature!', 'error');
+        window.open('https://metamask.io/download/', '_blank');
+        return;
+      }
+
+      try {
+        const accounts = await window.ethereum.request({
+          method: 'eth_requestAccounts'
+        });
+        
+        if (accounts.length > 0) {
+          document.getElementById('address').value = accounts[0];
+          showAlert('✓ Wallet connected successfully!', 'success');
+        }
+      } catch (error) {
+        console.error('MetaMask connection error:', error);
+        showAlert('Failed to connect wallet', 'error');
+      }
+    });
+
+    // Handle form submission
+    document.getElementById('faucetForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const submitBtn = document.getElementById('submitBtn');
+      const address = document.getElementById('address').value.trim();
+      
+      // Disable button and show loading
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="spinner"></span>Sending...';
+      
+      try {
+        const res = await fetch(`${FAUCET_API}/request`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ address }),
+        });
+        
+        const data = await res.json();
+        
+        if (data.success) {
+          const txLink = `<a href="${EXPLORER_URL}/tx/${data.tx_hash}" target="_blank" class="tx-link">${data.tx_hash}</a>`;
+          showAlert(
+            `🎉 Success! ${data.amount} sent to your address.<br>Transaction: ${txLink}`,
+            'success'
+          );
+          
+          // Reload stats
+          loadStats();
+        } else {
+          showAlert(`❌ ${data.error}`, 'error');
+        }
+      } catch (error) {
+        console.error('Request error:', error);
+        showAlert('❌ Failed to send request. Please try again.', 'error');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Request Tokens';
+      }
+    });
+
+    // Initialize
+    loadInfo();
+    loadStats();
+    
+    // Reload stats every 30 seconds
+    setInterval(loadStats, 30000);
+  </script>
+</body>
+</html>
