@@ -39,65 +39,29 @@
     }
 
     body {
-      background-image: var(--bg-space);
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      color: #ffffff;
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
       overflow-x: hidden;
-      position: relative;
-      min-height: 100vh;
+      background-color: #000;
     }
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.1), transparent 70%),
-                  radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.05), transparent 80%),
-                  radial-gradient(circle at 50% 50%, rgba(124, 226, 255, 0.2), rgba(156, 102, 255, 0.1), transparent 90%);
-      z-index: -1;
-      pointer-events: none;
+
+    .galaxy-overlay {
+      background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAwIiBoZWlnaHQ9IjEwMDAiPgo8ZmlsdGVyIGlkPSJmeiI+CjxmZVR1cmJ1bGVuY2UgdHlwZT0iZnJhY3RhbE5vaXNlIiBiYXNlRnJlcXVlbmN5PSIwLjA0IiBudW1PY3RhdmVzPSIzIiBzdGl0Y2hUaWxlcz0ic3RpdGNoIiAvPgo8ZmVDb2xvck1hdHJpeCB0eXBlPSJzYXR1cmF0ZSIgdmFsdWVzPSIwIi8+CjwvZmlsdGVyPgo8cmVjdCB3aWR0aD0iMTAwMCIgaGVpZ2h0PSIxMDAwIiBmaWx0ZXI9InVybCgjZnppKSIgb3BhY2l0eT0iMC4zIi8+Cjwvc3ZnPg==');
+      animation: noise 2s steps(2) infinite;
     }
-    #space-canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -2;
-      pointer-events: none;
-    }
-    body::before {
-      /* Layer 1: Fine stars */
-      content: '';
-      pointer-events: none;
-      position: fixed; z-index: 0; inset: 0;
-      background:
-        repeating-radial-gradient(circle at 12% 9%, #fff6 0 0.75px, transparent 1.2px),
-        repeating-radial-gradient(circle at 52% 80%, #a5f2fc55 0 1.3px, transparent 1.8px),
-        repeating-radial-gradient(circle at 90% 13%, #fff3 0 0.5px, transparent 1.65px),
-        repeating-radial-gradient(circle at 30% 50%, #ffffff24 0 1.4px, transparent 2.2px),
-        repeating-radial-gradient(circle at 71% 70%, #cdfffc14 0 1.1px, transparent 2.1px);
-      background-blend-mode: lighten;
-      opacity: 0.87;
-      background-size: 700px 700px, 870px 660px, 1200px 1300px, 1420px 900px, 900px 1550px;
-      mix-blend-mode: lighten;
-    }
-    body::after {
-      /* Layer 2: Nebula glow soft clouds */
-      content: '';
-      position: fixed; z-index: 0; inset: 0; pointer-events: none;
-      background:
-        radial-gradient(circle at 60% 15%, #7266fb22 0, #14123500 60%),
-        radial-gradient(ellipse 45% 22% at 16% 25%, #e78cff30 0, #29184400 80%),
-        radial-gradient(circle 350px at 80% 82%, #a8ffe786 0, #00fff300 100%),
-        radial-gradient(circle 180px at 74% 10%, #fffdef18 0, #0c0c2e00 75%);
-      opacity: 0.54;
-      filter: blur(3px);
-      mix-blend-mode: lighten;
+
+    @keyframes noise {
+      0%, 100% { background-position: 0 0; }
+      10% { background-position: -5% -10%; }
+      20% { background-position: -15% 5%; }
+      30% { background-position: 7% -25%; }
+      40% { background-position: 20% 25%; }
+      50% { background-position: -25% 10%; }
+      60% { background-position: 15% 5%; }
+      70% { background-position: 0% 15%; }
+      80% { background-position: 25% 35%; }
+      90% { background-position: -10% 10%; }
     }
     .shooting-star {
       position: fixed; z-index: 2; pointer-events: none;
